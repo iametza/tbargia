@@ -108,6 +108,9 @@ function ExpressServer() {
 
     app.use(passport.initialize());
     app.use(passport.session());
+    
+    /* bower_components ruta estatikoa */
+    app.use('/bower_components',  express.static(__dirname + '/../bower_components'));
 
 
     app.get('/', function (req, res) {
@@ -116,6 +119,13 @@ function ExpressServer() {
         });*/
 		 res.redirect('/index.html');
     });
+    /*
+     app.get('/:mota_nice_name/:nice_name', function (req, res) {
+       
+		 res.end('/fitxa.html');
+    });
+    */
+    
 
     app.get('/info', ensureAuthenticated, function (req, res) {
         res.render('info', {

@@ -43,6 +43,7 @@ var loadingPanel = function (centralImg,time,cb){
      circle.className='f_circleG';
      loading.appendChild(circle);
    }
+   console.log(document.body);
    document.body.appendChild(loadingStyle);
    div.appendChild(loading);
 

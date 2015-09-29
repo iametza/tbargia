@@ -110,3 +110,30 @@
   movable:true;
   icon:../resources/images/icons_manag/twitter.png;
 }
+
+#azala{
+  needs:none;
+  order:2;
+  rwidth:400px;
+  propx:400;
+  propy:350;
+  required:true;
+  duplicable:true;
+  bestfit:biggestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+
+}
+
+#menua{
+needs:none;
+  order:1;
+  rwidth:900px;
+  propx:400;
+  propy:350;
+  required:false;
+  duplicable:true;
+  bestfit:biggestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}

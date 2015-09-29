@@ -1,0 +1,84 @@
+<link rel="import" href="../../bower_components/google-youtube/google-youtube.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+
+<dom-module id="am-bideoa">
+<style>
+  ::host{
+    display: inline-block;
+  }
+.posterrarena {
+    background-color: #000;    
+    width: 100%;
+}
+google-youtube {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 700px;
+}
+.sare-sozialak {
+    background-color: #EBEBEB;    
+}
+ .info{
+   margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+.info h1{
+  font-size: 2.2em;
+}
+.info p{
+  font-size: 1.4em;
+}
+.sare-sozialak .partekatu {
+    cursor: pointer;   
+    margin: 8px 20px;
+}
+
+.sare-sozialak a {
+    border: 3px solid #fb0009;
+    border-radius: 10px;
+    color: #fb0009;
+    font-weight: bold;
+    margin-right: 10px;
+    padding: 4px 4px 4px 4px;
+    text-decoration: none;
+}
+</style>
+<template>
+  <div class="posterrarena">     
+    <google-youtube
+    video-id="MxWyIxkn4kM"
+    height="394px"
+    width="700px"
+    rel="0" 
+    autoplay="0">
+    </google-youtube>              
+  </div>
+  <div class="sare-sozialak">    
+     <!--
+     <iron-image sizing="contain" style="width:32px;height:32px;" src="http://www.argia.eus/template/responsive/images/facebook-botoia.png"></iron-image>
+      <iron-image sizing="contain" style="width:32px;height:32px;" src="http://www.argia.eus/template/responsive/images/twitter-botoia.png"></iron-image>
+      <a href="http://www.argia.eus/english">
+        <span class="mota">English</span>
+      </a>
+      <a href="http://www.argia.eus/hondakinen-kudeaketa-gipuzkoan">
+        <span class="mota">Hondakinen kudeaketa Gipuzkoan</span>
+      </a>
+    -->
+  </div>       
+  <div class="info">
+    <h1>Zero Waste in Gipuzkoa</h1>          
+    <p>The province of Gipuzkoa, in Spanish Basque Country, has managed to almost double their recycling rates in 4 years. In 2011 they struggled to meet EU targets and now they are above the 2020’s goals and intend to keep improving.</p>     
+  </div>
+</template>
+ <script>
+    (function() {
+      Polymer({
+        is: 'am-bideoa'
+      });
+    })();
+  </script>
+</dom-module>

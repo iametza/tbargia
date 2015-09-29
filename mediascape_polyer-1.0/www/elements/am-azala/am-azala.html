@@ -1,0 +1,89 @@
+<link rel="import" href="../../resources/wcs/component-query.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../am-zerrenda/am-zerrenda.html">
+<link rel="import" href="../am-karrusela/am-karrusela.html">
+
+<dom-module id="am-azala">
+  <style>
+    .erdiratu{
+      width: 100%;
+      margin-right: auto;
+      margin-left: auto;
+      
+    }
+    .container{
+      max-width: 1280px;
+      width: 90%;
+      margin-right: auto;
+      margin-left: auto;
+      
+    }
+    .gai-nabarmendua{
+      width: 70%;
+      float: left;     
+      border: 1px solid #ebebeb;
+      border-top: none;
+    }
+    .azken-bideoak{           
+      border: 1px solid #ebebeb;
+      width: 27%;
+      float: right;
+      padding: 10px;
+      
+    }
+    
+  </style>
+<template>
+  
+
+<iron-ajax
+        id="azalekoDatuak"        
+        url=""
+        method='GET'
+        handle-as="json"        
+        last-response="{{ajaxResponse}}">
+</iron-ajax>
+
+
+   
+  <div class="container">   
+      <template is="dom-if" if="{{ajaxResponse}}">
+      <div class="gai-nabarmendua"><am-zerrenda base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="5" nabarmendua="1" ></am-zerrenda></div>      
+      <div class="azken-bideoak"><am-zerrenda base-url="[[baseUrl]]" kop="4" orientation="vertical" title="Azken bideoak"></am-zerrenda></div>
+    </template>
+    <div style="clear: both"></div>
+     <template is="dom-repeat" items="{{ajaxResponse.azaleko_motak}}">
+        <am-karrusela mota="[[item.nice_name]]"></am-karrusela>
+     </template>
+  </div>
+
+
+
+</template>
+<script>
+  (function () {      
+  Polymer({
+    is: 'am-azala',
+    behaviors:[ComponentQueryBehavior],
+    properties: {   
+          baseUrl: {
+            type: String,
+            value: ''
+          }
+    },
+    _erakutsi: function(){
+      console.log(app);
+      console.log(app.baseURI);
+      console.log(app.azala);
+      return app.azala === true;
+    },
+    ready: function() {
+      this.$.azalekoDatuak.url = this.baseUrl+'/azala';          
+      this.$.azalekoDatuak.generateRequest();      
+     
+      
+    }
+ })
+})();
+</script>
+</dom-module>

@@ -45,7 +45,6 @@ define(
       var components = [];
       var componentStatus = undefined;
       this.init = function (){
-        console.log("BARRUAN");
         var layoutProp=['order','rwidth','propx','propy','bestfit','required',"needs","duplicable","movable","icon"];
         var file='/resources/layout/components.layout';
         var _this = this;
@@ -117,7 +116,7 @@ define(
       }
       this.checkComponentsReady = function(){
           var ready = components.every(function(cmp){
-                console.log(cmp.done);
+                console.log(cmp);
                 return cmp.done;
           });
           if (ready){

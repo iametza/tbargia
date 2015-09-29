@@ -1,0 +1,68 @@
+<!--
+@license
+-->
+<link rel="import" href="../../bower_components/iron-icons/av-icons.html"> 
+<dom-module id="am-kontrolak">
+  <style>
+    :host {
+      display: block;
+    
+    }
+   
+    
+  </style>
+  <template>
+  <div class="layout horizontal">
+    <iron-icon on-click="play" icon="av:play-arrow"></iron-icon> 
+    <iron-icon on-click="pause" icon="av:pause"></iron-icon>
+    <iron-icon on-click="stop" icon="av:stop"></iron-icon> 
+  </div>
+  </template>
+  <script>
+    (function () {
+     
+      Polymer({
+        is: 'am-kontrolak',
+        behaviors: [
+          Polymer.IronResizableBehavior
+        ],
+        properties: {
+          kontrolatzeko: {
+            type: Object,
+            notify: true,
+            observer: '_playerobjChanged'
+          },
+          konpartitzen: {
+            type: String,
+            value: 'hasieran'
+          }
+        },
+           
+        ready: function() {
+          console.log(this.kontrolatzeko);      
+        },
+        _playerobjChanged: function(newValue, oldValue){
+          console.log(newValue);
+        },
+          play: function(){
+          console.log(this.kontrolatzeko);
+          if (this.kontrolatzeko.play !== undefined) { // youtube
+            this.kontrolatzeko.play();
+          }else{ //vimeo
+             $f(this.kontrolatzeko).api('play');
+          }
+        },
+        pause: function(){
+          this.kontrolatzeko.pause();
+        },
+        stop: function(){
+          this.kontrolatzeko.stop();
+        }
+        
+  
+      });
+    })();
+   
+  </script>
+
+</dom-module>

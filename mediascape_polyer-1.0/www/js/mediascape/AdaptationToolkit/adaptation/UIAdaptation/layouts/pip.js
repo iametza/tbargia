@@ -401,8 +401,10 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
   }
 
   );
+/* right click ez 
   window.oncontextmenu = function(event) {
       event.preventDefault();
       event.stopPropagation();
       return false;
   };
+*/

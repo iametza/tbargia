@@ -1,0 +1,321 @@
+<!--
+@license
+-->
+<link rel="import" href="../../resources/wcs/component-query.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../../bower_components/paper-ripple/paper-ripple.html">
+<dom-module id="am-karrusela">
+  <style>
+  :host {
+    display: block;
+     
+  }
+  basic-arrow-direction {
+    width:100%;
+  }
+  basic-carousel-fit {
+    width:100%;
+    min-height: 310px;
+    vertical-align: top;
+       
+  }
+ 
+  .karrusela-container {
+    width: 200px;
+    min-height: 300px;
+    padding:2px;
+    
+  }
+  .karrusela-container img {
+    width: 200px;
+  }
+ 
+  /* mobile-large */
+  @media all and (min-width: 0) and (max-width: 360px) and (orientation: portrait) {
+    .karrusela-container,  .karrusela-container img {
+      width: 100px;
+    }
+  }
+  
+  @media all and (max-width: 600px) and (orientation: portrait) {
+      .karrusela-container,  .karrusela-container img {
+      width: 150px;
+    }
+  }
+    
+  .nabarmendua-irudia {
+    width: 62%;
+    margin: 10px;
+    position:relative;   
+  }
+  .nabarmendua-item{
+    max-width: 200px;
+    width: 22%;
+    height: auto;
+    margin: 10px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .nabarmendua-item-body{
+    font-size: 1.4em;   
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  .play{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -48.5px;
+    margin-top: -49px;
+    transform-style: flat;
+    max-width: 100px;
+  }
+  .play:hover{
+    transform: scale(1.2,1.2);
+  }
+
+  .nabarmendua-testua{
+    width: 30%;
+    padding: 0 10px;
+  }
+  .spinner{
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .title{
+    display:block;
+    background-color: #d70011;
+    color: #ffffff;
+    font-size: 2em;
+    font-weight: bold;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    margin: 0;
+  }
+  .esteka-grisa{
+    color: #333;
+    text-decoration: none;
+  }
+  .item-izenburua{
+    font-size: 1.8em;
+    font-weight: bold;
+  }
+  .azalpena{
+     font-size: 1.6em;
+    margin-top: 10px;
+  }
+  h2 {
+    color: #d70011;
+    font-size: 2em;
+    font-weight: bold;
+    margin-top: 0;
+    
+  }
+  h2 a{
+    color: #d70011;
+    text-decoration: none;
+  }
+  h2 a:hover{
+    text-decoration: underline;
+  }
+  .data{
+    color: #d70011;
+    font-weight: normal;
+    font-size: 1em;
+    padding-bottom: 5px;
+  }
+  .mota{
+    font-weight: normal;
+    text-transform: uppercase;
+    padding-top: 5px;
+    font-size: 0.9em;
+  } 
+  .vertical .item-body{
+    width: 30%;
+    float:right;
+  }
+  .item-izenburua{
+    font-size: 1.4em;   
+    font-weight: bold;    
+    
+  }
+  .horizontal a{
+    text-decoration: none;
+  }
+  .vertical .item-image{
+     width: 65%;
+    float:left;
+    padding-bottom: 15px;
+  }
+  .horizontal .item{
+    margin: 0 10px 10px 10px;    
+  }
+  .horizontal .item-image{ 
+    padding-bottom: 5px;
+  }
+ 
+</style>
+  
+  
+  <template>
+    
+    <iron-ajax
+      auto
+      url = "http://www.argia.eus/API/v1/multimedia/motak"
+      handle-as="json"
+      last-response="{{motakResponse}}"
+      on-response="motakJaso"
+    >
+      
+    </iron-ajax>
+    
+    <iron-ajax
+        auto
+        url="http://www.argia.eus/API/v1/multimedia/elementuak"
+        params= {{params}}
+        handle-as="json"
+        last-response="{{ajaxResponse}}"
+        on-response="erantzunaJaso"
+              >
+    </iron-ajax>
+    
+    
+    <template id="itemak" is="dom-repeat" items="{{ajaxResponse.elementuak}}">
+      
+      <paper-material elevation="1" class="karrusela-container">
+        <a href$="{{url_fitxa(item.nice_name, item.mota_nice_name)}}">
+        <img src="{{item.irudi_txikia}}" >
+        </a>
+        <div class="card-content">
+          <div class="data">{{item.data}}</div>
+          <div class="item-izenburua"><a href$="{{url_fitxa(item.nice_name, item.mota_nice_name)}}">{{item.izenburua}}</a></div>
+          <div class="mota">{{item.mota_sing}}</div>
+        </div>
+       
+      </paper-material>
+      
+      
+    </template>
+    
+       
+    <h2><a href$="[[title_url]]">{{title}}</a></h2>
+    <basic-arrow-direction target="child" aria-label="Flags">
+      <basic-carousel-fit id="carouselFit">
+    
+      </basic-carousel-fit>
+    </basic-arrow-direction>
+      
+  
+  </template>
+  <script>
+    (function () {
+     
+      Polymer({
+        is: 'am-karrusela',
+        behaviors: [
+          Polymer.IronResizableBehavior,
+          ComponentQueryBehavior
+        ],
+        properties: {
+          title:{
+            type: String,
+            value: ''
+          },
+          mota: {
+            type: String,
+            value: ''
+          },
+          ezErakutsi :{
+            type: String,
+            value: ''
+          },
+          params: {
+            type: String,
+            computed: 'paramsLortu(mota, ezErakutsi)'
+          },
+          bideoId: {
+            type: String,
+            notify: true // beste elementuak notifikatzeko beharrezkoa
+          }
+          
+        },
+        paramsLortu: function(mota, ezErakutsi){
+          return {
+              nice_name_mota: mota,
+              nice_name_hau_ezik: ezErakutsi
+          };
+        },
+        url_fitxa: function(nice_name, nice_name_mota){
+          return "/" + nice_name_mota +"/" + nice_name;
+        },
+        listeners: {
+        'iron-resize': '_onIronResize'
+        },
+        
+        ready: function() {
+           
+          // The dom-change event signifies when the template has stamped its DOM.
+         
+          this.addEventListener('dom-change', function() {
+            // auto-binding template is ready.
+            if (this.ajaxResponse) {
+              // kopiatu
+              var allItems = Polymer.dom(this.root).querySelectorAll('.karrusela-container');
+              allItems.forEach(function(item){
+                Polymer.dom(this.$.carouselFit).appendChild(item);
+              }, this);
+              
+             
+            }
+          });
+          
+         
+        },
+        erantzunaJaso: function(e, request){
+           
+            if (this.ajaxResponse) {
+             // ok
+            }else{
+              console.log('akatsa elementuak APIa deitzean');
+            }
+            
+        },
+        motakJaso: function (e, request){
+          if (this.motakResponse) {
+            this.motaDatuak = this._getMotaDatuak(this.mota, this.motakResponse.motak);
+           
+          }
+          if (this.motaDatuak) {
+            this.title = this.motaDatuak.izena || this.title;
+            this.title_url = '/' + this.motaDatuak.nice_name;
+          }
+        },
+              
+        _getMotaDatuak: function (mota_nice_name, motak){
+          var lookup = {};
+          for (var i = 0, len = motak.length; i < len; i++) {
+            lookup[motak[i].nice_name] = motak[i];
+          }
+          if (lookup[mota_nice_name] === undefined) {
+            console.log('Mota ez aurkitua');
+            return false;
+          }else{
+            return lookup[mota_nice_name];
+          }
+        },
+        
+        _onIronResize: function() {
+                         
+        }
+        
+      });
+    })();
+   
+  </script>
+
+</dom-module>

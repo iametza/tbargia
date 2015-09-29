@@ -1,0 +1,253 @@
+<link rel="import" href="../../resources/wcs/component-query.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+
+
+<dom-module id="am-zerrenda">
+<style>
+  .nabarmendua-irudia {
+    width: 62%;
+    margin: 10px;
+    position:relative;   
+  }
+  .nabarmendua-item{
+    max-width: 200px;
+    width: 22%;
+    height: auto;
+    margin: 10px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .nabarmendua-item-body{
+    font-size: 1.4em;   
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  .play{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -48.5px;
+    margin-top: -49px;
+    transform-style: flat;
+    max-width: 100px;
+  }
+  .play:hover{
+    transform: scale(1.2,1.2);
+  }
+
+  .nabarmendua-testua{
+    width: 30%;
+    padding: 0 10px;
+  }
+  .spinner{
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .title{
+    display:block;
+    background-color: #d70011;
+    color: #ffffff;
+    font-size: 2em;
+    font-weight: bold;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    margin: 0;
+  }
+  .esteka-grisa{
+    color: #333;
+    text-decoration: none;
+  }
+  .izenburua{
+    font-size: 1.8em;
+    font-weight: bold;
+  }
+  .azalpena{
+     font-size: 1.6em;
+    margin-top: 10px;
+  }
+  .title2 {
+    color: #d70011;
+    font-size: 2em;
+    font-weight: bold;
+    margin-top: 0;
+    
+  }
+  .data{
+    color: #d70011;
+    font-weight: normal;
+    font-size: 0.8em;
+    padding-bottom: 5px;
+  }
+  .mota{
+    font-weight: normal;
+    text-transform: uppercase;
+    padding-top: 5px;
+    font-size: 0.9em;
+  } 
+  .vertical .item-body{
+    width: 30%;
+    float:right;
+  }
+  .item-body{
+    font-size: 1.4em;   
+    font-weight: bold;    
+    
+  }
+  .horizontal a{
+    text-decoration: none;
+    width:30%;
+  }
+  
+  @media all and (max-width: 600px) and (orientation: portrait) {
+     .horizontal a{
+      width:100%
+    }
+  }
+  
+  
+  .vertical .item-image{
+     width: 65%;
+    float:left;
+    padding-bottom: 15px;
+  }
+  .horizontal .item{
+   margin: 0 10px 10px 10px;    
+  }
+  .horizontal .item-image{ 
+    padding-bottom: 5px;
+  }
+ 
+</style>
+
+<template>
+  <iron-ajax
+          id="bideoakHartu"        
+          url=""
+          method='GET'
+          handle-as="json"
+          on-response="handleResponse"
+          last-response="{{ajaxResponse}}"></iron-ajax>
+  <template is="dom-if" if="{{ nabarmendua }}">
+    <h1 class="title">Gai nabarmendua: <empty>{{ title }}</empty></h1>
+    <div class="layout horizontal wrap center">      
+      <div class="nabarmendua-irudia">
+          <a href$="{{url(nabarmendua.nice_name, nabarmendua.mota_nice_name)}}">
+               <img class="play" src="http://www.argia.eus/template/images/play-borobila.png">
+               <img width="100%" src="{{nabarmendua.irudia}}"></iron-image>
+          </a>
+      </div>
+      <div class="nabarmendua-testua">
+        <a class="esteka-grisa" href$="{{url(nabarmendua.nice_name, nabarmendua.mota_nice_name)}}">
+            <div class="izenburua">{{nabarmendua.izenburua}}</div>
+        </a>
+        <div class="azalpena" id="azalpena">          
+        </div>
+      </div>
+    </div>
+    <div class="layout horizontal wrap center">    
+      <template is="dom-repeat" items="{{ajaxResponse.elementuak}}">
+        <a href$="{{url(item.nice_name, item.mota_nice_name)}}" class="nabarmendua-item"> 
+          <img width="100%" src="{{item.irudi_txikia}}">         
+          <div class="nabarmendua-item-body">
+            <div class="data">{{item.data}}</div>
+            <empty>{{item.izenburua}}</empty>
+            <div class="mota">{{item.mota_sing}}</div>
+          </div>        
+        </a>
+      </template>
+     <!-- <paper-spinner id="spinner" alt="Kargatzen..." active></paper-spinner>   -->
+    </div>
+    
+  </template>
+  <template is="dom-if" if="{{ !nabarmendua }}">
+    <h1 class="title2">{{ title }}</h1>       
+    <section class$="{{classOrientation}}">     
+        
+        <template is="dom-repeat" items="{{ajaxResponse.elementuak}}">
+          <a href$="{{url(item.nice_name, item.mota_nice_name)}}">
+            <div class="item">              
+              <div class="item-image"><img width="100%" src="{{item.irudi_txikia}}"></div>         
+              <div class="item-body">
+                <div class="data">{{item.data}}</div>
+                <empty>{{item.izenburua}}</empty>
+                <div class="mota">{{item.mota_sing}}</div>
+              </div>              
+            </div>
+          </a>
+        </template>
+        <!-- <paper-spinner id="spinner" alt="Kargatzen..." active></paper-spinner>   -->
+    </section>   
+   </template>
+</template>
+     <script>
+       (function () {      
+      Polymer({
+        is: 'am-zerrenda',
+        behaviors: [ComponentQueryBehavior],
+        properties: {          
+          title: String,
+          orientation: {
+            type: String,
+            value: 'horizontal',
+            notify: true
+          },
+          baseUrl: {
+            type: String,
+            value: ''
+          },         
+          classOrientation: {
+            type: String,
+            computed: 'getClass(orientation)'
+          },
+          items: {
+            type: Array,
+            notify: true,
+          },
+          nabarmendua: {
+            type: Number,
+            value: 0
+          },
+          mota: {
+            type: String,
+            value: ''
+          },
+          tag: {
+            type: String,
+            value: ''
+          },
+          kop: {
+            type: Number,
+            value: 0
+          }
+        },
+        ready: function() {
+          console.log('zerrenda');
+          this.$.bideoakHartu.url = this.baseUrl+'/elementuak?nice_name_etiketa='+this.tag+'&nice_name_mota='+this.mota+'&zenbat='+this.kop;          
+          this.$.bideoakHartu.generateRequest();          
+        },
+        handleResponse: function(res){
+          if(this.nabarmendua == 1){
+            this.nabarmendua = this.ajaxResponse.elementuak[0];
+            console.log(this.ajaxResponse.elementuak[0]);
+            document.getElementById('azalpena').innerHTML = this.ajaxResponse.elementuak[0].azalpena;
+            this.ajaxResponse.elementuak.splice(0,1);
+          }
+        },
+        getClass: function(orientation){
+          return 'layout wrap '+orientation;
+        },       
+        url: function(nice_name, mota_nice_name){
+          return mota_nice_name + '/' + nice_name;
+        }
+       
+      });
+    })();
+     </script>
+</dom-module>

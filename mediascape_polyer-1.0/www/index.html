@@ -12,6 +12,8 @@
 <link rel="stylesheet" type="text/css" href="../resources/css/style.css"/>
 <link rel="stylesheet" type="text/css" href="../resources/css/animate.css"/>
 
+<link rel="stylesheet" href="styles/main.css">
+
 <!-- WEBCOMPONETS -->
 <!--
 <link rel="import" href="../resources/wcs/bower_components/polymer/polymer.html">
@@ -19,7 +21,7 @@
 <link rel="import" href="../resources/wcs/audio-video-sm/video-audio.html">
 <link rel="import" href="../resources/wcs/bar-graph/bar-graph.html">
 -->
-
+<link rel="import" href="elements/elements.html">
 <!-- WEBCOMPONETS END -->
 
 <script>
@@ -32,7 +34,8 @@ document.addEventListener('adaptationToolkit-ready',function(data){
         var UI = mediascape.AdaptationToolkit.Adaptation.UIAdaptation;
         UI.init(data.detail.components,UI.LAYOUTMODE.STATIC);
          mediascape.Communication.startApplicationContext();
-        UI.useLayout('accordion');
+        //UI.useLayout('accordion');
+		UI.useLayout('menu');
         var location = "http://"+window.location.host+window.location.pathname;
 		    mediascape.AdaptationToolkit.uiComponents.addAssociationPanel(location+"?group="+mediascape.Communication.GROUP_ID);
 
@@ -42,7 +45,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 
 </script>
 </head>
-<body style="overflow: hidden;margin-left:-8px;margin-top:-8px;">
+<body style="margin-left:-8px;margin-top:-8px;">
 
  <!-- Definition of each webcompoent -->
 <!-- 
@@ -52,6 +55,8 @@ document.addEventListener('adaptationToolkit-ready',function(data){
   <bar-graph id='graph' place='Irunea'></bar-graph>
 
   <!-- End of definition of webcompoents -->
+<am-menu id="menua"></am-menu>
+<am-azala id="azala" base-url="http://www.argia.eus/API/v1/multimedia" ></am-azala>
 
 <script>
 new loadingPanel('/resources/images/mediascape_logo.png',10);

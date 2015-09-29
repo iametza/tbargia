@@ -114,7 +114,7 @@ function(LayoutConstructor){
 
     container.style.height=height;
     //container.style.width=width;
-
+    console.log(cmps);
     var ordered_cmps=[];
     ordered_cmps = cmps.sort(function(it1,it2){
       if (it1.lproperties.order > it2.lproperties.order) return 1;
