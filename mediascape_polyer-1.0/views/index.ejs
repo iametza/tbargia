@@ -1,22 +1,130 @@
 <html>
-
 <head>
-    <title>Index</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta http-equiv="Cache-control" content="no-cache">
+<!-- NEEDED SCRIPTS -->
+<script  src="../resources/wcs/bower_components/webcomponentsjs/webcomponents.js"></script>
+<script  src="../resources/libs/require.js"></script>
+<script async src="mediascape.js"></script>
+<script async src="../resources/libs/utils.js"></script>
+<!-- NEEDED SCRIPTS END -->
+<!--<script async src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.0.0/annyang.min.js"></script>-->
+<link rel="stylesheet" type="text/css" href="../resources/css/style.css"/>
+<link rel="stylesheet" type="text/css" href="../resources/css/animate.css"/>
+
+<link rel="stylesheet" href="styles/main.css">
+
+<!-- WEBCOMPONETS -->
+<!--
+<link rel="import" href="../resources/wcs/bower_components/polymer/polymer.html">
+<link rel="import" href="../resources/wcs/component-query.html">
+<link rel="import" href="../resources/wcs/audio-video-sm/video-audio.html">
+<link rel="import" href="../resources/wcs/bar-graph/bar-graph.html">
+-->
+<link rel="import" href="elements/elements.html">
+<!-- WEBCOMPONETS END -->
+
+<script>
+
+
+document.addEventListener('adaptationToolkit-ready',function(data){
+
+        var AE = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation;
+        AE.init('bestfit');
+        var UI = mediascape.AdaptationToolkit.Adaptation.UIAdaptation;
+        UI.init(data.detail.components,UI.LAYOUTMODE.STATIC);
+         mediascape.Communication.startApplicationContext();
+        //UI.useLayout('accordion');
+		UI.useLayout('menu');
+        var location = "http://"+window.location.host+window.location.pathname;
+		    mediascape.AdaptationToolkit.uiComponents.addAssociationPanel(location+"?group="+mediascape.Communication.GROUP_ID);
+
+
+});
+
+
+</script>
+  <style>
+    .erdiratu{
+      width: 100%;
+      margin-right: auto;
+      margin-left: auto;
+      
+    }
+    .container{
+      max-width: 1280px;
+      width: 90%;
+      margin-right: auto;
+      margin-left: auto;
+      
+    }
+    .gai-nabarmendua{
+      width: 70%;
+      float: left;     
+      border: 1px solid #ebebeb;
+      border-top: none;
+    }
+    .azken-bideoak{           
+      border: 1px solid #ebebeb;
+      width: 27%;
+      float: right;
+      padding: 10px;
+      
+    }
+    
+  </style>
 </head>
+<body style="margin-left:-8px;margin-top:-8px;">
 
-<body>
-    <% if (!user) { %>
-        <h2>Welcome! Please log in.</h2>
-        <a href="/auth/google">Login with Google</a>
+ <!-- Definition of each webcompoent -->
+<!--
+  <x-media  id="video1" file="../resources/media/ETB2_new.mp4"  ismuted="true"></x-media>
+  <x-media id="video2" file="../resources/media/Bildu_new.mp4"  ismuted="true"></x-media>
+  <x-media id="video3"  file="../resources/media/EAJ_new.mp4"  ismuted="true"></x-media>
+  <bar-graph id='graph' place='Irunea'></bar-graph>
 
-        <% } else { %>
-            <h2>Hello, <%= user.displayName %>.</h2>
-            <a href="/info">Check your User Info</a>
-            <br>
-            <a href="/example.html">Go to the Demo</a>
-            <br>
-            <a href="/logout">Logout</a>
-            <% } %>
+  <!-- End of definition of webcompoents -->
+<template is="dom-bind" id="azala">
+<am-menu id="menua"></am-menu>
+
+<iron-ajax
+        id="azalekoDatuak"        
+        url=""
+        method='GET'
+        handle-as="json"        
+        last-response="{{ajaxResponse}}">
+</iron-ajax>
+
+
+   
+  <div class="container">   
+      <template is="dom-if" if="{{ajaxResponse}}">
+      <div class="gai-nabarmendua">
+		<am-zerrenda id="gai-nabarmendua" base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="5" nabarmendua="1" ></am-zerrenda>
+	  </div>      
+      <div class="azken-bideoak">
+		<am-zerrenda id="azken-bideoak" base-url="[[baseUrl]]" kop="4" orientation="vertical" title="Azken bideoak"></am-zerrenda>
+	  </div>
+    </template>
+   
+	 <div style="clear: both"></div>
+     <template is="dom-repeat" items="{{ajaxResponse.azaleko_motak}}">
+        <am-karrusela class="karrusela" mota="[[item.nice_name]]"></am-karrusela>
+     </template>
+	 
+  </div>
+</template>
+<script>
+  var azala = document.querySelector('#azala');
+  azala.baseUrl = "http://www.argia.eus/API/v1/multimedia";
+  azala.url = "http://www.argia.eus/multimedia";
+  // The dom-change event signifies when the template has stamped its DOM.
+  azala.addEventListener('dom-change', function() {
+    azala.$.azalekoDatuak.url = azala.baseUrl+'/azala';          
+    azala.$.azalekoDatuak.generateRequest();  
+  });
+new loadingPanel('/resources/images/mediascape_logo.png',10);
+</script>
 </body>
 
 </html>

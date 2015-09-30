@@ -34,8 +34,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
         var UI = mediascape.AdaptationToolkit.Adaptation.UIAdaptation;
         UI.init(data.detail.components,UI.LAYOUTMODE.STATIC);
          mediascape.Communication.startApplicationContext();
-        //UI.useLayout('accordion');
-		UI.useLayout('menu');
+        UI.useLayout('accordion');
         var location = "http://"+window.location.host+window.location.pathname;
 		    mediascape.AdaptationToolkit.uiComponents.addAssociationPanel(location+"?group="+mediascape.Communication.GROUP_ID);
 
@@ -44,85 +43,31 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 
 
 </script>
-  <style>
-    .erdiratu{
-      width: 100%;
-      margin-right: auto;
-      margin-left: auto;
-      
-    }
-    .container{
-      max-width: 1280px;
-      width: 90%;
-      margin-right: auto;
-      margin-left: auto;
-      
-    }
-    .gai-nabarmendua{
-      width: 70%;
-      float: left;     
-      border: 1px solid #ebebeb;
-      border-top: none;
-    }
-    .azken-bideoak{           
-      border: 1px solid #ebebeb;
-      width: 27%;
-      float: right;
-      padding: 10px;
-      
-    }
-    
-  </style>
 </head>
-<body style="margin-left:-8px;margin-top:-8px;">
+<body style="overflow: hidden;margin-left:-8px;margin-top:-8px;">
 
  <!-- Definition of each webcompoent -->
-<!--
+<!-- 
   <x-media  id="video1" file="../resources/media/ETB2_new.mp4"  ismuted="true"></x-media>
   <x-media id="video2" file="../resources/media/Bildu_new.mp4"  ismuted="true"></x-media>
   <x-media id="video3"  file="../resources/media/EAJ_new.mp4"  ismuted="true"></x-media>
   <bar-graph id='graph' place='Irunea'></bar-graph>
 
   <!-- End of definition of webcompoents -->
-<template is="dom-bind" id="azala">
-<am-menu id="menua"></am-menu>
-
-<iron-ajax
-        id="azalekoDatuak"        
-        url=""
-        method='GET'
-        handle-as="json"        
-        last-response="{{ajaxResponse}}">
-</iron-ajax>
-
-
-   
-  <div class="container">   
-      <template is="dom-if" if="{{ajaxResponse}}">
-      <div class="gai-nabarmendua">
-		<am-zerrenda id="gai-nabarmendua" base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="5" nabarmendua="1" ></am-zerrenda>
-	  </div>      
-      <div class="azken-bideoak">
-		<am-zerrenda id="azken-bideoak" base-url="[[baseUrl]]" kop="4" orientation="vertical" title="Azken bideoak"></am-zerrenda>
-	  </div>
-    </template>
-   
-	 <div style="clear: both"></div>
-     <template is="dom-repeat" items="{{ajaxResponse.azaleko_motak}}">
-        <am-karrusela class="am-karrusela" mota="[[item.nice_name]]"></am-karrusela>
-     </template>
-	 
-  </div>
+<template is="dom-bind" id="fitxa">
+    <am-menu></am-menu>
+    
+     <am-player id="player" playerobj="{{playerobj}}" bideo-nice-name="{{params.nice_name}}"></am-player>
+    <div class="erdiratu90">
+      <am-kontrolak kontrolatzeko="{{playerobj}}"></am-kontrolak>
+      <am-zerrenda title="Erlazionatutako bideoak"></am-zerrenda>
+      <am-karrusela mota="[[params.mota_nice_name]]" ez-erakutsi="[[params.nice_name]]"></am-karrusela>
+    </div>
 </template>
+
 <script>
-  var azala = document.querySelector('#azala');
-  azala.baseUrl = "http://www.argia.eus/API/v1/multimedia";
-  azala.url = "http://www.argia.eus/multimedia";
-  // The dom-change event signifies when the template has stamped its DOM.
-  azala.addEventListener('dom-change', function() {
-    azala.$.azalekoDatuak.url = azala.baseUrl+'/azala';          
-    azala.$.azalekoDatuak.generateRequest();  
-  });
+var fitxa = document.querySelector('#fitxa');
+fitxa.playerObj = {};
 new loadingPanel('/resources/images/mediascape_logo.png',10);
 </script>
 </body>

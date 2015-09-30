@@ -115,8 +115,7 @@ define(
         componentStatus = status;
       }
       this.checkComponentsReady = function(){
-          var ready = components.every(function(cmp){
-                console.log(cmp);
+          var ready = components.every(function(cmp){                
                 return cmp.done;
           });
           if (ready){

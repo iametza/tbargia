@@ -58,9 +58,9 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 
  <am-player id="player" playerobj="{{playerobj}}" bideo-nice-name="{{params.nice_name}}"></am-player>
 <div class="erdiratu90">
-  <am-kontrolak kontrolatzeko="{{playerobj}}"></am-kontrolak>
-  <am-zerrenda title="Erlazionatutako bideoak"></am-zerrenda>
-  <am-karrusela mota="[[params.mota_nice_name]]" ez-erakutsi="[[params.nice_name]]"></am-karrusela>
+  <am-kontrolak id="am-kontrolak" kontrolatzeko="{{playerobj}}"></am-kontrolak>
+  <am-zerrenda id="am-zerrenda" title="Erlazionatutako bideoak"></am-zerrenda>
+  <am-karrusela class="am-karrusela" mota="[[params.mota_nice_name]]" ez-erakutsi="[[params.nice_name]]"></am-karrusela>
 </div>
 
 
