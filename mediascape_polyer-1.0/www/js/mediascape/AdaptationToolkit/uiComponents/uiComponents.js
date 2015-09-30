@@ -34,10 +34,15 @@
 **
 */
 
+// iametza
+var actionEvent = 'click';
+
 define(
   ["ui"
   ],
   function(){
+    
+    
 
     uiComponents = function uiComponents(atk,i,atk){
 
@@ -347,7 +352,7 @@ define(
               p.style.marginLeft="20%";
               p.style.marginRight="20%";
               p.style.fontSize="120%";
-              p.addEventListener('tap',function(e){document.body.removeChild(panel);})
+              p.addEventListener(actionEvent,function(e){document.body.removeChild(panel);})
               panel.appendChild(p);
 
               for (ag in agents ){
@@ -925,7 +930,7 @@ define(
               devAssociation.style.backgroundColor='#222930';
               devAssociation.style.textAlign='center';
 
-              devAssociation.addEventListener('tap',function(){
+              devAssociation.addEventListener(actionEvent,function(){
                     if(associationPanel.querySelectorAll('#code').length===1){
                       associationPanel.querySelector('#code').style.display="block";
                     }
@@ -956,7 +961,7 @@ define(
               cmpManager.style.top='2%';
               cmpManager.style.textAlign='center';
 
-              cmpManager.addEventListener('tap',function(){
+              cmpManager.addEventListener(actionEvent,function(){
 
                     if(associationPanel.querySelector('#code')){
                       associationPanel.querySelector('#code').style.display="none";
@@ -968,6 +973,20 @@ define(
                     layouts.style.backgroundColor='#222930';
 
               });
+              
+              cmpManager.addEventListener('click',function(){
+
+                    if(associationPanel.querySelector('#code')){
+                      associationPanel.querySelector('#code').style.display="none";
+                    }
+                    associationPanel.querySelector('#smallTable').style.display='block';
+                    table.style.display='none';
+                    devAssociation.style.backgroundColor='#222930';
+                    cmpManager.style.backgroundColor='#778899';
+                    layouts.style.backgroundColor='#222930';
+
+              });
+              
               menu.appendChild(cmpManager);
 
               //Layout change
@@ -998,7 +1017,7 @@ define(
               img1.style.width='50%';
               td1.style.paddingBottom='10px';
 
-              img1.addEventListener('tap',function(e){
+              img1.addEventListener(actionEvent,function(e){
 
                   mediascape.AdaptationToolkit.Adaptation.UIAdaptation.useLayout('customGrid');
                   hideControlPanel();
@@ -1015,7 +1034,7 @@ define(
               img2.style.width='50%';
               td2.appendChild(img2);
               td2.style.paddingBottom='10px';
-              img2.addEventListener('tap',function(e){
+              img2.addEventListener(actionEvent,function(e){
                   mediascape.AdaptationToolkit.Adaptation.UIAdaptation.useLayout('accordion');
                   hideControlPanel();
               });
@@ -1028,7 +1047,7 @@ define(
               img3.style.width='50%';
               img3.src='../resources/images/pip.png';
               td3.style.paddingBottom='10px';
-              img3.addEventListener('tap',function(e){
+              img3.addEventListener(actionEvent,function(e){
                   mediascape.AdaptationToolkit.Adaptation.UIAdaptation.useLayout('pip');
                   hideControlPanel();
               });
@@ -1041,7 +1060,7 @@ define(
               img4.style.width='50%';
               td4.appendChild(img4);
               td4.style.paddingBottom='10px';
-              img4.addEventListener('tap',function(e){
+              img4.addEventListener(actionEvent,function(e){
                   mediascape.AdaptationToolkit.Adaptation.UIAdaptation.useLayout('spinner');
                   hideControlPanel();
               });
@@ -1054,7 +1073,7 @@ define(
               img5.style.width='50%';
               img5.src='../resources/images/accordion.png';
               td5.style.paddingBottom='10px';
-              Polymer.addEventListener(img5,'tap',function(e){
+              Polymer.addEventListener(img5,actionEvent,function(e){
                   mediascape.AdaptationToolkit.Adaptation.UIAdaptation.useLayout('accordion');
                   hideControlPanel();
               });
@@ -1067,7 +1086,7 @@ define(
               img6.style.width='50%';
               td6.appendChild(img6);
               td6.style.paddingBottom='10px';
-              Polymer.addEventListener(img6,'tap',function(e){
+              Polymer.addEventListener(img6,actionEvent,function(e){
                   mediascape.AdaptationToolkit.Adaptation.UIAdaptation.useLayout('spinner');
                   hideControlPanel();
               });
@@ -1080,7 +1099,7 @@ define(
               img7.src='../resources/images/verticalMenu.png';
               img7.style.width='50%';
               td7.style.paddingBottom='10px';
-              Polymer.addEventListener(img7,'tap',function(e){
+              Polymer.addEventListener(img7,actionEvent,function(e){
                   mediascape.AdaptationToolkit.Adaptation.UIAdaptation.useLayout('verticalMenu');
                   hideControlPanel();
               });
@@ -1093,7 +1112,7 @@ define(
               img8.style.width='50%';
               td8.appendChild(img8);
               td8.style.paddingBottom='10px';
-              Polymer.addEventListener(img8,'tap',function(e){
+              Polymer.addEventListener(img8,actionEvent,function(e){
                   mediascape.AdaptationToolkit.Adaptation.UIAdaptation.useLayout('scrollHorizontal');
                   hideControlPanel();
               });
@@ -1107,7 +1126,7 @@ define(
               table.style.textAlign='center';
               table.style.marginTop='70px';
 
-              layouts.addEventListener('tap',function(){
+             layouts.addEventListener(actionEvent,function(){
                   table.style.display='block';
                   if(associationPanel.querySelector('#code')){
                     associationPanel.removeChild(associationPanel.querySelector('#code'));
