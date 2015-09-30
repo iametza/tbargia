@@ -114,17 +114,16 @@ function ExpressServer() {
 
 
     app.get('/', function (req, res) {
-       /* res.render('index', {
+        /*res.render('index', {
             user: req.user
         });*/
-		 res.redirect('/index.html');
+		 //res.render('index');
+         res.redirect('/index.html');
     });
-    /*
-     app.get('/:mota_nice_name/:nice_name', function (req, res) {
-       
-		 res.end('/fitxa.html');
-    });
-    */
+    
+    /*app.get('/:mota_nice_name/:nice_name', function (req, res) {        
+		res.render('fitxa', {'params': req.params});         
+    });*/    
     
 
     app.get('/info', ensureAuthenticated, function (req, res) {

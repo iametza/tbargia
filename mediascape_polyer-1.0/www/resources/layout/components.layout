@@ -111,7 +111,7 @@
   icon:../resources/images/icons_manag/twitter.png;
 }
 
-#azala{
+#gai-nabarmendua{
   needs:none;
   order:2;
   rwidth:400px;
@@ -124,7 +124,19 @@
   icon:../resources/images/icons_manag/Irunea.png;
 
 }
+#azken-bideoak{
+  needs:none;
+  order:3;
+  rwidth:200px;
+  propx:400;
+  propy:350;
+  required:true;
+  duplicable:true;
+  bestfit:biggestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
 
+}
 #menua{
 needs:none;
   order:1;
@@ -133,6 +145,42 @@ needs:none;
   propy:350;
   required:false;
   duplicable:false;
+  bestfit:biggestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+#azalekoDatuak{
+needs:none;
+  order:4;
+  rwidth:200px;
+  propx:400;
+  propy:350;
+  required:true;
+  duplicable:true;
+  bestfit:biggestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+.am-karrusela{
+  needs:none;
+  order:5;
+  rwidth:200px;
+  propx:400;
+  propy:350;
+  required:true;
+  duplicable:true;
+  bestfit:biggestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+#am-kontrolak{
+  needs:none;
+  order:6;
+  rwidth:200px;
+  propx:400;
+  propy:350;
+  required:true;
+  duplicable:true;
   bestfit:biggestScreenSize;
   movable:true;
   icon:../resources/images/icons_manag/Irunea.png;
