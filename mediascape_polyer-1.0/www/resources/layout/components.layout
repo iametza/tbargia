@@ -132,7 +132,7 @@ needs:none;
   propx:400;
   propy:350;
   required:false;
-  duplicable:true;
+  duplicable:false;
   bestfit:biggestScreenSize;
   movable:true;
   icon:../resources/images/icons_manag/Irunea.png;

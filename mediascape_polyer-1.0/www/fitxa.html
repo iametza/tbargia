@@ -54,6 +54,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
   <bar-graph id='graph' place='Irunea'></bar-graph>
 
   <!-- End of definition of webcompoents -->
+<template is="dom-bind">
 <am-menu></am-menu>
 
  <am-player id="player" playerobj="{{playerobj}}" bideo-nice-name="{{params.nice_name}}"></am-player>
@@ -62,7 +63,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
   <am-zerrenda title="Erlazionatutako bideoak"></am-zerrenda>
   <am-karrusela mota="[[params.mota_nice_name]]" ez-erakutsi="[[params.nice_name]]"></am-karrusela>
 </div>
-
+</template>
 
 
 <script>

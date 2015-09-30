@@ -1,84 +1,38 @@
-[2015-09-29 09:26:15.909] [INFO] SocketServer - created nsp with cd5873d6c8f1f0dbcce5
-[2015-09-29 09:26:15.909] [INFO] SocketServer - created nsp with ee24ef75daaa6e650382
-[2015-09-29 09:26:15.909] [INFO] SocketServer - created nsp with 0752c4ffb14e91ceef58
-[2015-09-29 09:26:15.910] [INFO] SocketServer - created nsp with 1ccf386cf46a558d4970
-[2015-09-29 09:26:15.910] [INFO] SocketServer - created nsp with cce64b34c8c1ed025780
-[2015-09-29 09:26:15.910] [INFO] SocketServer - created nsp with 145ad5aad524cd3d42fb
-[2015-09-29 09:26:15.911] [INFO] SocketServer - created nsp with 2b793a106b7388fd2c1d
-[2015-09-29 09:26:15.911] [INFO] SocketServer - created nsp with 66c49716a6ceaf6bca26
-[2015-09-29 09:26:15.912] [INFO] SocketServer - created nsp with a9d22943ef0ff3a3598f
-[2015-09-29 09:26:15.912] [INFO] SocketServer - created nsp with 1881edf89cc5a81a45df
-[2015-09-29 09:26:15.912] [INFO] SocketServer - created nsp with 5d3f8a4e9847ba2f69a4
-[2015-09-29 09:26:15.912] [INFO] SocketServer - created nsp with 448c2b2487de1a2f3cf3
-[2015-09-29 09:26:15.912] [INFO] SocketServer - created nsp with 094a0ed275674c21a805
-[2015-09-29 09:26:15.912] [INFO] SocketServer - created nsp with fefee2d62de2bd52e0ad
-[2015-09-29 09:26:15.912] [INFO] SocketServer - created nsp with a034feadea1fa72c56f3
-[2015-09-29 09:26:15.913] [INFO] SocketServer - created nsp with e9b4d8aa063fb2cbc565
-[2015-09-29 09:26:15.913] [INFO] SocketServer - created nsp with 5eaa5bbbf1cfc4dc794d
-[2015-09-29 09:26:15.913] [INFO] SocketServer - created nsp with 2512278e9c9c186cfb13
-[2015-09-29 09:26:15.913] [INFO] SocketServer - created nsp with 40d67fbd8bc3da8e360e
-[2015-09-29 09:26:15.913] [INFO] SocketServer - created nsp with dd721c433265166ba6f2
-[2015-09-29 09:26:15.913] [INFO] SocketServer - created nsp with 48c08b27c444ce7b3463
-[2015-09-29 09:26:15.913] [INFO] SocketServer - created nsp with face58732ed828771562
-[2015-09-29 09:26:15.913] [INFO] SocketServer - created nsp with b6487c33f820b338594f
-[2015-09-29 09:26:15.913] [INFO] SocketServer - created nsp with 9adf00aa9a08a4392c73
-[2015-09-29 09:26:15.914] [INFO] SocketServer - created nsp with 5c2600a5ce9cef295d19
-[2015-09-29 09:26:15.914] [INFO] SocketServer - created nsp with 8ba9235b28b470998723
-[2015-09-29 09:26:15.914] [INFO] SocketServer - created nsp with 5fe4bfa5518882ea6951
-[2015-09-29 09:26:15.914] [INFO] SocketServer - created nsp with 20d9c1953711c950eaf0
-[2015-09-29 09:26:15.914] [INFO] SocketServer - created nsp with 88267f67aa036d6ba6b7
-[2015-09-29 09:26:15.914] [INFO] SocketServer - created nsp with 60f81e8802f5b0a28fae
-[2015-09-29 09:26:16.033] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 09:26:16.803] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 09:26:16.821] [DEBUG] SocketServer - somebody want to join 5c2600a5ce9cef295d19 with { agentID: '875667390' }
-[2015-09-29 09:26:16.829] [INFO] SocketServer - path 5c2600a5ce9cef295d19 data { agentID: '875667390' } allowed true isGroup true
-[2015-09-29 09:26:24.403] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 09:26:24.539] [INFO] SocketServer - created nsp with 967c4956b7ca9d9c0563
-[2015-09-29 09:26:24.572] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 09:26:24.586] [DEBUG] SocketServer - somebody want to join 967c4956b7ca9d9c0563 with { agentID: '373247464' }
-[2015-09-29 09:26:24.593] [INFO] SocketServer - path 967c4956b7ca9d9c0563 data { agentID: '373247464' } allowed true isGroup true
-[2015-09-29 10:25:53.836] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 10:25:53.952] [INFO] SocketServer - created nsp with 999469a84d1a7da0a056
-[2015-09-29 10:25:53.968] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 10:25:53.985] [DEBUG] SocketServer - somebody want to join 999469a84d1a7da0a056 with { agentID: '613582542' }
-[2015-09-29 10:25:53.988] [INFO] SocketServer - path 999469a84d1a7da0a056 data { agentID: '613582542' } allowed true isGroup true
-[2015-09-29 10:49:11.037] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 10:49:11.188] [INFO] SocketServer - created nsp with def7cc2eb4775f3f09a5
-[2015-09-29 10:49:11.197] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 10:49:11.216] [DEBUG] SocketServer - somebody want to join def7cc2eb4775f3f09a5 with { agentID: '448810499' }
-[2015-09-29 10:49:11.220] [INFO] SocketServer - path def7cc2eb4775f3f09a5 data { agentID: '448810499' } allowed true isGroup true
-[2015-09-29 10:55:46.573] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 10:55:46.715] [INFO] SocketServer - created nsp with 491e8f578af78e43d669
-[2015-09-29 10:55:46.732] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 10:55:46.754] [DEBUG] SocketServer - somebody want to join 491e8f578af78e43d669 with { agentID: '788598268' }
-[2015-09-29 10:55:46.758] [INFO] SocketServer - path 491e8f578af78e43d669 data { agentID: '788598268' } allowed true isGroup true
-[2015-09-29 10:56:40.138] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 10:56:40.270] [INFO] SocketServer - created nsp with 4c0c5b234591e016cef7
-[2015-09-29 10:56:40.283] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 10:56:40.297] [DEBUG] SocketServer - somebody want to join 4c0c5b234591e016cef7 with { agentID: '910929865' }
-[2015-09-29 10:56:40.300] [INFO] SocketServer - path 4c0c5b234591e016cef7 data { agentID: '910929865' } allowed true isGroup true
-[2015-09-29 10:58:11.272] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 10:58:11.407] [INFO] SocketServer - created nsp with e182407277a17a49fd31
-[2015-09-29 10:58:11.418] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 10:58:11.436] [DEBUG] SocketServer - somebody want to join e182407277a17a49fd31 with { agentID: '669310264' }
-[2015-09-29 10:58:11.442] [INFO] SocketServer - path e182407277a17a49fd31 data { agentID: '669310264' } allowed true isGroup true
-[2015-09-29 11:01:43.066] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 11:01:43.204] [INFO] SocketServer - created nsp with 6bb440631e049afbac14
-[2015-09-29 11:01:43.223] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 11:01:43.241] [DEBUG] SocketServer - somebody want to join 6bb440631e049afbac14 with { agentID: '538240146' }
-[2015-09-29 11:01:43.246] [INFO] SocketServer - path 6bb440631e049afbac14 data { agentID: '538240146' } allowed true isGroup true
-[2015-09-29 11:01:53.284] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 11:01:53.412] [INFO] SocketServer - created nsp with 9c08a13d86ebfacc7d1c
-[2015-09-29 11:01:53.426] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 11:01:53.442] [DEBUG] SocketServer - somebody want to join 9c08a13d86ebfacc7d1c with { agentID: '64149360' }
-[2015-09-29 11:01:53.447] [INFO] SocketServer - path 9c08a13d86ebfacc7d1c data { agentID: '64149360' } allowed true isGroup true
-[2015-09-29 11:03:52.298] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 11:03:52.433] [INFO] SocketServer - created nsp with 9e4f3ed3f503a35e1d35
-[2015-09-29 11:03:52.448] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 11:03:52.471] [DEBUG] SocketServer - somebody want to join 9e4f3ed3f503a35e1d35 with { agentID: '553333328' }
-[2015-09-29 11:03:52.474] [INFO] SocketServer - path 9e4f3ed3f503a35e1d35 data { agentID: '553333328' } allowed true isGroup true
-[2015-09-29 11:06:47.942] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 11:06:47.999] [INFO] SocketServer - created nsp with 6118960fd28c7b324115
-[2015-09-29 11:06:48.019] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
-[2015-09-29 11:06:48.036] [DEBUG] SocketServer - somebody want to join 6118960fd28c7b324115 with { agentID: '569777446' }
-[2015-09-29 11:06:48.039] [INFO] SocketServer - path 6118960fd28c7b324115 data { agentID: '569777446' } allowed true isGroup true
+[2015-09-29 12:26:36.189] [DEBUG] SocketServer - somebody want to join 6118960fd28c7b324115 with { agentID: '889631086' }
+[2015-09-29 12:26:36.193] [INFO] SocketServer - path 6118960fd28c7b324115 data { agentID: '889631086' } allowed true isGroup true
+[2015-09-29 14:00:34.064] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
+[2015-09-29 14:00:34.131] [INFO] SocketServer - created nsp with d086793797ec9f368c22
+[2015-09-29 14:00:34.152] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
+[2015-09-29 14:00:34.175] [DEBUG] SocketServer - somebody want to join d086793797ec9f368c22 with { agentID: '525255889' }
+[2015-09-29 14:00:34.178] [INFO] SocketServer - path d086793797ec9f368c22 data { agentID: '525255889' } allowed true isGroup true
+[2015-09-29 14:59:36.456] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
+[2015-09-29 14:59:36.539] [INFO] SocketServer - created nsp with 495372fa2c4ec5e9aed1
+[2015-09-29 14:59:36.554] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
+[2015-09-29 14:59:36.572] [DEBUG] SocketServer - somebody want to join 495372fa2c4ec5e9aed1 with { agentID: '218602379' }
+[2015-09-29 14:59:36.578] [INFO] SocketServer - path 495372fa2c4ec5e9aed1 data { agentID: '218602379' } allowed true isGroup true
+[2015-09-29 15:23:41.069] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
+[2015-09-29 15:23:41.142] [INFO] SocketServer - created nsp with ad6cdedc188f90139368
+[2015-09-29 15:23:41.163] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
+[2015-09-29 15:23:41.189] [DEBUG] SocketServer - somebody want to join ad6cdedc188f90139368 with { agentID: '267141394' }
+[2015-09-29 15:23:41.192] [INFO] SocketServer - path ad6cdedc188f90139368 data { agentID: '267141394' } allowed true isGroup true
+[2015-09-29 15:25:33.342] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
+[2015-09-29 15:25:33.402] [INFO] SocketServer - created nsp with 7ba0c6caca84c6571e9e
+[2015-09-29 15:25:33.413] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
+[2015-09-29 15:25:33.433] [DEBUG] SocketServer - somebody want to join 7ba0c6caca84c6571e9e with { agentID: '300456137' }
+[2015-09-29 15:25:33.438] [INFO] SocketServer - path 7ba0c6caca84c6571e9e data { agentID: '300456137' } allowed true isGroup true
+[2015-09-29 15:26:03.857] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
+[2015-09-29 15:26:03.928] [INFO] SocketServer - created nsp with 6838d165c3eeec8d05f6
+[2015-09-29 15:26:03.944] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
+[2015-09-29 15:26:03.960] [DEBUG] SocketServer - somebody want to join 6838d165c3eeec8d05f6 with { agentID: '406625626' }
+[2015-09-29 15:26:03.964] [INFO] SocketServer - path 6838d165c3eeec8d05f6 data { agentID: '406625626' } allowed true isGroup true
+[2015-09-29 15:26:36.235] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
+[2015-09-29 15:26:36.326] [INFO] SocketServer - created nsp with bf576261c24f75a14de6
+[2015-09-29 15:26:36.358] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
+[2015-09-29 15:26:36.389] [DEBUG] SocketServer - somebody want to join bf576261c24f75a14de6 with { agentID: '217521717' }
+[2015-09-29 15:26:36.394] [INFO] SocketServer - path bf576261c24f75a14de6 data { agentID: '217521717' } allowed true isGroup true
+[2015-09-29 15:49:50.490] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
+[2015-09-29 15:49:50.556] [INFO] SocketServer - created nsp with 0e5e478233079acc12bb
+[2015-09-29 15:49:50.580] [INFO] SocketServer - User accepted without authentication User not authorized through passport. (User Property not found)
+[2015-09-29 15:49:50.601] [DEBUG] SocketServer - somebody want to join 0e5e478233079acc12bb with { agentID: '588671192' }
+[2015-09-29 15:49:50.605] [INFO] SocketServer - path 0e5e478233079acc12bb data { agentID: '588671192' } allowed true isGroup true
+[2015-09-29 16:49:48.732] [INFO] MediaScape - Got a SIGINIT - terminating
