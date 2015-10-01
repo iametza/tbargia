@@ -122,7 +122,6 @@
   bestfit:biggestScreenSize;
   movable:true;
   icon:../resources/images/icons_manag/Irunea.png;
-
 }
 #azken-bideoak{
   needs:none;
@@ -161,7 +160,7 @@ needs:none;
   movable:true;
   icon:../resources/images/icons_manag/Irunea.png;
 }
-.am-karrusela{
+#am-karruselak{
   needs:none;
   order:5;
   rwidth:200px;

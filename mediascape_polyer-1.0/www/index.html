@@ -25,8 +25,6 @@
 <!-- WEBCOMPONETS END -->
 
 <script>
-
-
 document.addEventListener('adaptationToolkit-ready',function(data){
 
         var AE = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation;
@@ -42,37 +40,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 
 });
 
-
 </script>
-  <style>
-    .erdiratu{
-      width: 100%;
-      margin-right: auto;
-      margin-left: auto;
-      
-    }
-    .container{
-      max-width: 1280px;
-      width: 90%;
-      margin-right: auto;
-      margin-left: auto;
-      
-    }
-    .gai-nabarmendua{
-      width: 70%;
-      float: left;     
-      border: 1px solid #ebebeb;
-      border-top: none;
-    }
-    .azken-bideoak{           
-      border: 1px solid #ebebeb;
-      width: 27%;
-      float: right;
-      padding: 10px;
-      
-    }
-    
-  </style>
 </head>
 <body style="margin-left:-8px;margin-top:-8px;">
 
@@ -85,34 +53,18 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 
   <!-- End of definition of webcompoents -->
 <template is="dom-bind" id="azala">
-<am-menu id="menua"></am-menu>
-
-<iron-ajax
-        id="azalekoDatuak"        
-        url=""
-        method='GET'
-        handle-as="json"        
-        last-response="{{ajaxResponse}}">
-</iron-ajax>
-
-
-   
-  <div class="container">   
-      <template is="dom-if" if="{{ajaxResponse}}">
-      <div class="gai-nabarmendua">
-		<am-zerrenda id="gai-nabarmendua" base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="4" nabarmendua="1" ></am-zerrenda>
-	  </div>      
-      <div class="azken-bideoak">
+		<am-menu id="menua"></am-menu>
+		<iron-ajax
+				id="azalekoDatuak"        
+				url=""
+				method='GET'
+				handle-as="json"
+				on-response="handleResponseAzala"
+				last-response="{{ajaxResponse}}">
+		</iron-ajax>
+		<am-zerrenda id="gai-nabarmendua" base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="4" nabarmendua="1" ></am-zerrenda>	
 		<am-zerrenda id="azken-bideoak" base-url="[[baseUrl]]" kop="4" orientation="vertical" title="Azken bideoak"></am-zerrenda>
-	  </div>
-    </template>
-   
-	 <div style="clear: both"></div>
-     <template is="dom-repeat" items="{{ajaxResponse.azaleko_motak}}">
-        <am-karrusela class="am-karrusela" mota="[[item.nice_name]]"></am-karrusela>
-     </template>
-	 
-  </div>
+		<am-karruselak id="am-karruselak" motak="[[ajaxResponse.moten_karruselekoak]]"></am-karruselak>
 </template>
 <script>
   var azala = document.querySelector('#azala');
@@ -123,6 +75,10 @@ document.addEventListener('adaptationToolkit-ready',function(data){
     azala.$.azalekoDatuak.url = azala.baseUrl+'/azala';          
     azala.$.azalekoDatuak.generateRequest();  
   });
+  azala.handleResponseAzala = function(){
+		console.log("azalako erantzuna");
+		console.log(azala.ajaxResponse);
+  };  
 new loadingPanel('/resources/images/mediascape_logo.png',10);
 </script>
 </body>
