@@ -1,0 +1,20 @@
+#menua{
+    height: 100px;
+    width:100%;
+}
+
+#azalekoDatuak{
+    display:none;
+}
+#gai-nabarmendua{
+    float:left;
+    width: 70%;
+}
+
+#azken-bideoak{
+    float:right;
+    width: 28%;
+}
+#am-karruselak{
+    width:100%;
+}

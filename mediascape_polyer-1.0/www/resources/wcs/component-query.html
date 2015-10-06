@@ -3,7 +3,10 @@
   <script>
   ComponentQueryBehavior={
     properties:{
-      done:{observer:'doneChanged'}
+      done:{observer:'doneChanged'},
+     /* mediaList: {type: Array,
+                 value: []
+                 }*/
     },
     hostAttributes: {
      elem:null,
@@ -12,12 +15,11 @@
      mediaList:[],
    },
    created:function(){
-   console.log('component-query created');
-   var self = this;
-   var toObserve = this.impl ? this.impl :this;
-   done = true;
+      var self = this;
+      var toObserve = this.impl ? this.impl :this;
+      done = true;
 
- },
+    },
  ready: function() {
 
    //console.log(this);

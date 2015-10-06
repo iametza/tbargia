@@ -39,11 +39,12 @@ define(
   "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/menu",
   "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/horizontal",
   "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/customGrid",
-  /*"mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/explicit",*/
+  "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/explicit",
   "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/accordion",
   "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/verticalMenu",
   "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/scrollHorizontal",
-  "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/spinner"],
+  "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/spinner",
+  "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/azala"],
   function(componentsManager){
     var layoutList   = Array.prototype.slice.apply( arguments );
     var cmps=[];
@@ -66,14 +67,17 @@ define(
       this.explicitConf = [];
 
       this.registerLayouts = function () {
+        console.log('r');
         var _this = this;
         $.getJSON('/resources/explicitsCss/rules.json', function(data) {
+          console.log('getJSON');
+          console.log(data);
           _this.explicitConf = data;
 
         });
         layoutList.forEach(function(layout,i){
           if  (layout.checkForImplementation() || layout.name != "explicit"){
-            //console.log('registring layout',layout);
+            console.log('registring layout',layout);
             if (layout.name === "explicit") _this.explicitLayout = layout;
             layouts.push(layout);
           }
@@ -82,6 +86,9 @@ define(
 
 
       };
+      this.registerLayouts();
+      
+          
       this.init = function (wcmps,mode){
         var _this = this;
 
@@ -96,7 +103,7 @@ define(
         }
         else
         if (this.layoutMode == this.LAYOUTMODE.STATIC){
-        //  this.layout(cmps,'onComponentsChange');
+          this.layout(cmps,'onComponentsChange');
         }
       }
       this.useLayout = function (layoutName){
@@ -116,6 +123,8 @@ define(
       this.layout = function (_cmps,event){
         // CHECK FOR EXPLICIT RULE FIRST ELSE SWITCH
         var explicitRule = this.checkForExplicitRules(_cmps,event);
+        console.log('explicitRule');
+        console.log(explicitRule);
         if (explicitRule){
           if (event === "onComponentsChange"){
             mediascape.AdaptationToolkit.componentManager.loadManager.unload( mediascape.AdaptationToolkit.componentManager.core.getHiddenComponents(_cmps));
@@ -287,6 +296,8 @@ define(
 
         var componentsNumber = _cmps.length || 0;
         var optimizedLayoutOrder = [];
+        console.log('findBestLayout');
+        console.log(_cmps);
 
         var thereIsVideo=false;
         var i=0;

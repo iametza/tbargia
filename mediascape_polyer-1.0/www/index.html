@@ -30,10 +30,11 @@ document.addEventListener('adaptationToolkit-ready',function(data){
         var AE = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation;
         AE.init('bestfit');
         var UI = mediascape.AdaptationToolkit.Adaptation.UIAdaptation;
+		//UI.init(data.detail.components,UI.LAYOUTMODE.ADAPTABLE);
         UI.init(data.detail.components,UI.LAYOUTMODE.STATIC);
-         mediascape.Communication.startApplicationContext();
-        //UI.useLayout('accordion');
-		UI.useLayout('menu');
+        mediascape.Communication.startApplicationContext();
+        //UI.useLayout('explicit');
+		UI.useLayout('accordion');
         var location = "http://"+window.location.host+window.location.pathname;
 		    mediascape.AdaptationToolkit.uiComponents.addAssociationPanel(location+"?group="+mediascape.Communication.GROUP_ID);
 
@@ -42,7 +43,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 
 </script>
 </head>
-<body style="margin-left:-8px;margin-top:-8px;">
+<body >
 
  <!-- Definition of each webcompoent -->
 <!--
@@ -64,7 +65,8 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 		</iron-ajax>
 		<am-zerrenda id="gai-nabarmendua" base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="4" nabarmendua="1" ></am-zerrenda>	
 		<am-zerrenda id="azken-bideoak" base-url="[[baseUrl]]" kop="4" orientation="vertical" title="Azken bideoak"></am-zerrenda>
-		<am-karruselak id="am-karruselak" motak="[[ajaxResponse.moten_karruselekoak]]"></am-karruselak>
+		<am-karruselak id="am-karruselak" motak="[[ajaxResponse.azaleko_motak]]"></am-karruselak>
+		
 </template>
 <script>
   var azala = document.querySelector('#azala');

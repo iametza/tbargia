@@ -1,8 +1,8 @@
 <!--
 @license
 -->
-<link rel="import" href="../am-karruselak/am-karruselak.html">
-<dom-module id="am-karrusela"> 
+<link rel="import" href="../am-karrusela/am-karrusela.html">
+<dom-module id="am-karruselak"> 
   <template>    
     <template is="dom-repeat" items="{{motak}}">
         <am-karrusela mota="[[item.nice_name]]"></am-karrusela>
@@ -12,19 +12,19 @@
     (function () {
      
       Polymer({
-        is: 'am-karrusela',
+        is: 'am-karruselak',
         behaviors: [
           Polymer.IronResizableBehavior,
           ComponentQueryBehavior
         ],
         properties: {
           motak:{
-            type: Object
+            type: Array
           }         
           
         },                
         ready: function() {
-           
+          
         }
       });
     })();

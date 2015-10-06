@@ -149,11 +149,11 @@ needs:none;
   icon:../resources/images/icons_manag/Irunea.png;
 }
 #azalekoDatuak{
-needs:none;
+  needs:none;
   order:4;
-  rwidth:200px;
-  propx:400;
-  propy:350;
+  rwidth:0%;
+  propx:1;
+  propy:1;
   required:true;
   duplicable:true;
   bestfit:biggestScreenSize;
@@ -163,15 +163,29 @@ needs:none;
 #am-karruselak{
   needs:none;
   order:5;
-  rwidth:200px;
+  rwidth:100%;
   propx:400;
-  propy:350;
+  propy:550;
   required:true;
   duplicable:true;
   bestfit:biggestScreenSize;
   movable:true;
   icon:../resources/images/icons_manag/Irunea.png;
 }
+
+#am-karrusela{
+  needs:none;
+  order:7;
+  rwidth:100%;
+  propx:400;
+  propy:150;
+  required:true;
+  duplicable:true;
+  bestfit:biggestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+
 #am-kontrolak{
   needs:none;
   order:6;
