@@ -33,8 +33,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 		//UI.init(data.detail.components,UI.LAYOUTMODE.ADAPTABLE);
         UI.init(data.detail.components,UI.LAYOUTMODE.STATIC);
         mediascape.Communication.startApplicationContext();
-        //UI.useLayout('explicit');
-		UI.useLayout('accordion');
+        UI.useLayout('customGrid');
         var location = "http://"+window.location.host+window.location.pathname;
 		    mediascape.AdaptationToolkit.uiComponents.addAssociationPanel(location+"?group="+mediascape.Communication.GROUP_ID);
 
@@ -55,18 +54,20 @@ document.addEventListener('adaptationToolkit-ready',function(data){
   <!-- End of definition of webcompoents -->
 <template is="dom-bind" id="azala">
 		<am-menu id="menua"></am-menu>
-		<iron-ajax
-				id="azalekoDatuak"        
+   <div>
+  	<iron-ajax
+				id="azalekoDatuak"
 				url=""
 				method='GET'
 				handle-as="json"
 				on-response="handleResponseAzala"
 				last-response="{{ajaxResponse}}">
 		</iron-ajax>
-		<am-zerrenda id="gai-nabarmendua" base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="4" nabarmendua="1" ></am-zerrenda>	
+  </div>
+		<am-zerrenda id="gai-nabarmendua" base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="4" nabarmendua="1" ></am-zerrenda>
 		<am-zerrenda id="azken-bideoak" base-url="[[baseUrl]]" kop="4" orientation="vertical" title="Azken bideoak"></am-zerrenda>
 		<am-karruselak id="am-karruselak" motak="[[ajaxResponse.azaleko_motak]]"></am-karruselak>
-		
+
 </template>
 <script>
   var azala = document.querySelector('#azala');
@@ -74,13 +75,13 @@ document.addEventListener('adaptationToolkit-ready',function(data){
   azala.url = "http://www.argia.eus/multimedia";
   // The dom-change event signifies when the template has stamped its DOM.
   azala.addEventListener('dom-change', function() {
-    azala.$.azalekoDatuak.url = azala.baseUrl+'/azala';          
-    azala.$.azalekoDatuak.generateRequest();  
+    azala.$.azalekoDatuak.url = azala.baseUrl+'/azala';
+    azala.$.azalekoDatuak.generateRequest();
   });
   azala.handleResponseAzala = function(){
 		console.log("azalako erantzuna");
 		console.log(azala.ajaxResponse);
-  };  
+  };
 new loadingPanel('/resources/images/mediascape_logo.png',10);
 </script>
 </body>

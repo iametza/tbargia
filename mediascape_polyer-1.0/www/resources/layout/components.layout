@@ -1,158 +1,8 @@
-
-#video1{
-  needs:samsung;
-  order:1;
-  rwidth:900px;
-  propx:16;
-  propy:9;
-  required:true;
-  duplicable:true;
-  bestfit:biggestScreenSize;
-  movable:false;
-  icon:../resources/images/icons_manag/etb2.png;
-}
-#video2{
-  needs:x86;
-  order:4;
-  rwidth:460px;
-  propx:16;
-  propy:9;
-  required:false;
-  duplicable:true;
-  bestfit:biggestScreenSize;
-  movable:true;
-  icon:../resources/images/icons_manag/bildu.png;
-}
-#video3{
-  needs:x86;
-  order:4;
-  rwidth:460px;
-  propx:16;
-  propy:9;
-  required:false;
-  duplicable:true;
-  bestfit:biggestScreenSize;
-  movable:true;
-  icon:../resources/images/icons_manag/eaj.png;
-}
-#control{
-  needs:none;
-  order:5;
-  rwidth:600px;
-  propx:600;
-  propy:280;
-  required:false;
-  duplicable:true;
-  bestfit:touchable;
-  movable:true;
-  icon:../resources/images/icons_manag/control.png;
-
-}
-#results{
-  needs:none;
-  order:7;
-  rwidth:460px;
-  propx:460;
-  propy:250;
-  required:false;
-  duplicable:true;
-  bestfit:touchable;
-  movable:true;
-  icon:../resources/images/icons_manag/table.png;
-}
-#graph{
-  needs:none;
-  order:8;
-  rwidth:400px;
-  propx:400;
-  propy:350;
-  required:true;
-  duplicable:true;
-  bestfit:touchable;
-  movable:true;
-  icon:../resources/images/icons_manag/Irunea.png;
-
-}
-#manager{
-  needs:none;
-  order:9;
-  rwidth:400px;
-  propx:400;
-  propy:500;
-  required:false;
-  duplicable:false;
-  bestfit:touchable;
-  movable:true;
-
-}
-#twitterMap{
-  needs:none;
-  order:10;
-  rwidth:390px;
-  propx:16;
-  propy:9;
-  required:true;
-  duplicable:true;
-  bestfit:touchable;
-  movable:true;
-  icon:../resources/images/icons_manag/trending.png;
-}
-
-#twitterViewer{
-  needs:none;
-  order:4;
-  rwidth:450px;
-  propx:16;
-  propy:9;
-  required:true;
-  duplicable:true;
-  bestfit:touchable;
-  movable:true;
-  icon:../resources/images/icons_manag/twitter.png;
-}
-
-#gai-nabarmendua{
-  needs:none;
-  order:2;
-  rwidth:400px;
-  propx:400;
-  propy:350;
-  required:true;
-  duplicable:true;
-  bestfit:biggestScreenSize;
-  movable:true;
-  icon:../resources/images/icons_manag/Irunea.png;
-}
-#azken-bideoak{
-  needs:none;
-  order:3;
-  rwidth:200px;
-  propx:400;
-  propy:350;
-  required:true;
-  duplicable:true;
-  bestfit:biggestScreenSize;
-  movable:true;
-  icon:../resources/images/icons_manag/Irunea.png;
-
-}
 #menua{
-needs:none;
-  order:1;
-  rwidth:900px;
-  propx:400;
-  propy:350;
-  required:false;
-  duplicable:false;
-  bestfit:biggestScreenSize;
-  movable:true;
-  icon:../resources/images/icons_manag/Irunea.png;
-}
-#azalekoDatuak{
   needs:none;
-  order:4;
-  rwidth:0%;
-  propx:1;
+  order:1;
+  rwidth:1000px;
+  propx:8;
   propy:1;
   required:true;
   duplicable:true;
@@ -163,9 +13,9 @@ needs:none;
 #am-karruselak{
   needs:none;
   order:5;
-  rwidth:100%;
-  propx:400;
-  propy:550;
+  rwidth:1000px;
+  propx:3;
+  propy:1;
   required:true;
   duplicable:true;
   bestfit:biggestScreenSize;
@@ -173,12 +23,12 @@ needs:none;
   icon:../resources/images/icons_manag/Irunea.png;
 }
 
-#am-karrusela{
+#azken-bideoak{
   needs:none;
   order:7;
-  rwidth:100%;
-  propx:400;
-  propy:150;
+  rwidth:200px;
+  propx:1;
+  propy:5;
   required:true;
   duplicable:true;
   bestfit:biggestScreenSize;
@@ -186,12 +36,12 @@ needs:none;
   icon:../resources/images/icons_manag/Irunea.png;
 }
 
-#am-kontrolak{
+#gai-nabarmendua{
   needs:none;
-  order:6;
-  rwidth:200px;
-  propx:400;
-  propy:350;
+  order:2;
+  rwidth:900px;
+  propx:1.5;
+  propy:1;
   required:true;
   duplicable:true;
   bestfit:biggestScreenSize;

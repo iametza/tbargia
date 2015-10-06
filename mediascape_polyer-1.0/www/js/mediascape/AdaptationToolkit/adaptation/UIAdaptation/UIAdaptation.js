@@ -87,8 +87,8 @@ define(
 
       };
       this.registerLayouts();
-      
-          
+
+
       this.init = function (wcmps,mode){
         var _this = this;
 
@@ -103,7 +103,7 @@ define(
         }
         else
         if (this.layoutMode == this.LAYOUTMODE.STATIC){
-          this.layout(cmps,'onComponentsChange');
+          if (actualLayout)this.layout(cmps,'onComponentsChange');
         }
       }
       this.useLayout = function (layoutName){

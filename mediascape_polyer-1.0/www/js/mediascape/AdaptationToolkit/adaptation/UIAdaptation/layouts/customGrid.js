@@ -167,7 +167,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         cmps[i].style.width=Math.round(parseInt(cmps[i].lproperties.rwidth.split('px')[0])/c_width)*c_width+'px';
         cmps[i].style.height=(Math.round(parseInt(cmps[i].lproperties.rwidth.split('px')[0])/c_width)*c_width*cmps[i].lproperties.propy)/cmps[i].lproperties.propx+'px';
         cmps[i].style.gridRow='span '+Math.round(parseInt(cmps[i].style.height.split('px')[0])/r_height);
-        cmps[i].style.backgroundColor='black';
+        cmps[i].style.backgroundColor='white';
 
 
      }

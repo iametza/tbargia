@@ -66,7 +66,7 @@ define(
                 *
                 */
 
-                cssRules=ownStyleSheet.cssRules;
+                cssRules=ownStyleSheet? ownStyleSheet.cssRules:[];
               }
               var mediaList=[];
 
