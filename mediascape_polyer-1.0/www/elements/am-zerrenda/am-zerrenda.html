@@ -227,15 +227,13 @@
             value: 0
           }
         },
-        ready: function() {
-          console.log('zerrenda');
+        ready: function() {          
           this.$.bideoakHartu.url = this.baseUrl+'/elementuak?nice_name_etiketa='+this.tag+'&nice_name_mota='+this.mota+'&zenbat='+this.kop;          
           this.$.bideoakHartu.generateRequest();          
         },
         handleResponse: function(res){
           if(this.nabarmendua == 1){
-            this.nabarmendua = this.ajaxResponse.elementuak[0];
-            console.log(this.ajaxResponse.elementuak[0]);
+            this.nabarmendua = this.ajaxResponse.elementuak[0];           
             document.getElementById('azalpena').innerHTML = this.ajaxResponse.elementuak[0].azalpena;
             this.ajaxResponse.elementuak.splice(0,1);
           }
