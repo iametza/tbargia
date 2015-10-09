@@ -67,17 +67,16 @@ define(
       this.explicitConf = [];
 
       this.registerLayouts = function () {
-        console.log('r');
         var _this = this;
         $.getJSON('/resources/explicitsCss/rules.json', function(data) {
-          console.log('getJSON');
-          console.log(data);
+         // console.log('getJSON');
+         // console.log(data);
           _this.explicitConf = data;
 
         });
         layoutList.forEach(function(layout,i){
           if  (layout.checkForImplementation() || layout.name != "explicit"){
-            console.log('registring layout',layout);
+           // console.log('registring layout',layout);
             if (layout.name === "explicit") _this.explicitLayout = layout;
             layouts.push(layout);
           }
@@ -123,8 +122,8 @@ define(
       this.layout = function (_cmps,event){
         // CHECK FOR EXPLICIT RULE FIRST ELSE SWITCH
         var explicitRule = this.checkForExplicitRules(_cmps,event);
-        console.log('explicitRule');
-        console.log(explicitRule);
+        //console.log('explicitRule');
+        //console.log(explicitRule);
         if (explicitRule){
           if (event === "onComponentsChange"){
             mediascape.AdaptationToolkit.componentManager.loadManager.unload( mediascape.AdaptationToolkit.componentManager.core.getHiddenComponents(_cmps));
@@ -180,7 +179,7 @@ define(
             //  actualLayout.render(_cmps);
           }
           else {
-            throw new Error ("Event does not exists");
+            throw new Error ("Event does not exists: "+ event);
           }
           break;
           case this.LAYOUTMODE.ADAPTABLE:
@@ -272,7 +271,7 @@ define(
         //DECIDE WHICH LAYOUT USE; IT IS CALLED WHEN USER EVENT HAPPENS
 
         clearTimeout(activityTimer);
-        console.log (layoutIndex,cmps.length);
+       // console.log (layoutIndex,cmps.length);
         actualLayout.unload(cmps);
         actualLayout = this.findBestLayout(cmps)[layoutIndex];
         this.layoutMode = this.LAYOUTMODE.ADAPTABLE;
@@ -296,8 +295,8 @@ define(
 
         var componentsNumber = _cmps.length || 0;
         var optimizedLayoutOrder = [];
-        console.log('findBestLayout');
-        console.log(_cmps);
+       // console.log('findBestLayout');
+       // console.log(_cmps);
 
         var thereIsVideo=false;
         var i=0;

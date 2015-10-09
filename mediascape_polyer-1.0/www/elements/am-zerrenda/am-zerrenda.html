@@ -127,6 +127,8 @@
 </style>
 
 <template>
+  <template is="dom-if" if="{{erakutsi}}">
+  <h3><a href="/">Hasiera</a></h3>
   <iron-ajax
           id="bideoakHartu"        
           url=""
@@ -185,12 +187,14 @@
         <!-- <paper-spinner id="spinner" alt="Kargatzen..." active></paper-spinner>   -->
     </section>   
    </template>
+  </template>
 </template>
      <script>
        (function () {      
       Polymer({
         is: 'am-zerrenda',
-        behaviors: [ComponentQueryBehavior],
+        behaviors: [ComponentQueryBehavior,
+                    TBArgia.RoutingBehavior],
         properties: {          
           title: String,
           orientation: {
@@ -228,8 +232,7 @@
           }
         },
         ready: function() {          
-          this.$.bideoakHartu.url = this.baseUrl+'/elementuak?nice_name_etiketa='+this.tag+'&nice_name_mota='+this.mota+'&zenbat='+this.kop;          
-          this.$.bideoakHartu.generateRequest();          
+          this.init();
         },
         handleResponse: function(res){
           if(this.nabarmendua == 1){
@@ -243,6 +246,13 @@
         },       
         url: function(nice_name, mota_nice_name){
           return mota_nice_name + '/' + nice_name;
+        },
+        init: function() {
+          // template aktiboa
+          if (this.erakutsi) {
+            this.$.bideoakHartu.url = this.baseUrl+'/elementuak?nice_name_etiketa='+this.tag+'&nice_name_mota='+this.mota+'&zenbat='+this.kop;          
+            this.$.bideoakHartu.generateRequest();          
+          }
         }
        
       });

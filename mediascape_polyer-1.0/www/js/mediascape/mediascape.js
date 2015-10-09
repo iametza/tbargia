@@ -23,7 +23,8 @@
     magicui:'../resources/libs/magic-ui-2.0',
     magic:'../resources/libs/magic-2.0',
     qrcode:'../resources/libs/qrcode.min',
-    ui:'../resources/libs/jquery-ui'
+    ui:'../resources/libs/jquery-ui',
+    page: '../resources/libs/page'
       },
     waitSeconds:4000
   });

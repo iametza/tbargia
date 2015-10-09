@@ -41,7 +41,7 @@ define(["mediascape/AdaptationToolkit/adaptation/multiDeviceAdaptation/ruleConst
     var bestfit = new ruleConstructor('bestfit');
 
     bestfit.onSeveralAgent = function (agents,local){
-      console.log("onSeveralAgent");
+      //console.log("onSeveralAgent");
       this.localChange = local || false;
       this.components = mediascape.AdaptationToolkit.componentManager.core.getComponents();
 
@@ -208,7 +208,7 @@ define(["mediascape/AdaptationToolkit/adaptation/multiDeviceAdaptation/ruleConst
                 result = 1;
          }
           // Compare agents notes
-          console.log("result",result,moveToOtherAgent,qualifiedAgentAndComponentToShow(me,cmp),cmp.nodeName);
+          //console.log("result",result,moveToOtherAgent,qualifiedAgentAndComponentToShow(me,cmp),cmp.nodeName);
 
 
           if ((cmp.lproperties['duplicable'] =="true" && cmp.lproperties['required'] =="true")&&

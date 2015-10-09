@@ -33,15 +33,22 @@
     ui:'../resources/libs/jquery-ui',
     shake:'/resources/libs/shake',
     domReady:'/resources/libs/domReady',
-    discoveryforagentcontext:'/resources/libs/discoveryforagentcontext'
+    discoveryforagentcontext:'/resources/libs/discoveryforagentcontext',
+    page: '/resources/libs/page'
       },
     waitSeconds:25
   });
 
 
   // Start the main app logic.
-  define( "mediascape", [ "mediascape/AdaptationToolkit/AdaptationToolkit","mediascape/Discovery/discovery",
-  "../resources/association/association","../resources/Communication/Communication","mediascape/Agentcontext/agentcontext","mediascape/Applicationcontext/applicationcontext","mediascape/DiscoveryForAgentContext/discoveryforagentcontext",'mediascape/DeviceProfile/deviceProfile'],
+  define( "mediascape", [ "mediascape/AdaptationToolkit/AdaptationToolkit",
+                          "mediascape/Discovery/discovery",
+                          "../resources/association/association",
+                          "../resources/Communication/Communication",
+                          "mediascape/Agentcontext/agentcontext",
+                          "mediascape/Applicationcontext/applicationcontext",
+                          "mediascape/DiscoveryForAgentContext/discoveryforagentcontext",
+                          "mediascape/DeviceProfile/deviceProfile"],
   function(){
       var mediascape = {};
       var discovery= {};
@@ -120,6 +127,95 @@
    }
 
   });
+  
+  define ("router", ["page"],
+    function (page) {
+
+    var router = {};
+    
+    router.init = function(){
+      
+      _this = Object.create( router );
+      // imports are loaded and elements have been registered
+      window.addEventListener('WebComponentsReady', function() {
+        var app = document.querySelector('#app');
+        page('/', function () {
+          
+          
+          console.log('router azala');
+          app.route = 'azala';
+          
+        });
+  
+        page('/:mota_nice_name', function (data) {
+          // azala.route = 'mota';
+          //azala.params = data.params;
+        }); 
+        
+        page('/:mota_nice_name/:nice_name', function (data) {
+          console.log('router fitxa');
+          app.route = 'fitxa';
+          app.params = data.params;
+        }); 
+        
+        // add #! before urls
+        page({
+          hashbang: true
+        });
+      });
+      return _this;
+    };
+     
+    
+    
+    document.addEventListener('mediascape-modules-ready',function(){
+    });
+    router.__moduleName = "router";
+    window.router = router;
+    return router;
+
+  });
+  
+  
+  require([ "router" ], function (router) {
+    console.log("router require");
+    if (document.readyState === "complete") router.init();
+    else setTimeout(router.init(), 2000);
+    var systemReady = waitFor.every(function(event){
+      if (event.ready) return true;
+      else return false;
+    })
+ 
+    if (!systemReady) {
+      var timeout = false;
+      var time1 = new Date().getTime();
+      var waitForTmp = waitFor;
+      var intervalId = setInterval(
+        function (){
+          systemReady = waitForTmp.every(function(event){
+            if (event.ready) return true;
+            else return false;
+          });
+          var time2 = new Date().getTime();
+          if (time2-time1>15000) timeout=true;
+          if (timeout){
+              clearInterval(intervalId);
+              throw Error("Timeout getting ready system, events related:"+waitForTmp.map(function(d){return d.name+".ready="+d.ready;}));
+           }
+          else if (systemReady){
+              clearInterval(intervalId);
+              var event = new CustomEvent("mediascape-ready", {"detail":{"loaded":true}});
+              document.dispatchEvent(event);
+        }
+
+      },500);
+
+   }
+
+  });
+  
+
+  
 }());
 
 var waitFor = [{name:'WebComponentsReady',ready:false}];

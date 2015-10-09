@@ -10,7 +10,7 @@ define(
       this.render= function render (cmps){}
 
       this.checkForImplementation=function(){
-        console.group('Layout '+name);
+        //console.group('Layout '+name);
         if (!this.onComponentsChange  || this.onComponentsChange.getBody().trim().length <4 )console.warn("You must implement onComponentsChange function");
         else
           if (!this.onOrientationChange || this.onOrientationChange.getBody().trim().length <4 )console.warn("You must implement onOrientationChange function");
@@ -26,11 +26,11 @@ define(
                             return true;
                         }
                         else {
-                        console.log("0 errors");
-                        console.groupEnd();
+                       // console.log("0 errors");
+                        //console.groupEnd();
                         return true;
                         }
-            console.groupEnd();
+           // console.groupEnd();
           }
         }
 

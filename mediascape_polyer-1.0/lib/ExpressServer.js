@@ -114,11 +114,7 @@ function ExpressServer() {
 
 
     app.get('/', function (req, res) {
-        /*res.render('index', {
-            user: req.user
-        });*/
-		 //res.render('index');
-         res.redirect('/index.html');
+        res.render('index.html');
     });
     
     /*app.get('/:mota_nice_name/:nice_name', function (req, res) {        

@@ -281,7 +281,7 @@ function(){
 
       map.getGroupMapping(_this.GROUP_ID).then(function (data1) {
         setComponentsAsIntrument();
-        console.log(data1);
+        
         if (!appCtx) {
           appCtx = mediascape.applicationContext(data1.group,{
             autoClean: true,

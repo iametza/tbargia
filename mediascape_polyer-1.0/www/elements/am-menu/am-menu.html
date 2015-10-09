@@ -38,6 +38,7 @@
 }
 </style>
   <template>
+    <template is="dom-if" if="{{erakutsi}}">
       <div class="marra-gorria"></div>
       <paper-menu selected="4">
             <paper-item><img width="85%" src="http://www.argia.eus/template/responsive/images/argia.jpg" alt="argia" class="img-responsive"></paper-item>
@@ -70,13 +71,19 @@
             </paper-item>
             -->
       </paper-menu>
+    </template>
        
   </template>
 <script>
   (function () {      
  Polymer({
    is: 'am-menu',
-   behaviors: [ComponentQueryBehavior]
+   behaviors: [ComponentQueryBehavior,
+               TBArgia.RoutingBehavior],
+    
+    ready: function(){
+      
+    }
  })
 })();
 </script>

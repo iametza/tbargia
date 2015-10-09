@@ -31,7 +31,7 @@
   propy:5;
   required:true;
   duplicable:true;
-  bestfit:biggestScreenSize;
+  bestfit:smallestScreenSize;
   movable:true;
   icon:../resources/images/icons_manag/Irunea.png;
 }
