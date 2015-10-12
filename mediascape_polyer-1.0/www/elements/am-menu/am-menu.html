@@ -6,6 +6,7 @@
 <style>
   ::host{
     display:block;
+    clear: both;
   }
   paper-menu{
     margin-left: auto;
@@ -14,16 +15,16 @@
     outline-color: -moz-use-text-color !important;
     outline-style: none !important;
     outline-width: 0 !important;
-    width: 90%;    
+    width: 90%;
   }
-  
+
   paper-item{
     padding-top: 2px;
     padding-bottom: 20px;
     padding-left: 5px;
     font-size: 160%;
     float:left;
-    
+
   }
   paper-item a{
     text-decoration: none;
@@ -45,9 +46,9 @@
             <paper-item><a href="/">egunekoak</a></paper-item>
             <paper-item><a href="">astekaria</a></paper-item>
             <paper-item><a href="">blogak</a></paper-item>
-            <paper-item><a href="">multimedia</a></paper-item>       
-          
-           
+            <paper-item><a href="">multimedia</a></paper-item>
+
+
            <paper-item class="eskuin">
               <a target="_blank" href="http://www.youtube.com/argiaastekaria">
                 <img src="http://www.argia.eus/template/responsive/images/youtube_circle_color-512.png">
@@ -65,24 +66,24 @@
             </paper-item>
             <!--
             <paper-item class="eskuin">
-              <paper-input label="Bilaketa">           
+              <paper-input label="Bilaketa">
                 <paper-icon-button suffix icon="search"></paper-icon-button>
               </paper-input>
             </paper-item>
             -->
       </paper-menu>
     </template>
-       
+
   </template>
 <script>
-  (function () {      
+  (function () {
  Polymer({
    is: 'am-menu',
    behaviors: [ComponentQueryBehavior,
                TBArgia.RoutingBehavior],
-    
+
     ready: function(){
-      
+
     }
  })
 })();

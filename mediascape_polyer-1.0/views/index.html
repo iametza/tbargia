@@ -33,11 +33,11 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 		//UI.init(data.detail.components,UI.LAYOUTMODE.ADAPTABLE);
         UI.init(data.detail.components,UI.LAYOUTMODE.STATIC);
         mediascape.Communication.startApplicationContext();
-		UI.useLayout('customGrid');
+		UI.useLayout('azala');
         var location = "http://"+window.location.host+window.location.pathname;
 		mediascape.AdaptationToolkit.uiComponents.addAssociationPanel(location+"?group="+mediascape.Communication.GROUP_ID);
 		//router.init();
-		
+
 
 
 });
@@ -45,7 +45,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 </script>
 
 </head>
-<body >
+<body style="margin-left:auto;margin-right:auto;width:100%">
  <!-- Definition of each webcompoent -->
 <!--
   <x-media  id="video1" file="../resources/media/ETB2_new.mp4"  ismuted="true"></x-media>
@@ -55,6 +55,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 
   <!-- End of definition of webcompoents -->
 <template is="dom-bind" id="app">
+
 		<am-menu id="menua" noiz-ikusi="azala" route="[[route]]"></am-menu>
 		<div>
 		<iron-ajax
@@ -66,41 +67,44 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 				last-response="{{ajaxResponse}}">
 		</iron-ajax>
 		</div>
-		<am-zerrenda id="gai-nabarmendua" base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="4" nabarmendua="1" noiz-ikusi="azala" route="[[route]]" ></am-zerrenda> 
+    <am-player id="player" playerobj="{{playerobj}}" bideo-nice-name="{{params.nice_name}}" noiz-ikusi="fitxa" route="[[route]]"></am-player>
+
+		<am-zerrenda id="gai-nabarmendua" base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="4" nabarmendua noiz-ikusi="azala" route="[[route]]" ></am-zerrenda>
 		<am-zerrenda id="azken-bideoak" base-url="[[baseUrl]]" kop="4" orientation="vertical" title="Azken bideoak" noiz-ikusi="azala" route="[[route]]"></am-zerrenda>
 		<am-karruselak id="am-karruselak" motak="[[ajaxResponse.azaleko_motak]]"></am-karruselak>
-		<!-- fitxakoak
-		<am-player id="player" playerobj="{{playerobj}}" bideo-nice-name="{{params.nice_name}}"></am-player>
-		
+
+		<!-- fitxakoak -->
+
+<!--
 		<am-kontrolak id="am-kontrolak" kontrolatzeko="{{playerobj}}"></am-kontrolak>
 		<am-zerrenda id="am-zerrenda" title="Erlazionatutako bideoak"></am-zerrenda>
 		<am-karrusela class="am-karrusela" mota="[[params.mota_nice_name]]" ez-erakutsi="[[params.nice_name]]"></am-karrusela>
-		-->
-		
-		
+-->
 
 </template>
 <script>
   var app = document.querySelector('#app');
+
   app.baseUrl = "http://www.argia.eus/API/v1/multimedia";
   app.url = "http://www.argia.eus/multimedia";
   // The dom-change event signifies when the template has stamped its DOM.
-  app.addEventListener('dom-change', function() {
-    if (app.route === 'azala') {
-		app.$.azalekoDatuak.url = app.baseUrl+'/azala';
+  document.addEventListener('RoutingReady', function() {
+   if (app.route === 'azala') {
+  	app.$.azalekoDatuak.url = app.baseUrl+'/azala';
 		app.$.azalekoDatuak.generateRequest();
 	}
-    
+
+  if (app.route === 'fitxa') {
+   app.$.azalekoDatuak.url = app.baseUrl+'/azala';
+   app.$.azalekoDatuak.generateRequest();
+ }
+
   });
-  app.handleResponseAzala = function(){				
+  app.handleResponseAzala = function(){
   };
-  
-  app._erakutsi = function(route, actual_route){
-    return route === actual_route;
-  }
-  
-  
-new loadingPanel('/resources/images/mediascape_logo.png',10);
+
+
+new loadingPanel('/resources/images/mediascape_logo.png',6);
 </script>
 </body>
 

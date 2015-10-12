@@ -127,47 +127,49 @@
    }
 
   });
-  
+
   define ("router", ["page"],
     function (page) {
 
     var router = {};
-    
+
     router.init = function(){
-      
+
       _this = Object.create( router );
       // imports are loaded and elements have been registered
       window.addEventListener('WebComponentsReady', function() {
         var app = document.querySelector('#app');
+          var routingEvent = new Event("RoutingReady");
         page('/', function () {
-          
-          
           console.log('router azala');
           app.route = 'azala';
-          
+          document.dispatchEvent(routingEvent);
+
         });
-  
+
         page('/:mota_nice_name', function (data) {
           // azala.route = 'mota';
           //azala.params = data.params;
-        }); 
-        
+        });
+
         page('/:mota_nice_name/:nice_name', function (data) {
           console.log('router fitxa');
           app.route = 'fitxa';
           app.params = data.params;
-        }); 
-        
+          document.dispatchEvent(routingEvent);
+
+        });
+
         // add #! before urls
         page({
-          hashbang: true
+          hashbang: false
         });
       });
       return _this;
     };
-     
-    
-    
+
+
+
     document.addEventListener('mediascape-modules-ready',function(){
     });
     router.__moduleName = "router";
@@ -175,8 +177,8 @@
     return router;
 
   });
-  
-  
+
+
   require([ "router" ], function (router) {
     console.log("router require");
     if (document.readyState === "complete") router.init();
@@ -185,7 +187,7 @@
       if (event.ready) return true;
       else return false;
     })
- 
+
     if (!systemReady) {
       var timeout = false;
       var time1 = new Date().getTime();
@@ -213,9 +215,9 @@
    }
 
   });
-  
 
-  
+
+
 }());
 
 var waitFor = [{name:'WebComponentsReady',ready:false}];

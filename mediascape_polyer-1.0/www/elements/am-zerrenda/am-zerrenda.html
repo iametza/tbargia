@@ -11,7 +11,7 @@
   .nabarmendua-irudia {
     width: 62%;
     margin: 10px;
-    position:relative;   
+    position:relative;
   }
   .nabarmendua-item{
     max-width: 200px;
@@ -22,7 +22,7 @@
     text-decoration: none;
   }
   .nabarmendua-item-body{
-    font-size: 1.4em;   
+    font-size: 1.4em;
     font-weight: bold;
     margin-top: 5px;
   }
@@ -77,7 +77,7 @@
     font-size: 2em;
     font-weight: bold;
     margin-top: 0;
-    
+
   }
   .data{
     color: #d70011;
@@ -90,55 +90,58 @@
     text-transform: uppercase;
     padding-top: 5px;
     font-size: 0.9em;
-  } 
+  }
   .vertical .item-body{
     width: 30%;
     float:right;
   }
   .item-body{
-    font-size: 1.4em;   
-    font-weight: bold;    
-    
+    font-size: 1.4em;
+    font-weight: bold;
+
   }
   .horizontal a{
     text-decoration: none;
     width:30%;
   }
-  
+
   @media all and (max-width: 600px) and (orientation: portrait) {
      .horizontal a{
       width:100%
     }
   }
-  
-  
+
+
   .vertical .item-image{
      width: 65%;
     float:left;
     padding-bottom: 15px;
   }
   .horizontal .item{
-   margin: 0 10px 10px 10px;    
+   margin: 0 10px 10px 10px;
   }
-  .horizontal .item-image{ 
+  .horizontal .item-image{
     padding-bottom: 5px;
   }
- 
+
 </style>
 
 <template>
-  <template is="dom-if" if="{{erakutsi}}">
-  <h3><a href="/">Hasiera</a></h3>
   <iron-ajax
-          id="bideoakHartu"        
+          id="bideoakHartu"
           url=""
           method='GET'
           handle-as="json"
           on-response="handleResponse"
           last-response="{{ajaxResponse}}"></iron-ajax>
+
+<button on-click="handleInit">Init</button>
+<template is="dom-if" if="{{erakutsi}}">
+  <h3><a href="/">Hasiera</a></h3>
+
   <template is="dom-if" if="{{ nabarmendua }}">
     <h1 class="title">Gai nabarmendua: <empty>{{ title }}</empty></h1>
-    <div class="layout horizontal wrap center">      
+    <div class="layout horizontal wrap center">
       <div class="nabarmendua-irudia">
           <a href$="{{url(nabarmendua.nice_name, nabarmendua.mota_nice_name)}}">
                <img class="play" src="http://www.argia.eus/template/images/play-borobila.png">
@@ -149,53 +152,53 @@
         <a class="esteka-grisa" href$="{{url(nabarmendua.nice_name, nabarmendua.mota_nice_name)}}">
             <div class="izenburua">{{nabarmendua.izenburua}}</div>
         </a>
-        <div class="azalpena" id="azalpena">          
+        <div class="azalpena" id="azalpena">
         </div>
       </div>
     </div>
-    <div class="layout horizontal wrap center">    
+    <div class="layout horizontal wrap center">
       <template is="dom-repeat" items="{{ajaxResponse.elementuak}}">
-        <a href$="{{url(item.nice_name, item.mota_nice_name)}}" class="nabarmendua-item"> 
-          <img width="100%" src="{{item.irudi_txikia}}">         
+        <a href$="{{url(item.nice_name, item.mota_nice_name)}}" class="nabarmendua-item">
+          <img width="100%" src="{{item.irudi_txikia}}">
           <div class="nabarmendua-item-body">
             <div class="data">{{item.data}}</div>
             <empty>{{item.izenburua}}</empty>
             <div class="mota">{{item.mota_sing}}</div>
-          </div>        
+          </div>
         </a>
       </template>
      <!-- <paper-spinner id="spinner" alt="Kargatzen..." active></paper-spinner>   -->
     </div>
-    
+
   </template>
   <template is="dom-if" if="{{ !nabarmendua }}">
-    <h1 class="title2">{{ title }}</h1>       
-    <section class$="{{classOrientation}}">     
-        
+    <h1 class="title2">{{ title }}</h1>
+    <section class$="{{classOrientation}}">
+
         <template is="dom-repeat" items="{{ajaxResponse.elementuak}}">
           <a href$="{{url(item.nice_name, item.mota_nice_name)}}">
-            <div class="item">              
-              <div class="item-image"><img width="100%" src="{{item.irudi_txikia}}"></div>         
+            <div class="item">
+              <div class="item-image"><img width="100%" src="{{item.irudi_txikia}}"></div>
               <div class="item-body">
                 <div class="data">{{item.data}}</div>
                 <empty>{{item.izenburua}}</empty>
                 <div class="mota">{{item.mota_sing}}</div>
-              </div>              
+              </div>
             </div>
           </a>
         </template>
         <!-- <paper-spinner id="spinner" alt="Kargatzen..." active></paper-spinner>   -->
-    </section>   
+    </section>
    </template>
   </template>
 </template>
      <script>
-       (function () {      
+       (function () {
       Polymer({
         is: 'am-zerrenda',
         behaviors: [ComponentQueryBehavior,
                     TBArgia.RoutingBehavior],
-        properties: {          
+        properties: {
           title: String,
           orientation: {
             type: String,
@@ -205,7 +208,7 @@
           baseUrl: {
             type: String,
             value: ''
-          },         
+          },
           classOrientation: {
             type: String,
             computed: 'getClass(orientation)'
@@ -215,8 +218,8 @@
             notify: true,
           },
           nabarmendua: {
-            type: Number,
-            value: 0
+            type: Boolean,
+            value: false
           },
           mota: {
             type: String,
@@ -231,30 +234,39 @@
             value: 0
           }
         },
-        ready: function() {          
+        ready: function() {
           this.init();
         },
         handleResponse: function(res){
-          if(this.nabarmendua == 1){
-            this.nabarmendua = this.ajaxResponse.elementuak[0];           
+            console.log('handleResponse');
+          if(this.nabarmendua){
+            this.nabarmendua = this.ajaxResponse.elementuak[0];
             document.getElementById('azalpena').innerHTML = this.ajaxResponse.elementuak[0].azalpena;
             this.ajaxResponse.elementuak.splice(0,1);
           }
         },
         getClass: function(orientation){
           return 'layout wrap '+orientation;
-        },       
+        },
         url: function(nice_name, mota_nice_name){
           return mota_nice_name + '/' + nice_name;
         },
         init: function() {
           // template aktiboa
           if (this.erakutsi) {
-            this.$.bideoakHartu.url = this.baseUrl+'/elementuak?nice_name_etiketa='+this.tag+'&nice_name_mota='+this.mota+'&zenbat='+this.kop;          
-            this.$.bideoakHartu.generateRequest();          
+            this.$.bideoakHartu.url = this.baseUrl+'/elementuak?nice_name_etiketa='+this.tag+'&nice_name_mota='+this.mota+'&zenbat='+this.kop;
+            this.$.bideoakHartu.generateRequest();
           }
+        },
+        _erakutsiChanged: function(newValue, oldValue){
+          this.init();
+        },
+        handleInit: function(){
+          this.init();
         }
-       
+
+
+
       });
     })();
      </script>

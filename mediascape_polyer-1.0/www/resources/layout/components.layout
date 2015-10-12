@@ -14,7 +14,7 @@
   needs:none;
   order:5;
   rwidth:1000px;
-  propx:3;
+  propx:4;
   propy:1;
   required:true;
   duplicable:true;
@@ -26,9 +26,9 @@
 #azken-bideoak{
   needs:none;
   order:7;
-  rwidth:200px;
+  rwidth:1000px;
   propx:1;
-  propy:5;
+  propy:4;
   required:true;
   duplicable:true;
   bestfit:smallestScreenSize;
@@ -39,8 +39,20 @@
 #gai-nabarmendua{
   needs:none;
   order:2;
-  rwidth:900px;
-  propx:1.5;
+  rwidth:1000px;
+  propx:2;
+  propy:1;
+  required:true;
+  duplicable:true;
+  bestfit:biggestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+#player{
+  needs:none;
+  order:8;
+  rwidth:1000px;
+  propx:2;
   propy:1;
   required:true;
   duplicable:true;

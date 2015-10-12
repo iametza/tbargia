@@ -41,8 +41,8 @@ define(
   ["ui"
   ],
   function(){
-    
-    
+
+
 
     uiComponents = function uiComponents(atk,i,atk){
 
@@ -554,6 +554,7 @@ define(
     }
 
 
+
     var scope=this;
 
     //component manager table
@@ -651,7 +652,10 @@ define(
         var compImg=document.createElement('img');
         compImg.src=srcs[i];
         compImg.style.width='50px';/*'calc('+associationPanel.querySelector('#smallTable').style.width+'/6)';*/
+        var compName = document.createElement('span');
+        compName.innerHTML = cmps[i];
         th1.appendChild(compImg);
+        th1.appendChild(compName);
         tr.appendChild(th1);
         for(var j=0;j<agents.length;j++){
           var th2=document.createElement('td');
@@ -973,7 +977,7 @@ define(
                     layouts.style.backgroundColor='#222930';
 
               });
-              
+
               cmpManager.addEventListener('click',function(){
 
                     if(associationPanel.querySelector('#code')){
@@ -986,7 +990,7 @@ define(
                     layouts.style.backgroundColor='#222930';
 
               });
-              
+
               menu.appendChild(cmpManager);
 
               //Layout change
