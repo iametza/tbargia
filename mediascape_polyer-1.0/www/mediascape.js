@@ -92,43 +92,11 @@
     console.log("mediascape require");
     if (document.readyState === "complete") mediascape.init();
     else setTimeout(mediascape.init,2000);
-    var systemReady = waitFor.every(function(event){
-      if (event.ready) return true;
-      else return false;
-    })
-  /*     setTimeout(function(){
-        var event = new CustomEvent("mediascape-modules-ready", {"detail":{"loaded":true}});
-        document.dispatchEvent(event);
-      },4000);*/
-    if (!systemReady) {
-      var timeout = false;
-      var time1 = new Date().getTime();
-      var waitForTmp = waitFor;
-      var intervalId = setInterval(
-        function (){
-          systemReady = waitForTmp.every(function(event){
-            if (event.ready) return true;
-            else return false;
-          });
-          var time2 = new Date().getTime();
-          if (time2-time1>15000) timeout=true;
-          if (timeout){
-              clearInterval(intervalId);
-              throw Error("Timeout getting ready system, events related:"+waitForTmp.map(function(d){return d.name+".ready="+d.ready;}));
-           }
-          else if (systemReady){
-              clearInterval(intervalId);
-              var event = new CustomEvent("mediascape-ready", {"detail":{"loaded":true}});
-              document.dispatchEvent(event);
-        }
 
-      },500);
-
-   }
 
   });
 
-  define ("router", ["page"],
+  define ("router", ["page","mediascape"],
     function (page) {
 
     var router = {};
@@ -137,7 +105,7 @@
 
       _this = Object.create( router );
       // imports are loaded and elements have been registered
-      window.addEventListener('WebComponentsReady', function() {
+
         var app = document.querySelector('#app');
           var routingEvent = new Event("RoutingReady");
         page('/', function () {
@@ -164,14 +132,9 @@
         page({
           hashbang: false
         });
-      });
       return _this;
     };
 
-
-
-    document.addEventListener('mediascape-modules-ready',function(){
-    });
     router.__moduleName = "router";
     window.router = router;
     return router;
@@ -182,47 +145,11 @@
   require([ "router" ], function (router) {
     console.log("router require");
     if (document.readyState === "complete") router.init();
-    else setTimeout(router.init(), 2000);
-    var systemReady = waitFor.every(function(event){
-      if (event.ready) return true;
-      else return false;
-    })
+    else setTimeout(router.init, 4000);
 
-    if (!systemReady) {
-      var timeout = false;
-      var time1 = new Date().getTime();
-      var waitForTmp = waitFor;
-      var intervalId = setInterval(
-        function (){
-          systemReady = waitForTmp.every(function(event){
-            if (event.ready) return true;
-            else return false;
-          });
-          var time2 = new Date().getTime();
-          if (time2-time1>15000) timeout=true;
-          if (timeout){
-              clearInterval(intervalId);
-              throw Error("Timeout getting ready system, events related:"+waitForTmp.map(function(d){return d.name+".ready="+d.ready;}));
-           }
-          else if (systemReady){
-              clearInterval(intervalId);
-              var event = new CustomEvent("mediascape-ready", {"detail":{"loaded":true}});
-              document.dispatchEvent(event);
-        }
-
-      },500);
-
-   }
 
   });
 
 
 
 }());
-
-var waitFor = [{name:'WebComponentsReady',ready:false}];
-waitFor.forEach (function(event){
-  document.addEventListener(event.name, function(e) {
-    event.ready = true;
-  });
-},this);
