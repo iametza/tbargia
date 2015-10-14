@@ -220,11 +220,11 @@ define(
             //mediascape.AdaptationToolkit.uiComponents.infoPanel('Layout info','<p>Components Number: '+cmps.length+'</p><p> Rendering layout: '+actualLayout.name+'</p>','250px','1%','6%');
             This.updateComponentQuery();
       }
-      this.onWindowResize = function (event){
+    this.onWindowResize = function (event){
         // Filter only showing ones
         //cmps = cmds.filter(function(el){});
-
-       if(prev_orientation!==undefined && prev_orientation!==''){
+      if(event.srcElement.orientation!==undefined){
+        if(prev_orientation!==undefined && prev_orientation!==''){
 
             if(prev_orientation !== event.srcElement.orientation  ){
 
@@ -233,8 +233,7 @@ define(
                 console.log (layoutIndex,cmps.length);
                 actualLayout.unload(cmps);
 
-                if (This.layoutMode === This.LAYOUTMODE.ADAPTABLE)
-                 actualLayout = This.findBestLayout(cmps)[0];
+                actualLayout = This.findBestLayout(cmps)[0];
                 this.layout(cmps,'onLayoutChange');
 
                 this.forceRedraw();
@@ -255,14 +254,14 @@ define(
          prev_orientation=event.srcElement.orientation;
 
       }
-
-    else{
-          if (event.detail !="emulate")
-          {
-            console.log("RESIZING",event);
-            this.layout(cmps,'onResizeEvent');
-          }
-        }
+     }
+      else{
+           if (event.detail !="emulate")
+           {
+             console.log("RESIZING",event);
+             this.layout(cmps,'onResizeEvent');
+           }
+         }
 
 
 
