@@ -37,7 +37,7 @@ single carousel that adapts its layout behavior to its applied styling.
 <link rel="import" href="../../../bower_components/basic-trackpad-direction/basic-trackpad-direction.html">
 <link rel="import" href="../../../bower_components/basic-swipe-direction/basic-swipe-direction.html">
 <link rel="import" href="../../../bower_components/basic-direction-selection/basic-direction-selection.html">
-<link rel="import" href="../../../bower_components/basic-item-selection/basic-item-selection.html">
+<link rel="import" href="../basic-item-selection/basic-item-selection.html">
 <link rel="import" href="../../../bower_components/basic-accessible-list/basic-accessible-list.html">
 <link rel="import" href="../../../bower_components/basic-content-items/basic-content-items.html">
 <link rel="import" href="../../../bower_components/basic-children-content/basic-children-content.html">
@@ -142,8 +142,8 @@ Polymer({
   ready: function() {
     this.$.spread.addEventListener('basic-layout', function(event) {
       var viewport = this.$.viewport;
-      //viewport.style.width = (this.showItems * event.detail.width) + 'px';
       viewport.style.height = (event.detail.height + 50) + 'px';
+      this.selectFirst(); // bestela indizea mugitua gelditzen da
     }.bind(this));
   },
 
@@ -198,7 +198,6 @@ Polymer({
    * @method selectNext
    */
   selectNext: function() {
-    console.log('canSelectNext: ' + this.collective.canSelectNext);
     return this.collective.selectNext();
   },
 

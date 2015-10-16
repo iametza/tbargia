@@ -60,3 +60,56 @@
   movable:true;
   icon:../resources/images/icons_manag/Irunea.png;
 }
+
+#am-kontrolak{
+  needs:none;
+  order:9;
+  rwidth:1000px;
+  propx:8;
+  propy:1;
+  required:true;
+  duplicable:true;
+  bestfit:smallestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+
+#am-kontrolak{
+  needs:none;
+  order:9;
+  rwidth:1000px;
+  propx:8;
+  propy:1;
+  required:true;
+  duplicable:true;
+  bestfit:smallestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+
+#erlazionatutakoak{
+  needs:none;
+  order:10;
+  rwidth:1000px;
+  propx:4;
+  propy:1;
+  required:true;
+  duplicable:true;
+  bestfit:smallestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+
+#karrusela-fitxa{
+  needs:none;
+  order:11;
+  rwidth:1000px;
+  propx:4;
+  propy:1;
+  required:true;
+  duplicable:true;
+  bestfit:smallestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+

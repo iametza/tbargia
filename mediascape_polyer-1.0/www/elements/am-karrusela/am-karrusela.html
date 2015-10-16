@@ -190,7 +190,7 @@
        
     <h2><a href$="[[title_url]]">{{title}}</a></h2>
     <template is="dom-if" if="isReady">
-      <basic-arrow-direction target="child" aria-label="Flags">
+      <basic-arrow-direction target="child" aria-label="Karrusela">
         <basic-carousel-fit id="carouselFit">
           <template id="itemak" is="dom-repeat" items="{{ajaxResponse.elementuak}}">      
             <paper-material elevation="1" class="karrusela-container">
@@ -208,7 +208,6 @@
         </basic-carousel-fit>
       </basic-arrow-direction>
     </template>
-  
   </template>
   <script>
     (function () {
@@ -257,10 +256,15 @@
         
         ready: function() {
            this.isReady = false;
-         
-         
-          
-         
+           
+           this.addEventListener('dom-change', function(){
+            if (this.isReady) {
+              Polymer.dom(this.root).querySelector('#carouselFit').selectFirst();
+            }
+            
+           });
+           
+        
         },
         erantzunaJaso: function(e, request){
            

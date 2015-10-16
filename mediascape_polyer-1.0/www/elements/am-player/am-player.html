@@ -145,6 +145,10 @@
           youtubeId: {
             type: String,
             observer: '_youtubeIdChanged'
+          },
+          vimeoId: {
+            type: String,
+            observer: '_vimeoIdChanged'
           }
 
 
@@ -158,11 +162,11 @@
           console.log('youtubeid: ' + newValue);
 
         },
-        getid: function(){
-          console.log('klik');
-           console.log(this.$$('#bideoplayer'));
-        },
+        _vimeoIdChanged: function(newValue, oldValue){
+          console.log('vimeoid: ' + newValue);
 
+        },
+       
         playvimeo: function(){
           $f(this.vimeoplayer).api('play');
         },
@@ -171,21 +175,24 @@
            this.addEventListener('google-youtube-ready', function(){
               console.log('google-youtube-ready');
               this.playerobj = this.$$('#bideoplayer');
-            });
+           });
 
            this.addEventListener('vimeo-player-response', function(event){
             var vimeoPlayers = document.querySelectorAll('iframe');
             this.vimeoplayer = vimeoPlayers[0];
             this.playerobj = this.vimeoplayer;
-
-
             });
-
-
+           
+           document.addEventListener('applicationContext-ready', function(data){
+             var appContext = mediascape.Communication.getApplicationContext();
+              var agents = appContext.getAgents(); // all agents in AppContext (including self)
+              console.log(agents);
+           });
 
 
         },
         elementuaJaso: function(e, request){
+          console.log('elementuaJaso');
 
             if (this.elementuaResponse) {
              this.$.bideoAzalpena.innerHTML = this.elementuaResponse.azalpena;

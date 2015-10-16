@@ -227,7 +227,8 @@
           },
           tag: {
             type: String,
-            value: ''
+            value: '',
+            observer: '_tagChanged'
           },
           kop: {
             type: Number,
@@ -235,7 +236,7 @@
           }
         },
         ready: function() {
-          this.init();
+          
         },
         handleResponse: function(res){
             console.log('handleResponse');
@@ -253,10 +254,16 @@
         },
         init: function() {
           // template aktiboa
-          if (this.erakutsi) {
+          if (this.erakutsi && this.tag!="") {
+            if (this.tag == "none") {
+              this.tag="";
+            }
             this.$.bideoakHartu.url = this.baseUrl+'/elementuak?nice_name_etiketa='+this.tag+'&nice_name_mota='+this.mota+'&zenbat='+this.kop;
             this.$.bideoakHartu.generateRequest();
           }
+        },
+        _tagChanged: function(newValue, oldValue){
+          this.init();
         },
         _erakutsiChanged: function(newValue, oldValue){
           this.init();

@@ -481,14 +481,14 @@ define(
           associationPanel.style.transition="width 0.5s,height 0.5s";
           var arrowPanel = document.createElement('img');
           arrowPanel.style.position="fixed";
-          arrowPanel.src="../resources/images/logo.png";
+          arrowPanel.src="/resources/images/logo.png";
           arrowPanel.style.top="5";
           arrowPanel.style.marginLeft="10px";
           arrowPanel.width="70";
           arrowPanel.height="70";
           var arrowoffPanel = document.createElement('img');
           arrowoffPanel.style.position="fixed";
-          arrowoffPanel.src="../resources/images/arrowoff.png";
+          arrowoffPanel.src="/resources/images/arrowoff.png";
           arrowoffPanel.style.marginTop="30%";
           arrowoffPanel.style.marginLeft="4px";
           arrowoffPanel.width="30";
@@ -552,9 +552,7 @@ define(
     for(var p=0;p<cmps1.length;p++){
       srcs.push(cmps1[p].lproperties.icon);
     }
-
-
-
+    
     var scope=this;
 
     //component manager table
@@ -572,7 +570,7 @@ define(
     for(var k=0;k<agents.length;k++){
       var dev=document.createElement('th');
       var deviceImg=document.createElement('img');
-      deviceImg.src='resources/images/icons_manag/device.png';
+      deviceImg.src='/resources/images/icons_manag/device.png';
       (function(dImage,agent,dev){
 
               if (agent.capabilities['platform'].deviceType==="Desktop") dImage.src = 'resources/images/icons_manag/pc.png';
@@ -583,7 +581,7 @@ define(
               if (agent.capabilities['platform'].fiability>0.5 && agent.capabilities['platform'].fiability<=0.7){
 
                     var warning = document.createElement('img');
-                    warning.src="resources/images/warning.png";
+                    warning.src="/resources/images/warning.png";
                     warning.style.width="30px";
                     warning.style.height="30px";
                     warning.addEventListener('click',(function(){
@@ -600,9 +598,9 @@ define(
                     dev.appendChild(warning);
               }
               else if (agent.capabilities['platform'].fiability<0.5){
-                  dImage.src="resources/images/icons_manag/unknown.png"
+                  dImage.src="/resources/images/icons_manag/unknown.png"
                   var warning = document.createElement('img');
-                  warning.src="resources/images/warning.png";
+                  warning.src="/resources/images/warning.png";
                   warning.style.width="30px";
                   warning.style.height="30px";
                   warning.addEventListener('click',(function(){
@@ -640,9 +638,8 @@ define(
     associationPanel.appendChild(tableStyle);
 
     var tbody=document.createElement('tbody');
-
     for(var i=0;i<srcs.length;i++){
-
+      
         var tr=document.createElement('tr');
 
 
@@ -666,15 +663,15 @@ define(
             th3.style.padding='0 2em 0 2em';
             var viewImg=document.createElement('img');
             if(agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].show===true){
-              viewImg.src="resources/images/icons_manag/eye.png";
+              viewImg.src="/resources/images/icons_manag/eye.png";
             }
             else{
-              viewImg.src="resources/images/icons_manag/eye_closed.png";
+              viewImg.src="/resources/images/icons_manag/eye_closed.png";
             }
             viewImg.id=cmps[i]+"viewImgSmall"+agents[j].id;
             viewImg.style.width='40px';/*'calc('+associationPanel.querySelector('#smallTable').style.width+'/10)';*/
             !function outer(j){
-            viewImg.addEventListener("tap",function(e){
+            viewImg.addEventListener(actionEvent, function(e){ // iametza
 
               if(agents[j].capabilities.componentsStatus[document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId').split('compId')[1]].show===true){
 
@@ -693,7 +690,7 @@ define(
                 else{*/
 
 
-                e.srcElement.src='resources/images/icons_manag/eye_closed.png';
+                e.srcElement.src='/resources/images/icons_manag/eye_closed.png';
 
                 associationPanel.querySelector('#bigTable').querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]+'soundImgSmall'+agents[j].id).src='';
 
@@ -711,7 +708,7 @@ define(
 
                 document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).style.display='block';
 
-                e.srcElement.src='resources/images/icons_manag/eye.png';
+                e.srcElement.src='/resources/images/icons_manag/eye.png';
                 if(document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).lproperties.duplicable==='false'){
                   agents.forEach(function(ag){
                     if(ag.capabilities.componentsStatus[document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId').split('compId')[1]].show === true)
@@ -751,18 +748,18 @@ define(
             if(agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].show===true){
             if(agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('mutePlayer')===-1 && agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('soundPlayer')===-1){
               if(document.querySelector('#'+cmps[i]).ismuted==='false'){
-                soundImg.src="resources/images/icons_manag/sound.png";
+                soundImg.src="/resources/images/icons_manag/sound.png";
               }
               else{
-                soundImg.src="resources/images/icons_manag/mute.png";
+                soundImg.src="/resources/images/icons_manag/mute.png";
               }
             }
             else{
             if(agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('mutePlayer')>agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('soundPlayer')){
-              soundImg.src="resources/images/icons_manag/mute.png";
+              soundImg.src="/resources/images/icons_manag/mute.png";
             }
             else{
-              soundImg.src="resources/images/icons_manag/sound.png";
+              soundImg.src="/resources/images/icons_manag/sound.png";
             }
           }
             }
@@ -784,7 +781,7 @@ define(
               else{
 
                 mediascape.Communication.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('soundImgSmall')[0]).getAttribute('compId'),'soundPlayer');
-                e.srcElement.src='resources/images/icons_manag/sound.png';
+                e.srcElement.src='/resources/images/icons_manag/sound.png';
 
                 volume=1;
               }
@@ -797,17 +794,17 @@ define(
           //If not a video, sound/mute is not necessary
           else{
             var viewImg=document.createElement('img');
-
+           
             if(agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].show===true){
-              viewImg.src="resources/images/icons_manag/eye.png";
+              viewImg.src="/resources/images/icons_manag/eye.png";
             }
             else{
-              viewImg.src="resources/images/icons_manag/eye_closed.png";
+              viewImg.src="/resources/images/icons_manag/eye_closed.png";
             }
             viewImg.id=cmps[i]+"viewImgSmall"+agents[j].id;
             viewImg.style.width='40px';/*'calc('+associationPanel.querySelector('#smallTable').style.width+'/10)';*/
             !function outer(j){
-            viewImg.addEventListener("tap",function(e){
+            viewImg.addEventListener(actionEvent, function(e){ // iametza
               if(agents[j].capabilities.componentsStatus[document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId').split('compId')[1]].show===true){
                 /*var repeated=false;
                 for(var l=0;l<agents.length;l++){
@@ -855,7 +852,6 @@ define(
           }
           tr.appendChild(th2);
           }
-
 
 
 

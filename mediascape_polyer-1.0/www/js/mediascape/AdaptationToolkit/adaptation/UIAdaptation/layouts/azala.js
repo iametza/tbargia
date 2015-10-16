@@ -3,8 +3,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
     var azala = new LayoutConstructor('azala');
     azala.onComponentsChange = function (cmps){
-        console.log("azala Layout");
-        this.cmps = cmps;
+      this.cmps = cmps;
       var components = mediascape.AdaptationToolkit.componentManager.core.getComponents();
       for(var i=0;i<components.length;i++){
         components[i].style.width='';
@@ -163,7 +162,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
       var container=document.querySelector('#componentsContainer');
 
       container.style.overflowX='';
-
+/*
       container.style.display='grid';
       container.style.gridAutoFlow='row dense';
 
@@ -177,10 +176,10 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
      container.style.gridTemplateColumns='repeat('+columns+','+c_width+'px)';
      container.style.gridTemplateRows='repeat('+r+','+r_height+'px)';
-
+*/
      for(var i=0;i<cmps.length;i++)
      {
-       console.log("cmps", cmps[i]);
+      // console.log("cmps", cmps[i]);
 /*
         cmps[i].style.order=cmps[i].lproperties.order;
         cmps[i].style.gridColumn='span '+Math.round(parseInt(cmps[i].lproperties.rwidth.split('px')[0])/c_width);

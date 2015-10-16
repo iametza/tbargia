@@ -132,18 +132,21 @@
     function (page) {
 
     var router = {};
+    var moduleList   = Array.prototype.slice.apply( arguments );
 
     router.init = function(){
-
-      _this = Object.create( router );
-      // imports are loaded and elements have been registered
-      window.addEventListener('WebComponentsReady', function() {
+      
+    _this = Object.create( router );
+    
+    // imports are loaded and elements have been registered
+    document.addEventListener('applicationContext-ready', function(data){
         var app = document.querySelector('#app');
-          var routingEvent = new Event("RoutingReady");
+        var routingEvent = new Event("RoutingReady");
         page('/', function () {
           console.log('router azala');
           app.route = 'azala';
           document.dispatchEvent(routingEvent);
+          
 
         });
 
@@ -173,6 +176,7 @@
     document.addEventListener('mediascape-modules-ready',function(){
     });
     router.__moduleName = "router";
+    router.page = page;
     window.router = router;
     return router;
 

@@ -143,6 +143,7 @@ function(){
         }
       }
       else if( change.type === 'AGENT_CHANGE' ) {
+        console.log('communication AGENT_CHANGE');
         if( change.value === 'joined' ) {
           if( hasAgent(change.agentid) == false) {  // new agent joined, add it into the list
             context.num_of_agents += 1;

@@ -86,6 +86,11 @@ function ExpressServer() {
     app.set('views', __dirname + '/../views');
     app.set('view engine', 'ejs');
     app.engine('html', require('ejs').renderFile);
+    
+    /* bower_components ruta estatikoa */
+    app.use('/bower_components',  express.static(__dirname + '/../bower_components'));
+    app.use('/elements', express.static(__dirname + '/../www/elements'));
+    app.use('/styles', express.static(__dirname + '/../www/styles'));
 
 
     app.use(cookieParser());
@@ -109,20 +114,25 @@ function ExpressServer() {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    /* bower_components ruta estatikoa */
-    app.use('/bower_components',  express.static(__dirname + '/../bower_components'));
+    
+    
+   // app.use(app.router);
+
 
 
     app.get('/', function (req, res) {
+        console.log('express: /')
         res.render('index.html');
     });
     app.get('/index.html', function (req, res) {
         res.render('index.html');
     });
-
-    /*app.get('/:mota_nice_name/:nice_name', function (req, res) {
-		res.render('fitxa', {'params': req.params});
-    });*/
+    
+  
+    app.get('/:mota_nice_name/:nice_name', function (req, res) {
+        console.log('express: /mota/nice', req.url)
+		res.render('index.html');
+    });
 
 
     app.get('/info', ensureAuthenticated, function (req, res) {
