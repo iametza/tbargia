@@ -1,0 +1,62 @@
+#menua{
+  needs:none;
+  order:1;
+  rwidth:100%;
+  propx:8;
+  propy:1;
+  required:true;
+  duplicable:true;
+  bestfit:biggestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+#am-karruselak{
+  needs:none;
+  order:5;
+  rwidth:78%;
+  propx:4;
+  propy:1;
+  required:true;
+  duplicable:true;
+  bestfit:biggestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+
+#azken-bideoak{
+  needs:none;
+  order:3;
+  rwidth:20%;
+  propx:1;
+  propy:4;
+  required:true;
+  duplicable:true;
+  bestfit:biggestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+
+#gai-nabarmendua{
+  needs:none;
+  order:2;
+  rwidth:78%;
+  propx:3;
+  propy:4;
+  required:true;
+  duplicable:true;
+  bestfit:biggestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+#player{
+  needs:none;
+  order:1;
+  rwidth:100%;
+  propx:2;
+  propy:1;
+  required:false;
+  duplicable:true;
+  bestfit:touchable;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
