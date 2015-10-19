@@ -130,7 +130,8 @@
         is: 'am-player',
         behaviors: [
           Polymer.IronResizableBehavior,
-          TBArgia.RoutingBehavior,ComponentQueryBehavior
+          TBArgia.RoutingBehavior,
+          ComponentQueryBehavior
         ],
         properties: {
           bideoNiceName: {
@@ -183,11 +184,9 @@
             this.playerobj = this.vimeoplayer;
             });
            
-           document.addEventListener('applicationContext-ready', function(data){
-             var appContext = mediascape.Communication.getApplicationContext();
-              var agents = appContext.getAgents(); // all agents in AppContext (including self)
-              console.log(agents);
-           });
+           document.addEventListener('contextUpdate', function(e) {
+			console.log('contextUpdate', e, this.id, this.compId);
+			});
 
 
         },

@@ -108,11 +108,15 @@
       // imports are loaded and elements have been registered
 
         var app = document.querySelector('#app');
-        var routingEvent = new Event("RoutingReady");
+        
         page('/', function () {
           console.log('router azala');
           app.route = 'azala';
-          document.dispatchEvent(routingEvent);
+          var routingEvent = new CustomEvent("onRouteChange",  {"detail": app.route });
+          setTimeout(function(){
+            document.dispatchEvent(routingEvent);
+          }, 2000);
+          
           
 
         });
@@ -126,6 +130,8 @@
           console.log('router fitxa');
           app.route = 'fitxa';
           app.params = data.params;
+          var routingEvent = new CustomEvent("onRouteChange", {"detail": app.route });
+          
           document.dispatchEvent(routingEvent);
 
         });

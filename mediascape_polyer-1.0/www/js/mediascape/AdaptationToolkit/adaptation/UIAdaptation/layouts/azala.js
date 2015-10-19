@@ -99,9 +99,6 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         }
       }
 
-
-
-
       var enableResizeCallback= function(){
         if(document.querySelector('drag-resize')!=null){
             componentsContainer.removeChild(document.querySelector('drag-resize'));

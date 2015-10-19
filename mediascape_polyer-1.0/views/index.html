@@ -26,6 +26,36 @@
 
 <script type="text/javascript">
 document.addEventListener('adaptationToolkit-ready',function(data){
+		
+		
+		var app = document.querySelector('#app');
+		
+		app.baseUrl = "http://www.argia.eus/API/v1/multimedia";
+		app.url = "http://www.argia.eus/multimedia";
+		// The dom-change event signifies when the template has stamped its DOM.
+		document.addEventListener('applicationContext-ready', function() {
+				
+				//mediascape.Communication.getApplicationContext().setItem('route', app.route);
+				/*
+				mediascape.Communication.getApplicationContext().on('changeState',function(key,value){
+						console.log('ruta aldatu da', key);
+				});
+				*/
+				
+				if (app.route === 'azala') {
+						app.$.azalekoDatuak.url = app.baseUrl+'/azala';
+						app.$.azalekoDatuak.generateRequest();
+				}
+				
+				if (app.route === 'fitxa') {
+						app.$.player.bideoNiceName = app.params.nice_name;
+				}
+		
+		});
+		app.handleResponseAzala = function(){
+		};
+		
+		
 
         var AE = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation;
         AE.init('bestfit');
@@ -87,35 +117,7 @@ document.addEventListener('applicationContext-ready', function(data){
 
 </template>
 <script>
-		var app = document.querySelector('#app');
 		
-		app.baseUrl = "http://www.argia.eus/API/v1/multimedia";
-		app.url = "http://www.argia.eus/multimedia";
-		// The dom-change event signifies when the template has stamped its DOM.
-		document.addEventListener('RoutingReady', function() {
-				var agents = mediascape.Communication.getAgents();
-				
-				//mediascape.Communication.getApplicationContext().setItem('route', app.route);
-				/*
-				mediascape.Communication.getApplicationContext().on('changeState',function(key,value){
-						console.log('ruta aldatu da', key);
-				});
-				*/
-				
-				if (app.route === 'azala') {
-						app.$.azalekoDatuak.url = app.baseUrl+'/azala';
-						app.$.azalekoDatuak.generateRequest();
-						console.log('mediascape agents', agents.self.agentid);
-						mediascape.Communication.setRemoteAgentComponentStatus(agents.self.agentid, document.querySelector('#gai-nabarmendua').getAttribute('compId'),'hide');
-				}
-				
-				if (app.route === 'fitxa') {
-				 app.$.player.bideoNiceName = app.params.nice_name;
-				}
-		
-		});
-		app.handleResponseAzala = function(){
-		};
 		
 		
 		new loadingPanel('/resources/images/mediascape_logo.png',6);

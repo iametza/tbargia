@@ -135,7 +135,6 @@
           on-response="handleResponse"
           last-response="{{ajaxResponse}}"></iron-ajax>
 
-<button on-click="handleInit">Init</button>
 <template is="dom-if" if="{{erakutsi}}">
   <h3><a href="/">Hasiera</a></h3>
 
@@ -267,11 +266,8 @@
         },
         _erakutsiChanged: function(newValue, oldValue){
           this.init();
-        },
-        handleInit: function(){
-          this.init();
         }
-
+       
 
 
       });

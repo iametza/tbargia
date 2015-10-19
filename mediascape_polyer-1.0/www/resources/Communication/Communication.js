@@ -45,7 +45,7 @@ function(){
     var context = {num_of_agents: 0, agents:[] };
     var local_agent_id;
     var nonUIChange = ["mutePlayer","soundPlayer"];
-    var required_capability_list = ['screenSize','platform'];
+    var required_capability_list = ['screenSize','platform', 'routingStatus'];
     for( var i=0; i<moduleList.length-1; ++i ){
       var name = moduleList[ i ].__moduleName;
       if (name==="sharedmotion") communication[name ] =  moduleList[ i ];
@@ -140,6 +140,17 @@ function(){
           if (uiRelatedChange(agent.capabilities['componentsStatus'],change.value['componentsStatus']))
             mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.localUpdate(context);
             mediascape.Communication.notifyUpdateContext(context,"cmp_changed",change.agentid);
+        }
+      }
+      else if( change.type === 'ROUTE_CHANGE' ) {
+        console.log('ROUTE_CHANGE');
+        var agent = getAgentById(change.agentid);
+        agent.capabilities[change.capability] = change.value;
+        if( hasAgent(change.agentid) ){
+
+         // if (uiRelatedChange(agent.capabilities['routingStatus'],change.value['routingStatus']))
+          //  mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.localUpdate(context);
+            mediascape.Communication.notifyUpdateContext(context,"route_changed",change.agentid);
         }
       }
       else if( change.type === 'AGENT_CHANGE' ) {
@@ -247,6 +258,21 @@ function(){
             }
           });
         }
+        
+        if (e.agentContext.capabilities()['routingStatus'])
+        if (e.agentContext.capabilities()['routingStatus']==="supported"){
+          e.agentContext.on('routingStatus', function(key, value) {
+
+            if( key && value && value!="undefined") {
+              var change = {};
+              change['type'] = 'ROUTE_CHANGE';
+              change['agentid'] = e.agentid;
+              change['capability'] = key;
+              change['value'] = value;
+              updateContext(change,e.agentContext);
+            }
+          });
+        }
 
       }
 
@@ -282,6 +308,7 @@ function(){
 
       map.getGroupMapping(_this.GROUP_ID).then(function (data1) {
         setComponentsAsIntrument();
+        setRoutingAsInstrument();
         
         if (!appCtx) {
           appCtx = mediascape.applicationContext(data1.group,{
@@ -341,6 +368,46 @@ function(){
         "componentsStatus": componentStatusInstrument
       });
     }
+    
+    var setRoutingAsInstrument = function (){
+      var ac = mediascape.agentContext;
+      var _this = this;
+      var routingStatusInstrument = {
+        init: function () {
+          this.setCapability("routingStatus", "supported");
+          document.addEventListener('onRouteChange',function(data){
+
+              ac.setItem('routingStatus',data.detail);
+
+          });
+          console.log("INIT INSTRUMENT");
+
+        },
+        on: function (){
+
+          document.addEventListener('onRouteChange',function(data){
+
+
+              ac.setItem('routingStatus',data.detail);
+
+          });
+        },
+        off: function (){
+          document.removeEventListener('onRouteChange',function(data){
+
+
+              ac.setItem('routingStatus',data.detail);
+
+
+          });
+        }
+
+      };
+      ac.load({
+        "routingStatus": routingStatusInstrument
+      });
+    }
+    
 
     communication.setRemoteAgentComponentStatus = function (agentId,cmpId,cmd){
       var agents = context.agents;
