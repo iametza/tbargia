@@ -204,10 +204,6 @@
             value: 'horizontal',
             notify: true
           },
-          baseUrl: {
-            type: String,
-            value: ''
-          },
           classOrientation: {
             type: String,
             computed: 'getClass(orientation)'
@@ -252,14 +248,17 @@
           return mota_nice_name + '/' + nice_name;
         },
         init: function() {
-          // template aktiboa
-          if (this.erakutsi && this.tag!="") {
-            if (this.tag == "none") {
-              this.tag="";
+          
+            // template aktiboa
+            if (this.erakutsi && this.tag!="") {
+              if (this.tag == "none") {
+                this.tag="";
+              }
+              this.$.bideoakHartu.url = baseUrl+'/elementuak?nice_name_etiketa='+this.tag+'&nice_name_mota='+this.mota+'&zenbat='+this.kop;
+              this.$.bideoakHartu.generateRequest();
             }
-            this.$.bideoakHartu.url = this.baseUrl+'/elementuak?nice_name_etiketa='+this.tag+'&nice_name_mota='+this.mota+'&zenbat='+this.kop;
-            this.$.bideoakHartu.generateRequest();
-          }
+  
+          
         },
         _tagChanged: function(newValue, oldValue){
           this.init();

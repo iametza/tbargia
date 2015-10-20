@@ -185,8 +185,17 @@
             });
            
            document.addEventListener('contextUpdate', function(e) {
-			console.log('contextUpdate', e, this.id, this.compId);
-			});
+            if (e.detail.type == 'route_changed') {
+              console.log('amplayer route changed', this, e);
+              // begiratu show edo hide egin behar dugun
+              if (this.noizIkusi ==  e.detail ) {
+                
+              }
+              
+              
+            }
+            
+			}.bind(this));
 
 
         },

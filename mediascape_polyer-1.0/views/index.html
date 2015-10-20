@@ -25,13 +25,14 @@
 <!-- WEBCOMPONETS END -->
 
 <script type="text/javascript">
+var app = {};
+var baseUrl = "http://www.argia.eus/API/v1/multimedia";
+var url = "http://www.argia.eus/multimedia";
 document.addEventListener('adaptationToolkit-ready',function(data){
 		
+		 var app = document.querySelector('#app');
+				
 		
-		var app = document.querySelector('#app');
-		
-		app.baseUrl = "http://www.argia.eus/API/v1/multimedia";
-		app.url = "http://www.argia.eus/multimedia";
 		// The dom-change event signifies when the template has stamped its DOM.
 		document.addEventListener('applicationContext-ready', function() {
 				
@@ -43,8 +44,11 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 				*/
 				
 				if (app.route === 'azala') {
-						app.$.azalekoDatuak.url = app.baseUrl+'/azala';
+						app.$.azalekoDatuak.url = baseUrl+'/azala';
+						console.log('azala', baseUrl+'/azala');
 						app.$.azalekoDatuak.generateRequest();
+						console.log('mediascape agents', mediascape.Communication.getAgentId());
+					
 				}
 				
 				if (app.route === 'fitxa') {
@@ -59,7 +63,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 
         var AE = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation;
         AE.init('bestfit');
-        var UI = mediascape.AdaptationToolkit.Adaptation.UIAdaptation;
+		var UI = mediascape.AdaptationToolkit.Adaptation.UIAdaptation;
 		//UI.init(data.detail.components,UI.LAYOUTMODE.ADAPTABLE);
         UI.init(data.detail.components,UI.LAYOUTMODE.STATIC);
         mediascape.Communication.startApplicationContext();
