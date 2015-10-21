@@ -1,7 +1,7 @@
 #menua{
   needs:none;
   order:1;
-  rwidth:100%;
+  rwidth:1000px;
   propx:8;
   propy:1;
   required:true;
@@ -13,7 +13,7 @@
 #am-karruselak{
   needs:none;
   order:5;
-  rwidth:78%;
+  rwidth:1000px;
   propx:4;
   propy:1;
   required:true;
@@ -25,13 +25,13 @@
 
 #azken-bideoak{
   needs:none;
-  order:3;
-  rwidth:20%;
+  order:7;
+  rwidth:1000px;
   propx:1;
   propy:4;
   required:true;
   duplicable:true;
-  bestfit:biggestScreenSize;
+  bestfit:smallestScreenSize;
   movable:true;
   icon:../resources/images/icons_manag/Irunea.png;
 }
@@ -39,9 +39,9 @@
 #gai-nabarmendua{
   needs:none;
   order:2;
-  rwidth:78%;
-  propx:3;
-  propy:4;
+  rwidth:1000px;
+  propx:2;
+  propy:1;
   required:true;
   duplicable:true;
   bestfit:biggestScreenSize;
@@ -50,22 +50,21 @@
 }
 #player{
   needs:none;
-  order:1;
-  rwidth:100%;
+  order:8;
+  rwidth:1000px;
   propx:2;
   propy:1;
-  required:false;
+  required:true;
   duplicable:true;
-  bestfit:touchable;
+  bestfit:biggestScreenSize;
   movable:true;
   icon:../resources/images/icons_manag/Irunea.png;
 }
 
-
 #am-kontrolak{
   needs:none;
   order:9;
-  rwidth:100%;
+  rwidth:1000px;
   propx:8;
   propy:1;
   required:true;
@@ -78,7 +77,7 @@
 #erlazionatutakoak{
   needs:none;
   order:10;
-  rwidth:100%;
+  rwidth:1000px;
   propx:4;
   propy:1;
   required:true;
@@ -91,7 +90,7 @@
 #karrusela-fitxa{
   needs:none;
   order:11;
-  rwidth:100%;
+  rwidth:1000px;
   propx:4;
   propy:1;
   required:true;
@@ -100,3 +99,4 @@
   movable:true;
   icon:../resources/images/icons_manag/Irunea.png;
 }
+

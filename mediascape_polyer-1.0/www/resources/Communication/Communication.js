@@ -45,7 +45,7 @@ function(){
     var context = {num_of_agents: 0, agents:[] };
     var local_agent_id;
     var nonUIChange = ["mutePlayer","soundPlayer"];
-    var required_capability_list = ['screenSize','platform', 'routingStatus'];
+    var required_capability_list = ['screenSize','platform','routingStatus'];
     for( var i=0; i<moduleList.length-1; ++i ){
       var name = moduleList[ i ].__moduleName;
       if (name==="sharedmotion") communication[name ] =  moduleList[ i ];

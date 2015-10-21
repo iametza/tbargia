@@ -572,7 +572,7 @@ define(
       var deviceImg=document.createElement('img');
       deviceImg.src='/resources/images/icons_manag/device.png';
       (function(dImage,agent,dev){
-
+        console.log('table', agent);
               if (agent.capabilities['platform'].deviceType==="Desktop") dImage.src = 'resources/images/icons_manag/pc.png';
               if (agent.capabilities['platform'].deviceType==="TV") dImage.src = 'resources/images/icons_manag/tv.png';
               if (agent.capabilities['platform'].deviceType==="Mobile") dImage.src = 'resources/images/icons_manag/mobile.png';

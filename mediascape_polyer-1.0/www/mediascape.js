@@ -110,7 +110,6 @@
         var app = document.querySelector('#app');
         
         page('/', function () {
-          console.log('router azala');
           app.route = 'azala';
           var routingEvent = new CustomEvent("onRouteChange",  {"detail": app.route });
           setTimeout(function(){
@@ -127,12 +126,13 @@
         });
 
         page('/:mota_nice_name/:nice_name', function (data) {
-          console.log('router fitxa');
           app.route = 'fitxa';
           app.params = data.params;
           var routingEvent = new CustomEvent("onRouteChange", {"detail": app.route });
+          setTimeout(function(){
+            document.dispatchEvent(routingEvent);
+          }, 2000);
           
-          document.dispatchEvent(routingEvent);
 
         });
 

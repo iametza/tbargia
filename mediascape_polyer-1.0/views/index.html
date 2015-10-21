@@ -45,10 +45,8 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 				
 				if (app.route === 'azala') {
 						app.$.azalekoDatuak.url = baseUrl+'/azala';
-						console.log('azala', baseUrl+'/azala');
 						app.$.azalekoDatuak.generateRequest();
-						console.log('mediascape agents', mediascape.Communication.getAgentId());
-					
+						
 				}
 				
 				if (app.route === 'fitxa') {
@@ -93,7 +91,7 @@ document.addEventListener('applicationContext-ready', function(data){
   <!-- End of definition of webcompoents -->
 <template is="dom-bind" id="app">
 
-		<am-menu id="menua" noiz-ikusi="azala" route="[[route]]" ></am-menu>
+		<am-menu id="menua" ></am-menu>
 		
     <am-player id="player" playerobj="{{playerobj}}" bideo-nice-name="{{params.nice_name}}" noiz-ikusi="fitxa" route="[[route]]"></am-player>
 

@@ -187,16 +187,20 @@
            document.addEventListener('contextUpdate', function(e) {
             if (e.detail.type == 'route_changed') {
               console.log('amplayer route changed', this, e);
+              agents = mediascape.Communication.getAgents();
               // begiratu show edo hide egin behar dugun
-              if (this.noizIkusi ==  e.detail ) {
-                
+              
+              if (this.noizIkusi ==  e.detail.context.agents[0].capabilities.routingStatus ) {
+                mediascape.Communication.setLocalAgentComponentStatus(agents.self.agentid, this.getAttribute('compId'),'show');
+              
+              }else{
+                mediascape.Communication.setLocalAgentComponentStatus(agents.self.agentid, this.getAttribute('compId'),'hide');
+                mediascape.Communication.setRemoteAgentComponentStatus(agents.self.agentid, this.getAttribute('compId'),'hide');
               }
               
               
             }
-            
-			}.bind(this));
-
+           }.bind(this));
 
         },
         elementuaJaso: function(e, request){
