@@ -142,20 +142,6 @@ function(){
             mediascape.Communication.notifyUpdateContext(context,"cmp_changed",change.agentid);
         }
       }
-      else if( change.type === 'ROUTE_CHANGE' ) {
-        console.log('ROUTE_CHANGE');
-        var agent = getAgentById(change.agentid);
-        agent.capabilities[change.capability] = change.value;
-        if( hasAgent(change.agentid) ){
-          if (required_capability_list.indexOf(change.capability)!=-1) {
-
-            agent.needsResolved.push(change.capability);
-          }
-          if (agent.needsResolved.length >= required_capability_list.length)
-            mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.localUpdate(context);
-            mediascape.Communication.notifyUpdateContext(context,"route_changed",change.agentid);
-        }
-      }
       else if( change.type === 'AGENT_CHANGE' ) {
         console.log('communication AGENT_CHANGE');
         if( change.value === 'joined' ) {
@@ -268,7 +254,7 @@ function(){
 
             if( key && value && value!="undefined") {
               var change = {};
-              change['type'] = 'ROUTE_CHANGE';
+              change['type'] = 'CAPABILITY_CHANGE';
               change['agentid'] = e.agentid;
               change['capability'] = key;
               change['value'] = value;
