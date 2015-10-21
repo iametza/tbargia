@@ -572,7 +572,7 @@ define(
       var deviceImg=document.createElement('img');
       deviceImg.src='/resources/images/icons_manag/device.png';
       (function(dImage,agent,dev){
-        console.log('table', agent);
+
               if (agent.capabilities['platform'].deviceType==="Desktop") dImage.src = 'resources/images/icons_manag/pc.png';
               if (agent.capabilities['platform'].deviceType==="TV") dImage.src = 'resources/images/icons_manag/tv.png';
               if (agent.capabilities['platform'].deviceType==="Mobile") dImage.src = 'resources/images/icons_manag/mobile.png';
@@ -794,7 +794,7 @@ define(
           //If not a video, sound/mute is not necessary
           else{
             var viewImg=document.createElement('img');
-           
+           console.log(agents[j].capabilities.componentsStatus);
             if(agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].show===true){
               viewImg.src="/resources/images/icons_manag/eye.png";
             }
