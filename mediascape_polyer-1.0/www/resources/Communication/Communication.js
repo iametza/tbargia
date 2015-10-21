@@ -117,7 +117,7 @@ function(){
         }
         if (required_capability_list.indexOf(change.capability)!=-1) {
           console.log(caps[c],c);
-          agent.needsResolved.push(c);
+          agent.needsResolved.push(change.capability);
         }
         agent.capabilities[change.capability] = change.value;
         if( hasAgent(change.agentid) ) {
@@ -147,9 +147,12 @@ function(){
         var agent = getAgentById(change.agentid);
         agent.capabilities[change.capability] = change.value;
         if( hasAgent(change.agentid) ){
+          if (required_capability_list.indexOf(change.capability)!=-1) {
 
-         // if (uiRelatedChange(agent.capabilities['routingStatus'],change.value['routingStatus']))
-          //  mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.localUpdate(context);
+            agent.needsResolved.push(change.capability);
+          }
+          if (agent.needsResolved.length >= required_capability_list.length)
+            mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.localUpdate(context);
             mediascape.Communication.notifyUpdateContext(context,"route_changed",change.agentid);
         }
       }
@@ -258,7 +261,7 @@ function(){
             }
           });
         }
-        
+
         if (e.agentContext.capabilities()['routingStatus'])
         if (e.agentContext.capabilities()['routingStatus']==="supported"){
           e.agentContext.on('routingStatus', function(key, value) {
@@ -309,7 +312,7 @@ function(){
       map.getGroupMapping(_this.GROUP_ID).then(function (data1) {
         setComponentsAsIntrument();
         setRoutingAsInstrument();
-        
+
         if (!appCtx) {
           appCtx = mediascape.applicationContext(data1.group,{
             autoClean: true,
@@ -368,7 +371,7 @@ function(){
         "componentsStatus": componentStatusInstrument
       });
     }
-    
+
     var setRoutingAsInstrument = function (){
       var ac = mediascape.agentContext;
       var _this = this;
@@ -407,7 +410,7 @@ function(){
         "routingStatus": routingStatusInstrument
       });
     }
-    
+
 
     communication.setRemoteAgentComponentStatus = function (agentId,cmpId,cmd){
       var agents = context.agents;
