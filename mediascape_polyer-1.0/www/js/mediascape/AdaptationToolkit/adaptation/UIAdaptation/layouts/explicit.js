@@ -4,7 +4,6 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
     var explicit = new LayoutConstructor('explicit');
     explicit.onComponentsChange = function (cmps,rule){
       console.log("explicit layout!!!");
-      console.log(rule);
       loadcssfile("/resources/explicitCss/"+rule.then.cssFile);
     //  this.render(cmps);
     }

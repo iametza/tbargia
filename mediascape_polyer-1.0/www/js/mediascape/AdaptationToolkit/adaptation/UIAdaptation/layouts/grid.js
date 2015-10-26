@@ -29,8 +29,8 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         this.render(cmps);
     }
     grid.render = function (cmps){
-        
-        
+
+
       var container=document.querySelector('#componentsContainer');
       container.style.display='grid';
       container.style.gridAutoFlow='row dense';

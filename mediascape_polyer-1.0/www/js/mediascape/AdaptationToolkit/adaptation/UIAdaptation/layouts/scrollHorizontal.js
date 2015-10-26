@@ -19,6 +19,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         components[i].style.position='';
         components[i].style.backgroundColor='';
         components[i].style.marginLeft='';
+        components[i].style.marginTop='';
         components[i].style.float='';
         components[i].style.zIndex='';
         components[i].style.boxShadow='';
@@ -95,7 +96,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
       var width = window.innerWidth ||document.documentElement.clientWidth ||document.body.clientWidth;
       var height = window.innerHeight ||document.documentElement.clientHeight ||document.body.clientHeight;
-      width=width-30;
+      width=width+10;
 
       var upArrow=document.createElement('img');
       upArrow.id='upArrowImg';
@@ -348,6 +349,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         cmps[i].style.position='';
         cmps[i].style.backgroundColor='';
         cmps[i].style.marginLeft='';
+        cmps[i].style.marginTop='';
         cmps[i].style.float='';
         cmps[i].style.zIndex='';
         cmps[i].style.boxShadow='';

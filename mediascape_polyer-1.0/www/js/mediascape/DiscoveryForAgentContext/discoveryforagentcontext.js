@@ -1,6 +1,7 @@
 define(["mediascape/Discovery/discovery","mediascape/Agentcontext/agentcontext", "shake" ], function (agentContext, Shake) {
 	var DiscoveryWP4 = function () {
 		// Synchronous items first
+		console.log("DISCOVER WP4<<<<<<<<<<<<<<<<");
 		var ac = mediascape.agentContext;
 		var instruments = {};
 		var _this = this;
@@ -363,14 +364,11 @@ define(["mediascape/Discovery/discovery","mediascape/Agentcontext/agentcontext",
 			if(data.presence === true){
 				var instrument = {
 					init: function () {
-						if (navigator.appVersion.indexOf('MK12')!=-1) {
-							this.setCapability("touchScreen", "unsupported");
-							ac.setItem("touchScreen", "unsupported");
-						}
-						else {
+
+
 							this.setCapability("touchScreen", "supported");
 							ac.setItem("touchScreen", "supported");
-						}
+
 					}
 				}
 				ac.load({

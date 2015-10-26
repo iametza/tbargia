@@ -21,6 +21,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         components[i].style.position='';
         components[i].style.backgroundColor='';
         components[i].style.marginLeft='';
+        components[i].style.marginTop='';
         components[i].style.float='';
         components[i].style.zIndex='';
         components[i].style.boxShadow='';
@@ -189,9 +190,9 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
           }
 
         }
-        a.addEventListener('click',clickFunc,true);
-        a.addEventListener('mouseout',unhoverFunc,true);
-        a.addEventListener('mouseover',hoverFunc,true);
+        Polymer.addEventListener(a,'tap',clickFunc,true);
+        Polymer.addEventListener(a,'mouseout',unhoverFunc,true);
+        Polymer.addEventListener(a,'mouseover',hoverFunc,true);
         verticalMenu.listeners.push(clickFunc);
         verticalMenu.listeners.push(unhoverFunc);
         verticalMenu.listeners.push(hoverFunc);
@@ -239,6 +240,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         cmps[i].style.position='';
         cmps[i].style.backgroundColor='';
         cmps[i].style.marginLeft='';
+        cmps[i].style.marginTop='';
         cmps[i].style.float='';
         cmps[i].style.zIndex='';
         cmps[i].style.boxShadow='';

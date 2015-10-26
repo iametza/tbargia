@@ -20,20 +20,14 @@
     },
     paths: {
     underscore:'../resources/libs/underscore-min',
-    d3:'../resources/libs/d3.v3.min',
-    '2015data':'../resources/libs/2015',
     namedwebsockets: 'mediascape/lib/namedwebsockets',
     jquery: '../resources/libs/jquery-2.1.1.min',
+    qrcode:'mediascape/lib/qrcode.min',
     socketio: '/socket.io/socket.io',
-    msv:'http://www.mcorp.no/lib/msv-2.0',
-    mcorp:'http://www.mcorp.no/lib/mcorp-2.0',
-    magicui:'../resources/libs/magic-ui-2.0',
-    magic:'../resources/libs/magic-2.0',
-    qrcode:'../resources/libs/qrcode.min',
     ui:'../resources/libs/jquery-ui',
     shake:'/resources/libs/shake',
+    association:'/resources/association/association',
     domReady:'/resources/libs/domReady',
-    discoveryforagentcontext:'/resources/libs/discoveryforagentcontext',
     page: '/resources/libs/page'
       },
     waitSeconds:25
@@ -41,14 +35,11 @@
 
 
   // Start the main app logic.
-  define( "mediascape", [ "mediascape/AdaptationToolkit/AdaptationToolkit",
-                          "mediascape/Discovery/discovery",
-                          "../resources/association/association",
-                          "../resources/Communication/Communication",
-                          "mediascape/Agentcontext/agentcontext",
-                          "mediascape/Applicationcontext/applicationcontext",
-                          "mediascape/DiscoveryForAgentContext/discoveryforagentcontext",
-                          "mediascape/DeviceProfile/deviceProfile"],
+  define( "mediascape", [ "mediascape/AdaptationToolkit/AdaptationToolkit","mediascape/Discovery/discovery"
+  ,"mediascape/Sharedstate/sharedstate","mediascape/Mappingservice/mappingservice",
+  "mediascape/Agentcontext/agentcontext","mediascape/Applicationcontext/applicationcontext",
+  "mediascape/DiscoveryForAgentContext/discoveryforagentcontext",'mediascape/DeviceProfile/deviceProfile',
+  'association'],
   function(){
       var mediascape = {};
       var discovery= {};
@@ -87,16 +78,14 @@
       //return of ms object with discovery and features objects and its functions
       return mediascape;
     });
+    require([ "mediascape" ], function (mediascape) {
+      console.log("mediascape require");
+      if (document.readyState === "complete") mediascape.init();
+      else setTimeout(mediascape.init,3000);
 
-  require([ "mediascape" ], function (mediascape) {
-    console.log("mediascape require");
-    if (document.readyState === "complete") mediascape.init();
-    else setTimeout(mediascape.init,2000);
 
-
-  });
-
-  define ("router", ["page","mediascape"],
+    });
+ define ("router", ["page"],
     function (page) {
 
     var router = {};
@@ -108,15 +97,15 @@
       // imports are loaded and elements have been registered
 
         var app = document.querySelector('#app');
-        
+
         page('/', function () {
           app.route = 'azala';
           var routingEvent = new CustomEvent("onRouteChange",  {"detail": app.route });
           setTimeout(function(){
             document.dispatchEvent(routingEvent);
-          }, 2000);
-          
-          
+          }, 3000);
+
+
 
         });
 
@@ -131,8 +120,8 @@
           var routingEvent = new CustomEvent("onRouteChange", {"detail": app.route });
           setTimeout(function(){
             document.dispatchEvent(routingEvent);
-          }, 2000);
-          
+          }, 3000);
+
 
         });
 
@@ -158,7 +147,5 @@
 
 
   });
-
-
 
 }());

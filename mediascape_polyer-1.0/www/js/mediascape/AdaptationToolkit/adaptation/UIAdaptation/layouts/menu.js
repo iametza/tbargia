@@ -17,6 +17,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         components[i].style.position='';
         components[i].style.backgroundColor='';
         components[i].style.marginLeft='';
+        components[i].style.marginTop='';
         components[i].style.float='';
         components[i].style.zIndex='';
         components[i].style.boxShadow='';
@@ -93,21 +94,18 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
     var comp_num=cmps.length-1;
     var height = window.innerHeight ||document.documentElement.clientHeight ||document.body.clientHeight;
-    main_comp_height=Math.round(0.95*(height-30));
-    var space=Math.round(0.05*(height-30));
-
+    main_comp_height=Math.round(0.95*(height+10));
+    var space=Math.round(0.05*(height+10));
 
     container.style.gridTemplateRows=main_comp_height+'px '+space+'px';
-    var small_comp_width=parseInt((width-20)/comp_num)-10;
-    var margin_w=Math.round(0.3*small_comp_width);
-    var comp_width=Math.round(0.4*small_comp_width);
-    container.style.gridTemplateColumns='10px repeat('+comp_num+','+margin_w+'px '+comp_width+'px '+margin_w+'px 10px) 10px';
+    var small_comp_width=parseInt((width-20)/comp_num);
+    
+    
+    
 
 
     var ordered_cmps=[];
-   
     ordered_cmps = cmps.sort(function(it1,it2){
-    
     if (it1.lproperties.order > it2.lproperties.order) return 1;
     else return -1;
     });
@@ -119,7 +117,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
       for(var i=0;i<comp_num+1;i++){
 
             if(i===0){
-              cl.innerHTML = '.class0 {background-color:white;object-fit:fill; grid-column:1/span '+(col_num-1)+';width:'+(width-30)+'px; grid-row:1/span 2;height:'+(main_comp_height+space)+'px;z-index:1;}';
+              cl.innerHTML = '.class0 {background-color:white;object-fit:fill;width:'+(width+10)+'px; height:'+(main_comp_height+space)+'px;z-index:1;}';
               document.getElementsByTagName('head')[0].appendChild(cl);
 
               if(resize!=true && resize!=false && show!=true && show!=false){
@@ -143,23 +141,44 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
     if(show===true)
     {
         for(var i=1;i<ordered_cmps.length;i++){
-          var comp_name = document.createElement('div');
+          var comp_name = document.createElement('span');
           comp_name.id='compDiv'+i;
           comp_name.innerHTML=document.querySelector('.class'+i).getAttribute('name')||document.querySelector('.class'+i).id;
-          comp_name.style.gridColumn=(4*i)-1+'/span 1';
-          comp_name.style.gridRow=2+'/span 1';
-
-          //comp_name.style.height='100%';
+      
+          comp_name.style.width=small_comp_width;
+          comp_name.style.height=Math.round(0.05*(height))+'px';
+          comp_name.style.marginLeft=((i-1)*parseInt(small_comp_width))+10+'px';
+          
           comp_name.style.textAlign='center';
+          comp_name.verticalAlign= 'middle';
+          comp_name.style.lineHeight=Math.round(0.05*(height))+'px';
           comp_name.style.fontSize=0.4*space+'px';
           comp_name.style.fontFamily='arial';
+
           comp_name.style.zIndex=3;
 
           comp_name.style.cursor='pointer';
           comp_name.style.color='#fff';
-          comp_name.style.position='relative';
-          comp_name.style.marginTop=(space/3)+'px';
+          comp_name.style.position='absolute';
+          comp_name.style.bottom=0;//-(Math.round(0.05*(height+10)))/3;
 
+          function unhoverFunc(event){            
+            event.srcElement.style.borderBottom='';
+            event.srcElement.style.background='';
+            event.srcElement.style.fontWeight='';
+            event.srcElement.style.height=Math.round(0.05*(height))+'px';
+          }
+
+
+          Polymer.addEventListener(comp_name,'mouseout',unhoverFunc,true);
+
+          function hoverFunc(event){
+            event.srcElement.style.background='#003545';
+           event.srcElement.style.borderBottom='5px solid lightgreen';
+           event.srcElement.style.fontWeight='bold';
+           event.srcElement.style.height=Math.round(0.05*(height))-5+'px';
+          }
+           Polymer.addEventListener(comp_name,'mouseover',hoverFunc,true);
 
           comp_name.onclick=function(){
             var aux=event.srcElement.id.split('compDiv')[1];
@@ -191,19 +210,23 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
         }
         var menu_container=document.createElement('div');
-        menu_container.style.gridRow='2/span 1';
-        menu_container.style.gridColumn='1/span '+((4*comp_num)+2-1);
-        menu_container.style.width=(width-30)+'px';
-        menu_container.style.height=Math.round(0.05*(height-30))+'px';
+        menu_container.style.position='absolute';
+        
+        menu_container.style.width=(width+10)+'px';
+        menu_container.style.height=Math.round(0.05*(height+10))+'px';
 
         menu_container.style.zIndex=2;
-        menu_container.style.borderRadius='25px';
+       
         menu_container.id='menu_container';
-        menu_container.style.background='#fff url("http://img.webme.com/pic/c/cssplantillas/wmp11menu0.png")';
-        menu_container.style.border='1px solid #000';
-        menu_container.style.borderWidth='0 1px';
-        menu_container.style.borderBottom='1px solid #444';
+        
+        menu_container.style.background='rgb(0, 64, 80);';
+        menu_container.style.background='linear-gradient(#003040, #002535)';
 
+        //menu_container.style.background='#fff url("http://img.webme.com/pic/c/cssplantillas/wmp11menu0.png")';
+        
+        menu_container.style.borderWidth='0 1px';
+        //menu_container.style.borderBottom='1px solid #444';
+        menu_container.style.bottom=0;
         container.appendChild(menu_container);
      }
 
@@ -227,6 +250,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         cmps[i].style.position='';
         cmps[i].style.backgroundColor='';
         cmps[i].style.marginLeft='';
+        cmps[i].style.marginTop='';
         cmps[i].style.float='';
         cmps[i].style.zIndex='';
         cmps[i].style.boxShadow='';

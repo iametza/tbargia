@@ -3,6 +3,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
     var fullScreenCmp;
     var pip = new LayoutConstructor('pip');
     pip.listeners = [];
+    var timers=[];
     pip.onComponentsChange = function (cmps){
         console.log("test");
     this.cmps = cmps;
@@ -17,6 +18,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         components[i].style.position='';
         components[i].style.backgroundColor='';
         components[i].style.marginLeft='';
+        components[i].style.marginTop='';
         components[i].style.float='';
         components[i].style.zIndex='';
         components[i].style.boxShadow='';
@@ -86,7 +88,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
       var scope=this;
       var timer1=0;
-      function holding(event){
+      /*function holding(event){
             //  event.preventDefault();
               console.log(event.type);
               var holdtime = 0;
@@ -105,16 +107,51 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
               },500);
 
 
-      }
+      }*/
+     /*function holding(event){
+        var clicked=document.querySelector('#'+this.id.split('fullIcon')[1]);
+        var rendered=true;
+        var _cmps = cmps;
+        scope.render(_cmps,rendered,clicked);
+      }*/
 
+      /*for(var i=0;i<cmps.length;i++){
+        cmps[i].removeEventListener('hold',holding,true);
+
+      }
       for(var i=0;i<cmps.length;i++){
-        cmps[i].removeEventListener('click',holding,true);
-
-      }
-     for(var i=0;i<cmps.length;i++){
-        cmps[i].addEventListener('click',holding,false);
+        cmps[i].addEventListener('hold',holding,true);
         pip.listeners.push(holding);
-      }
+
+      }*/
+      mediascape.AdaptationToolkit.uiComponents.addMenuToCmps(cmps,true);
+          
+      
+      cmps.forEach(function(cmp,i){
+         !function outer(i){
+        cmp.removeEventListener('mousemove',activityFunc,true);
+        
+        cmp.removeEventListener('mousemove',activityFunc,false);
+        cmp.addEventListener('mousemove',activityFunc);
+         pip.listeners.push(activityFunc);
+          function activityFunc(e){
+          
+          this.querySelector('#menuBar'+this.id).style.display='block';
+          clearTimeout(timers[i]);
+          var scope=this;
+          timers[i]=setTimeout(function(){
+            scope.querySelector('#menuBar'+scope.id).style.display='none';
+          },3000);
+        }
+        }(i);
+         
+           
+      });
+      
+      
+      
+       
+
 
 
 
@@ -123,9 +160,8 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
 
       var container=document.querySelector('#componentsContainer');
-      container.style.display='grid';
-      container.style.gridAutoFlow='';
-      container.style.overflowX='';
+      container.style.display='inline-block';
+      container.style.overflowX='hidden';
 
 
       var width = window.innerWidth ||document.documentElement.clientWidth ||document.body.clientWidth;
@@ -135,7 +171,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
       var a=width-20-Math.round(0.33*width);
       var b=Math.round(width*0.33);
 
-      container.style.gridTemplateColumns=a+'px '+b+'px ';
+
 
       var col_cmps=cmps.length-1;
       var height = window.innerHeight ||document.documentElement.clientHeight ||document.body.clientHeight;
@@ -145,6 +181,11 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
       if (it1.lproperties.order > it2.lproperties.order) return 1;
       else return -1;
       });
+
+      for(var i=0;i<ordered_cmps.length;i++){
+        ordered_cmps[i].style.position='absolute';
+      }
+
       var cmpsToColumn=[];
       if(rendered!=true && rendered!=false ){
        fullScreenCmp=ordered_cmps[0];
@@ -184,51 +225,59 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
           }
       }
       if(enough===true){
-        heights.push(height-total_height);
-        container.style.gridTemplateRows='';
-        for(var i=0;i<heights.length;i++){
-          container.style.gridTemplateRows=container.style.gridTemplateRows+' '+heights[i]+'px';
-        }
+         heights.push(height-total_height);
+       
 
-          fullScreenCmp.style.gridColumn='1/span 3';
+          //fullScreenCmp.style.gridColumn='1/span 3';
+          fullScreenCmp.style.marginLeft='0px';
           fullScreenCmp.style.width=(width+10)+'px';
           fullScreenCmp.style.height=(height+10)+'px';
-          fullScreenCmp.style.gridRow='1/span '+heights.length;
+          //fullScreenCmp.style.gridRow='1/span '+heights.length;
+          fullScreenCmp.style.marginTop='0px';
           fullScreenCmp.style.backgroundColor='white';
           fullScreenCmp.style.zIndex='1';
 
-        for(var i=0;i<col_cmps;i++){
 
-          cmpsToColumn[i].style.gridColumn='2/span 1';
+        usedHeight=0;
+        for(var i=0;i<col_cmps;i++){
+          
+          //cmpsToColumn[i].style.gridColumn='2/span 1';
+          cmpsToColumn[i].style.marginLeft=a+'px';
           cmpsToColumn[i].style.width=b+'px';
           cmpsToColumn[i].style.height=heights[(2*i+1)];
-          cmpsToColumn[i].style.gridRow=2*i+2;
+          //cmpsToColumn[i].style.gridRow=2*i+2;
+          cmpsToColumn[i].style.marginTop=usedHeight+heights[2*i]+'px';
           cmpsToColumn[i].style.backgroundColor='black';
           cmpsToColumn[i].style.zIndex='2';
-
+          usedHeight=usedHeight+heights[2*i]+heights[2*i+1];
 
 
 
         }
-
+        
 
       }
       else{
         var row_height=parseInt((height-70)/(col_cmps))-10;
-        container.style.gridTemplateRows='20px repeat('+col_cmps+','+row_height+'px 10px) 10px';
-        fullScreenCmp.style.gridColumn='1/span 3';
+        //container.style.gridTemplateRows='20px repeat('+col_cmps+','+row_height+'px 10px) 10px';
+        //fullScreenCmp.style.gridColumn='1/span 3';
+        fullScreenCmp.style.marginLeft='0px';
         fullScreenCmp.style.width=(width+10)+'px';
         fullScreenCmp.style.height=(height+10)+'px';
-        fullScreenCmp.style.gridRow='1/span '+heights.length;
+        //fullScreenCmp.style.gridRow='1/span '+heights.length;
+        fullScreenCmp.style.marginTop='0px';
         fullScreenCmp.style.backgroundColor='white';
         fullScreenCmp.style.zIndex='1';
 
+        
         for(var i=0;i<col_cmps;i++){
 
-          cmpsToColumn[i].style.gridColumn='2/span 1';
+          //cmpsToColumn[i].style.gridColumn='2/span 1';
+          cmpsToColumn[i].style.marginLeft=a+'px';
           cmpsToColumn[i].style.width=b+'px';
           cmpsToColumn[i].style.height=row_height+'px';
-          cmpsToColumn[i].style.gridRow=2*i+2;
+          //cmpsToColumn[i].style.gridRow=2*i+2;
+          cmpsToColumn[i].style.marginTop=20+(i*row_height)+(i*10)+'px';
           cmpsToColumn[i].style.backgroundColor='black';
           cmpsToColumn[i].style.zIndex='2';
 
@@ -258,6 +307,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         cmps[i].style.position='';
         cmps[i].style.backgroundColor='';
         cmps[i].style.marginLeft='';
+        cmps[i].style.marginTop='';
         cmps[i].style.float='';
         cmps[i].style.zIndex='';
         cmps[i].style.boxShadow='';
@@ -332,7 +382,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
        var scope=this;
       var timer1=0;
 
-      function holding (event){
+      /*function holding (event){
             //  event.preventDefault();
               console.log(event.type);
               var holdtime = 0;
@@ -351,18 +401,58 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
               },500);
 
 
-      }
+      }*/
 
-      for(var i=0;i<cmps.length;i++){
-        cmps[i].removeEventListener('click',holding,true);
+       /*function holding(event){
+        var clicked=document.querySelector('#'+this.id.split('fullIcon')[1]);
+        var rendered=true;
+        var _cmps = cmps;
+        scope.render(_cmps,rendered,clicked);
+      }
+*/
+      /*for(var i=0;i<cmps.length;i++){
+        cmps[i].removeEventListener('hold',holding,true);
 
       }
       for(var i=0;i<cmps.length;i++){
-        cmps[i].addEventListener('click',holding,true);
+        cmps[i].addEventListener('hold',holding,true);
         pip.listeners.push(holding);
 
-      }
+      }*/
 
+      mediascape.AdaptationToolkit.uiComponents.addMenuToCmps(cmps,true);
+          
+      
+      cmps.forEach(function(cmp,i){
+      !function outer(i){
+        cmp.removeEventListener('mousemove',activityFunc,true);
+        
+        cmp.removeEventListener('mousemove',activityFunc,false);
+        cmp.addEventListener('mousemove',activityFunc);
+          pip.listeners.push(activityFunc);
+          function activityFunc(e){
+          
+          this.querySelector('#menuBar'+this.id).style.display='block';
+          clearTimeout(timers[i]);
+          var scope=this;
+          timers[i]=setTimeout(function(){
+            scope.querySelector('#menuBar'+scope.id).style.display='none';
+          },3000);
+        }
+        }(i);
+       
+           
+      });
+      
+      
+
+
+    }
+    pip.onPriorizeComponent=function(cmp){
+        var clicked=cmp;
+        var rendered=true;
+        var _cmps = this.cmps;
+        this.render(_cmps,rendered,clicked);
     }
     pip.onResizeEvent=function(cmps){
       console.log("layout changed");
@@ -386,11 +476,13 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
     pip.unload = function(cmps){
       pip.listeners.forEach (function(listener){
       for(var i=0;i<cmps.length;i++){
-        cmps[i].removeEventListener('click',listener,true);
-        cmps[i].removeEventListener('click',listener,false);
-        cmps[i].removeEventListener('mouseup',listener,true);
+        cmps[i].removeEventListener('mousemove',listener,true);
+        
+        cmps[i].removeEventListener('mousemove',listener,false);
+        clearTimeout(timers[i]);
       }
     },this);
+     mediascape.AdaptationToolkit.uiComponents.addMenuToCmps(cmps,false);
     }
 
 
@@ -401,10 +493,8 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
   }
 
   );
-/* right click ez 
   window.oncontextmenu = function(event) {
       event.preventDefault();
       event.stopPropagation();
       return false;
   };
-*/

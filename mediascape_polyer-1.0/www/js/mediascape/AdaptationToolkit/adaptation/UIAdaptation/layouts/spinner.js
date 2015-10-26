@@ -5,6 +5,9 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
     spinner.listeners = [];
     var angle = 0;
     var fullScreenCmp='';
+    var timers=[];
+    var TO='';
+    var cmpHeight='';
     spinner.onComponentsChange = function (cmps){
         console.log("test");
         this.cmps = cmps;
@@ -18,6 +21,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         components[i].style.order='';
         components[i].style.position='';
         components[i].style.backgroundColor='';
+        components[i].style.marginTop='';
         components[i].style.marginLeft='';
         components[i].style.float='';
         components[i].style.zIndex='';
@@ -86,7 +90,29 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         }
       }
 
-
+      mediascape.AdaptationToolkit.uiComponents.addMenuToCmps(cmps,true);
+          
+      
+      cmps.forEach(function(cmp,i){
+      !function outer(i){
+        cmp.removeEventListener('mousemove',activityFunc,true);
+        
+        cmp.removeEventListener('mousemove',activityFunc,false);
+        cmp.addEventListener('mousemove',activityFunc);
+          spinner.listeners.push(activityFunc);
+          function activityFunc(e){
+          
+          this.querySelector('#menuBar'+this.id).style.display='block';
+          clearTimeout(timers[i]);
+          var scope=this;
+          timers[i]=setTimeout(function(){
+            scope.querySelector('#menuBar'+scope.id).style.display='none';
+          },3000);
+        }
+        }(i);
+       
+           
+      });
 
 
 
@@ -109,26 +135,26 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
 
       if(width>=900){
-        var TO='500px';
+        TO='500px';
       }
       else if(width<900 && width>600){
-       var TO='300px';
+       TO='300px';
 
       }
       else{
-       var TO='200px';
+        TO='200px';
       }
 
 
 
       if(height>=450){
-          var cmpHeight='300px';
+          cmpHeight='300px';
       }
       else if(height<450  && height>380){
-          var cmpHeight='200px';
+           cmpHeight='200px';
       }
       else{
-          var cmpHeight='150px';
+          cmpHeight='150px';
       }
 
 
@@ -172,96 +198,9 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         cmps[i].style.outline='1px solid transparent';
         cmps[i].style.transform='rotateY('+(0-i*deg)+'deg)';
 
-        !function outer(i){
-          function clickFunc(event){
+      }
 
-
-            event.srcElement.style.width=width+'px';
-            event.srcElement.style.height=height+'px';
-            event.srcElement.style.left='0%';
-            event.srcElement.style.transformOrigin= '';
-            event.srcElement.style.outline='';
-            event.srcElement.style.transform='';
-            event.srcElement.style.animationName='spinnerToFullscreen';
-            event.srcElement.style.animationDuration='1s';
-            event.srcElement.style.zIndex='9999';
-            event.srcElement.style.backgroundColor='white';
-            fig.style.transformStyle='';
-            fig.style.minHeight='';
-            fig.style.transformOrigin='';
-            fig.style.width='100%';
-            fig.style.height='100%';
-            fig.style.margin='0';
-            fig.style.transform='';
-            fig.style.transition='';
-
-
-            container.style.perspective='';
-            for(var j=0;j<cmps.length;j++){
-                    if(i!==j){
-                      cmps[j].style.display='none';
-                    }
-                  }
-            back.style.display='block';
-            clickedCmp=event.srcElement;
-            fullScreenCmp=event.srcElement;
-            mediascape.AdaptationToolkit.Adaptation.UIAdaptation.updateComponentQuery();
-            !function outer(clickedCmp,i){
-
-              function backFunc(event){
-                  clickedCmp.style.width='35%';
-                  clickedCmp.style.height=cmpHeight;
-                  clickedCmp.style.left='30%';
-                  clickedCmp.style.transformOrigin='50% 50% -'+TO;
-                  clickedCmp.style.outline='1px solid transparent';
-                  clickedCmp.style.transform='rotateY('+(0-i*deg)+'deg)';
-                  clickedCmp.style.zIndex='';
-                  clickedCmp.style.backgroundColor='';
-
-
-
-                  for(var j=0;j<cmps.length;j++){
-                    if(i!==j){
-                      cmps[j].style.display='block';
-                    }
-                  }
-                  fig.style.transformStyle='preserve-3d';
-                  fig.style.minHeight='122px';
-                  fig.style.transformOrigin='50% 50% -'+TO;
-
-                  fig.style.transform='rotateY('+angle+'deg)';
-                  fig.style.width='';
-                  fig.style.height='';
-                  fig.style.margin='';
-                  container.style.perspective='1200px';
-                  back.style.display='none';
-                  back.removeEventListener('tap',backFunc,true);
-                  //clickedCmp.style.animationName='fullscreenToSpinner';
-                  //clickedCmp.style.animationDuration='1s';
-                  fig.style.transition='1s';
-                  clickedCmp.style.animationName='';
-                  clickedCmp.style.animationDuration='';
-                  mediascape.AdaptationToolkit.Adaptation.UIAdaptation.updateComponentQuery();
-                  setTimeout(function(){
-
-                      clickedCmp.style.animationName='';
-                      clickedCmp.style.animationDuration='';
-                  },1500);
-                  fullScreenCmp='';
-              }
-              back.addEventListener('click',backFunc);
-              spinner.listeners.push(backFunc);
-            }(clickedCmp,i);
-
-          }
-          cmps[i].addEventListener('click',clickFunc);
-        spinner.listeners.push(clickFunc);
-
-         }(i);
-
-
-
-     }
+      
 
 
       container.appendChild(fig);
@@ -360,6 +299,137 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
       if (!sign) { angle = angle + deg; } else { angle = angle - deg; }
       spinnerFig.style.transform='rotateY('+ angle +'deg)';
     }
+
+    spinner.onPriorizeComponent=function(cmp){
+            var width = window.innerWidth ||document.documentElement.clientWidth ||document.body.clientWidth;
+            var height = window.innerHeight ||document.documentElement.clientHeight ||document.body.clientHeight;
+            var deg=360/this.cmps.length;
+            var i='';
+            for(var a=0;a<this.cmps.length;a++){
+              if(this.cmps[a].id===cmp.id)i=a;
+              
+            }
+            var scope=this;
+            spinner.listeners.forEach (function(listener){
+              for(var a=0;a<scope.cmps.length;a++){     
+                scope.cmps[a].removeEventListener('mousemove',listener,true);              
+                scope.cmps[a].removeEventListener('mousemove',listener,false);
+                clearTimeout(timers[a]);
+              }
+            });
+            
+            mediascape.AdaptationToolkit.uiComponents.addMenuToCmps(this.cmps,false);
+
+            cmp.style.width=width+'px';
+            cmp.style.height=height+'px';
+            cmp.style.left='0%';
+            cmp.style.transformOrigin= '';
+            cmp.style.outline='';
+            cmp.style.transform='';
+            cmp.style.animationName='spinnerToFullscreen';
+            cmp.style.animationDuration='1s';
+            cmp.style.zIndex='9999';
+            cmp.style.backgroundColor='white';
+            document.querySelector('#spinnerFig').style.transformStyle='';
+            document.querySelector('#spinnerFig').style.minHeight='';
+            document.querySelector('#spinnerFig').style.transformOrigin='';
+            document.querySelector('#spinnerFig').style.width='100%';
+            document.querySelector('#spinnerFig').style.height='100%';
+            document.querySelector('#spinnerFig').style.margin='0';
+            document.querySelector('#spinnerFig').style.transform='';
+            document.querySelector('#spinnerFig').style.transition='';
+
+
+            var container=document.querySelector('#componentsContainer');
+            container.style.perspective='';
+            for(var j=0;j<this.cmps.length;j++){
+              if(i!==j){
+                this.cmps[j].style.display='none';
+              }
+            }
+            var back=document.querySelector('#back');
+            back.style.display='block';
+            clickedCmp=cmp;
+            fullScreenCmp=cmp;
+            var scope=this;
+            mediascape.AdaptationToolkit.Adaptation.UIAdaptation.updateComponentQuery();
+            !function outer(clickedCmp,i){
+
+              function backFunc(event){
+                  clickedCmp.style.width='35%';
+                  clickedCmp.style.height=cmpHeight;
+                  clickedCmp.style.left='30%';
+                  clickedCmp.style.transformOrigin='50% 50% -'+TO;
+                  clickedCmp.style.outline='1px solid transparent';
+                  clickedCmp.style.transform='rotateY('+(0-i*deg)+'deg)';
+                  clickedCmp.style.zIndex='';
+                  clickedCmp.style.backgroundColor='';
+
+                  
+
+                  for(var j=0;j<scope.cmps.length;j++){
+                    if(i!==j){
+                      scope.cmps[j].style.display='block';
+                    }
+                  }
+                  document.querySelector('#spinnerFig').style.transformStyle='preserve-3d';
+                  document.querySelector('#spinnerFig').style.minHeight='122px';
+                  document.querySelector('#spinnerFig').style.transformOrigin='50% 50% -'+TO;
+
+                  document.querySelector('#spinnerFig').style.transform='rotateY('+angle+'deg)';
+                  document.querySelector('#spinnerFig').style.width='';
+                  document.querySelector('#spinnerFig').style.height='';
+                  document.querySelector('#spinnerFig').style.margin='';
+                  container.style.perspective='1200px';
+                  back.style.display='none';
+                  back.removeEventListener('tap',backFunc,true);
+                  //clickedCmp.style.animationName='fullscreenToSpinner';
+                  //clickedCmp.style.animationDuration='1s';
+                  document.querySelector('#spinnerFig').style.transition='1s';
+                  clickedCmp.style.animationName='';
+                  clickedCmp.style.animationDuration='';
+
+                  mediascape.AdaptationToolkit.Adaptation.UIAdaptation.updateComponentQuery();
+
+                  mediascape.AdaptationToolkit.uiComponents.addMenuToCmps(scope.cmps,true);
+          
+      
+                  scope.cmps.forEach(function(cmp,i){
+                  !function outer(i){
+                    cmp.removeEventListener('mousemove',activityFunc,true);
+                    
+                    cmp.removeEventListener('mousemove',activityFunc,false);
+                    cmp.addEventListener('mousemove',activityFunc);
+                      spinner.listeners.push(activityFunc);
+                      function activityFunc(e){
+                      
+                      this.querySelector('#menuBar'+this.id).style.display='block';
+                      clearTimeout(timers[i]);
+                      var scope=this;
+                      timers[i]=setTimeout(function(){
+                        scope.querySelector('#menuBar'+scope.id).style.display='none';
+                      },3000);
+                    }
+                    }(i);
+                   
+                       
+                  });
+
+
+                 
+                  setTimeout(function(){
+
+                      clickedCmp.style.animationName='';
+                      clickedCmp.style.animationDuration='';
+                  },1500);
+                  fullScreenCmp='';
+              }
+              back.addEventListener('click',backFunc);
+              spinner.listeners.push(backFunc);
+            }(clickedCmp,i);   
+            
+
+    }
     spinner.onOrientationChange = function (cmps){
       console.log("orientationCHANGED");
     }
@@ -376,6 +446,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         cmps[i].style.position='';
         cmps[i].style.backgroundColor='';
         cmps[i].style.marginLeft='';
+        cmps[i].style.marginTop='';
         cmps[i].style.float='';
         cmps[i].style.zIndex='';
         cmps[i].style.boxShadow='';
@@ -444,7 +515,29 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         }
       }
 
-
+      mediascape.AdaptationToolkit.uiComponents.addMenuToCmps(cmps,true);
+          
+      
+      cmps.forEach(function(cmp,i){
+      !function outer(i){
+        cmp.removeEventListener('mousemove',activityFunc,true);
+        
+        cmp.removeEventListener('mousemove',activityFunc,false);
+        cmp.addEventListener('mousemove',activityFunc);
+          spinner.listeners.push(activityFunc);
+          function activityFunc(e){
+          
+          this.querySelector('#menuBar'+this.id).style.display='block';
+          clearTimeout(timers[i]);
+          var scope=this;
+          timers[i]=setTimeout(function(){
+            scope.querySelector('#menuBar'+scope.id).style.display='none';
+          },3000);
+        }
+        }(i);
+       
+           
+      });
 
 
 
@@ -456,16 +549,18 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
       for(var i=0;i<cmps.length;i++){
         cmps[i].className='';
         cmps[i].style.display='block';
-
+        clearTimeout(timers[i]);
       }
+      mediascape.AdaptationToolkit.uiComponents.addMenuToCmps(cmps,false);
       if(document.querySelector('#layout_classes')!=null){
         document.head.removeChild(document.querySelector('#layout_classes'));
       }
       this.render(cmps);
+      mediascape.AdaptationToolkit.uiComponents.addMenuToCmps(cmps,true);
 
-      if(fullScreenCmp!==''){
+      /*if(fullScreenCmp!==''){
         fullScreenCmp.fire('hold',this);
-      }
+      }*/
     },
     spinner.onActivity = function(cmps,event){
         if(fullScreenCmp===''){
@@ -500,17 +595,119 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
     spinner.unload = function(cmps){
       spinner.listeners.forEach (function(listener){
       for(var i=0;i<cmps.length;i++){
-       cmps[i].removeEventListener('hold',listener,true);
-       cmps[i].removeEventListener('hold',listener,false);
+       //cmps[i].removeEventListener('hold',listener,true);
+       //cmps[i].removeEventListener('hold',listener,false);
+
+       cmps[i].removeEventListener('mousemove',listener,true);
+        
+        cmps[i].removeEventListener('mousemove',listener,false);
+        clearTimeout(timers[i]);
 
       }
       document.querySelector('#left').removeEventListener('tap',listener,true);
       document.querySelector('#right').removeEventListener('tap',listener,true);
       document.querySelector('#back').removeEventListener('tap',listener,true);
     },this);
-
+      mediascape.AdaptationToolkit.uiComponents.addMenuToCmps(cmps,false);
     }
     spinner.__moduleName = "spinnerLayout";
     return spinner;
 
   });
+
+
+
+/*
+
+        !function outer(i){
+          function clickFunc(event){
+
+
+            event.srcElement.style.width=width+'px';
+            event.srcElement.style.height=height+'px';
+            event.srcElement.style.left='0%';
+            event.srcElement.style.transformOrigin= '';
+            event.srcElement.style.outline='';
+            event.srcElement.style.transform='';
+            event.srcElement.style.animationName='spinnerToFullscreen';
+            event.srcElement.style.animationDuration='1s';
+            event.srcElement.style.zIndex='9999';
+            event.srcElement.style.backgroundColor='white';
+            fig.style.transformStyle='';
+            fig.style.minHeight='';
+            fig.style.transformOrigin='';
+            fig.style.width='100%';
+            fig.style.height='100%';
+            fig.style.margin='0';
+            fig.style.transform='';
+            fig.style.transition='';
+
+
+            container.style.perspective='';
+            for(var j=0;j<cmps.length;j++){
+                    if(i!==j){
+                      cmps[j].style.display='none';
+                    }
+                  }
+            back.style.display='block';
+            clickedCmp=event.srcElement;
+            fullScreenCmp=event.srcElement;
+            mediascape.AdaptationToolkit.Adaptation.UIAdaptation.updateComponentQuery();
+            !function outer(clickedCmp,i){
+
+              function backFunc(event){
+                  clickedCmp.style.width='35%';
+                  clickedCmp.style.height=cmpHeight;
+                  clickedCmp.style.left='30%';
+                  clickedCmp.style.transformOrigin='50% 50% -'+TO;
+                  clickedCmp.style.outline='1px solid transparent';
+                  clickedCmp.style.transform='rotateY('+(0-i*deg)+'deg)';
+                  clickedCmp.style.zIndex='';
+                  clickedCmp.style.backgroundColor='';
+
+
+
+                  for(var j=0;j<cmps.length;j++){
+                    if(i!==j){
+                      cmps[j].style.display='block';
+                    }
+                  }
+                  fig.style.transformStyle='preserve-3d';
+                  fig.style.minHeight='122px';
+                  fig.style.transformOrigin='50% 50% -'+TO;
+
+                  fig.style.transform='rotateY('+angle+'deg)';
+                  fig.style.width='';
+                  fig.style.height='';
+                  fig.style.margin='';
+                  container.style.perspective='1200px';
+                  back.style.display='none';
+                  back.removeEventListener('tap',backFunc,true);
+                  //clickedCmp.style.animationName='fullscreenToSpinner';
+                  //clickedCmp.style.animationDuration='1s';
+                  fig.style.transition='1s';
+                  clickedCmp.style.animationName='';
+                  clickedCmp.style.animationDuration='';
+                  mediascape.AdaptationToolkit.Adaptation.UIAdaptation.updateComponentQuery();
+                  setTimeout(function(){
+
+                      clickedCmp.style.animationName='';
+                      clickedCmp.style.animationDuration='';
+                  },1500);
+                  fullScreenCmp='';
+              }
+              back.addEventListener('click',backFunc);
+              spinner.listeners.push(backFunc);
+            }(clickedCmp,i);
+
+          }
+          cmps[i].addEventListener('click',clickFunc);
+        spinner.listeners.push(clickFunc);
+
+         }(i);
+
+
+
+     }
+
+*/

@@ -16,6 +16,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         components[i].style.position='';
         components[i].style.backgroundColor='';
         components[i].style.marginLeft='';
+        components[i].style.marginTop='';
         components[i].style.float='';
         components[i].style.zIndex='';
         components[i].style.boxShadow='';
@@ -86,38 +87,32 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
 
       var container=document.querySelector('#componentsContainer');
-      container.style.display='grid';
-      container.style.gridAutoFlow='column';
-      container.style.overflowX='';
-
+      container.style.display='inline-block';
+      container.style.gridAutoFlow='';
+      container.style.overflow='hidden';
+      container.style.height='100%';
       var width = window.innerWidth ||document.documentElement.clientWidth ||document.body.clientWidth;
       var height = window.innerHeight ||document.documentElement.clientHeight ||document.body.clientHeight;
       var comp_num=cmps.length;
-      width=width-30;
+      width=width+10;
 
 
-      var r_height=Math.round((height-30)/comp_num);
-
-     container.style.gridTemplateColumns=width+'px';
-     container.style.gridTemplateRows='repeat('+comp_num+','+r_height+'px)';
+      var r_height=Math.round((height+10)/comp_num); 
 
 
-      /*var ordered_cmps=[];
+      var ordered_cmps=[];
       ordered_cmps = cmps.sort(function(it1,it2){
       if (it1.lproperties.order > it2.lproperties.order) return 1;
       else return -1;
-      });*/
+      });
 
 
-     for(var i=0;i<cmps.length;i++)
-     {
-
-        cmps[i].style.order=cmps[i].lproperties.order;
-        cmps[i].style.gridColumn='span 1';
-        cmps[i].style.width=width+'px';
-        cmps[i].style.height=r_height+'px';
-        cmps[i].style.gridRow='span 1';
-        cmps[i].style.backgroundColor='black';
+     for(var i=0;i<ordered_cmps.length;i++)
+     {       
+        
+        ordered_cmps[i].style.width=width+'px';
+        ordered_cmps[i].style.height=r_height+'px';
+        ordered_cmps[i].style.backgroundColor='black';
      }
      mediascape.AdaptationToolkit.Adaptation.UIAdaptation.updateComponentQuery();
 
@@ -139,6 +134,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         cmps[i].style.position='';
         cmps[i].style.backgroundColor='';
         cmps[i].style.marginLeft='';
+        cmps[i].style.marginTop='';
         cmps[i].style.float='';
         cmps[i].style.zIndex='';
         cmps[i].style.boxShadow='';

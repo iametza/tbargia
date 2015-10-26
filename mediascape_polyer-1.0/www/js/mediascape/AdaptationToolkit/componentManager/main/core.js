@@ -45,6 +45,7 @@ define(
       var components = [];
       var componentStatus = undefined;
       this.init = function (){
+        console.log("BARRUAN");
         var layoutProp=['order','rwidth','propx','propy','bestfit','required',"needs","duplicable","movable","icon"];
         var file='/resources/layout/components.layout';
         var _this = this;
@@ -69,7 +70,7 @@ define(
         // Filter only webcomponents
         cmps = _.toArray(cmps);
         var promise = CssParser.readCustomCss(file,layoutProp).then(function(data){
-            var compId = 0;
+
             components = cmps.filter(function(el,i){
             // custom elements determines that name has to be composite tag separeted by "-". ex : my-component
                 if (el.nodeName.split('-').length >= 2 ){
@@ -80,7 +81,7 @@ define(
                         htmlelement.setAttribute('touch-action','none');
                         htmlelement.style.webkitUserSelect="none";
                     });
-                    el.setAttribute('compId','compId'+compId);
+                    el.setAttribute('compId','compId'+i);
                     data.forEach(function(properties){
                         if (Object.keys(properties).indexOf(id)>-1) {
                           el['lproperties'] = properties[id] ;
@@ -93,7 +94,6 @@ define(
 
                 // Inject component-query to each webcomponent
                 //  el.setAttribute('extends','component-query');
-                  compId++;
                   return true;
                 }
                 else {
@@ -116,7 +116,8 @@ define(
         componentStatus = status;
       }
       this.checkComponentsReady = function(){
-          var ready = components.every(function(cmp){                
+          var ready = components.every(function(cmp){
+                console.log(cmp.done);
                 return cmp.done;
           });
           if (ready){
@@ -149,6 +150,15 @@ define(
                       else return false;
                });
         });
+      }
+      this.setMenu = function (show){
+         if (show){
+            mediascape.AdaptationToolkit.uiComponents.showComponentMenu(components);
+         }
+         else {
+             mediascape.AdaptationToolkit.uiComponents.hideComponentMenu(components);
+         }
+
       }
 
       var iid = setInterval(this.checkComponentsReady.bind(this),500);

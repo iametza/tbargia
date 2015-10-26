@@ -39,12 +39,11 @@ define(
   "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/menu",
   "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/horizontal",
   "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/customGrid",
-  "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/explicit",
+  "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/azala",
   "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/accordion",
   "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/verticalMenu",
   "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/scrollHorizontal",
-  "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/spinner",
-  "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/azala"],
+  "mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/spinner"],
   function(componentsManager){
     var layoutList   = Array.prototype.slice.apply( arguments );
     var cmps=[];
@@ -69,14 +68,12 @@ define(
       this.registerLayouts = function () {
         var _this = this;
         $.getJSON('/resources/explicitsCss/rules.json', function(data) {
-         // console.log('getJSON');
-         // console.log(data);
           _this.explicitConf = data;
 
         });
         layoutList.forEach(function(layout,i){
           if  (layout.checkForImplementation() || layout.name != "explicit"){
-           // console.log('registring layout',layout);
+            //console.log('registring layout',layout);
             if (layout.name === "explicit") _this.explicitLayout = layout;
             layouts.push(layout);
           }
@@ -85,9 +82,6 @@ define(
 
 
       };
-      this.registerLayouts();
-
-
       this.init = function (wcmps,mode){
         var _this = this;
 
@@ -102,7 +96,7 @@ define(
         }
         else
         if (this.layoutMode == this.LAYOUTMODE.STATIC){
-          if (actualLayout)this.layout(cmps,'onComponentsChange');
+        //  this.layout(cmps,'onComponentsChange');
         }
       }
       this.useLayout = function (layoutName){
@@ -122,8 +116,6 @@ define(
       this.layout = function (_cmps,event){
         // CHECK FOR EXPLICIT RULE FIRST ELSE SWITCH
         var explicitRule = this.checkForExplicitRules(_cmps,event);
-        //console.log('explicitRule');
-        //console.log(explicitRule);
         if (explicitRule){
           if (event === "onComponentsChange"){
             mediascape.AdaptationToolkit.componentManager.loadManager.unload( mediascape.AdaptationToolkit.componentManager.core.getHiddenComponents(_cmps));
@@ -179,7 +171,7 @@ define(
             //  actualLayout.render(_cmps);
           }
           else {
-            throw new Error ("Event does not exists: "+ event);
+            throw new Error ("Event does not exists");
           }
           break;
           case this.LAYOUTMODE.ADAPTABLE:
@@ -207,8 +199,17 @@ define(
 
       this.onComponentsChange = function (_cmps,cmds){
           // Filter only showing ones
+          if (_cmps.actions ){
           actualLayout.unload(cmps);
           cmps = _cmps;
+          console.log(_cmps)
+          cmps = _cmps.actions.filter(function(c){
+              if (c.type==="SHOW") return true;
+              else return false;
+          });
+          cmps = cmps.map(function(c){
+              return document.querySelector("#"+c.component);
+          });
           if (This.layoutMode === This.LAYOUTMODE.ADAPTABLE){
             layoutIndex=0;
             actualLayout = This.findBestLayout(cmps)[layoutIndex];
@@ -220,11 +221,16 @@ define(
             //mediascape.AdaptationToolkit.uiComponents.infoPanel('Layout info','<p>Components Number: '+cmps.length+'</p><p> Rendering layout: '+actualLayout.name+'</p>','250px','1%','6%');
             This.updateComponentQuery();
       }
-    this.onWindowResize = function (event){
+    }
+      this.onPriorizeComponent=function(e){
+        var cmp=e.srcElement;
+        if(actualLayout)actualLayout.onPriorizeComponent(cmp);
+      }
+      this.onWindowResize = function (event){
         // Filter only showing ones
         //cmps = cmds.filter(function(el){});
-      if(event.srcElement.orientation!==undefined){
-        if(prev_orientation!==undefined && prev_orientation!==''){
+
+       if(prev_orientation!==undefined && prev_orientation!==''){
 
             if(prev_orientation !== event.srcElement.orientation  ){
 
@@ -232,8 +238,8 @@ define(
                 clearTimeout(activityTimer);
                 console.log (layoutIndex,cmps.length);
                 actualLayout.unload(cmps);
-
-                actualLayout = This.findBestLayout(cmps)[0];
+                if (This.layoutMode === This.LAYOUTMODE.ADAPTABLE)
+                  actualLayout = This.findBestLayout(cmps)[0];
                 this.layout(cmps,'onLayoutChange');
 
                 this.forceRedraw();
@@ -252,16 +258,21 @@ define(
 
       else{
          prev_orientation=event.srcElement.orientation;
-
+          // this.layout(cmps,'onResizeEvent');
+          if (event.detail !="emulate")
+          {
+            console.log("RESIZING",event);
+            this.layout(cmps,'onResizeEvent');
+          }
       }
-     }
-      else{
-           if (event.detail !="emulate")
-           {
-             console.log("RESIZING",event);
-             this.layout(cmps,'onResizeEvent');
-           }
-         }
+
+        /*
+        if (event.detail !="emulate")
+        {
+          console.log("RESIZING",event);
+          this.layout(cmps,'onResizeEvent');
+        }
+        */
 
 
 
@@ -270,7 +281,7 @@ define(
         //DECIDE WHICH LAYOUT USE; IT IS CALLED WHEN USER EVENT HAPPENS
 
         clearTimeout(activityTimer);
-       // console.log (layoutIndex,cmps.length);
+        console.log (layoutIndex,cmps.length);
         actualLayout.unload(cmps);
         actualLayout = this.findBestLayout(cmps)[layoutIndex];
         this.layoutMode = this.LAYOUTMODE.ADAPTABLE;
@@ -294,8 +305,6 @@ define(
 
         var componentsNumber = _cmps.length || 0;
         var optimizedLayoutOrder = [];
-       // console.log('findBestLayout');
-       // console.log(_cmps);
 
         var thereIsVideo=false;
         var i=0;
@@ -308,8 +317,8 @@ define(
           i++;
         }
 
-        var screenX = getScreenSize().extra[1].screenX;
-        var screenY = getScreenSize().extra[1].screenY;
+        var screenX = this.getScreenSize().extra[1].screenX;
+        var screenY = this.getScreenSize().extra[1].screenY;
         var _this = this;
         var result = [];
         var inch_size=Math.sqrt(Math.pow(screenX,2)+Math.pow(screenY,2));
@@ -764,6 +773,7 @@ define(
           window.addEventListener('resize',this.onWindowResize.bind(this),false);
           document.addEventListener('keydown',applicationIsActive.bind(this),false);
           window.addEventListener('click',applicationIsActive.bind(this),false);
+          document.addEventListener('componentToFullscreen', this.onPriorizeComponent.bind(this),false);
           window.addEventListener('touch',applicationIsActive.bind(this),false);
           window.addEventListener('tap',applicationIsActive.bind(this),false);
           window.addEventListener('mousemove',applicationIsActive.bind(this),false);
@@ -795,7 +805,7 @@ define(
         var trick = document.body.offsetHeight;
         document.body.style.display = disp;
       }
-      var getScreenSize  = function (){
+     this.getScreenSize  = function (){
           var widthPx;
           var heightPx;
           if (parseInt(navigator.appVersion)>3) {

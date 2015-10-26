@@ -365,6 +365,7 @@ define( ["jquery","namedwebsockets"], function($,namedWebSockets) {
 						var p1= new Promise(
 							function(resolve,reject){
 								var deferred = $.Deferred();
+
 								if("ontouchstart" in window){
 									resolve(JSON.parse('{"presence":true}'));
 								} else {
@@ -826,6 +827,8 @@ define( ["jquery","namedwebsockets"], function($,namedWebSockets) {
 									var height = (screen.height/window.devicePixelRatio) / dpi_y;
 									document.getElementById('dpi').remove();
 									resolve(JSON.parse('{"extra":[{"width":"'+widthPx+'","height":"'+heightPx+'"},{"screenX":"'+width+'","screenY":"'+height+'"}]}'));
+									mediascape.screenX = width;
+									mediascape.screenY = height;
 								} else {
 									var url="http://localhost:8182/discoveryagent/screen/extra";
 									var promise = $.ajax({

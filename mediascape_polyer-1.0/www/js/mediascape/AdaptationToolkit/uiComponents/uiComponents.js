@@ -34,15 +34,10 @@
 **
 */
 
-// iametza
-var actionEvent = 'click';
-
 define(
   ["ui"
   ],
   function(){
-
-
 
     uiComponents = function uiComponents(atk,i,atk){
 
@@ -51,6 +46,19 @@ define(
         }
         this.actionMenu = function (){
       //Console.log();
+        }
+        this.showComponentMenu = function(cmps){
+          cmps.forEach(function(c){
+              var div = document.createElement('div');
+              div.style.zIndex=999;
+              div.style.height="40px"
+              div.style.width="100%";
+              div.style.top ="0px";
+              div.style.opacity="0.6"
+              div.style.position="absolute";
+              div.style.background="black";
+              c.appendChild(div);
+          });
         }
         //Initial loading panel
         this.loadingPanel = function (centralImg,time,cb){
@@ -332,7 +340,7 @@ define(
               console.log("HOLDPULSE");
 
               if (event.holdTime>1600){
-              var agents = mediascape.Communication.getAgents();
+              var agents = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getAgents();
               var panel = document.createElement('div');
               panel.style.backgroundColor="white";
               panel.style.opacity="0.85";
@@ -352,7 +360,7 @@ define(
               p.style.marginLeft="20%";
               p.style.marginRight="20%";
               p.style.fontSize="120%";
-              p.addEventListener(actionEvent,function(e){document.body.removeChild(panel);})
+              p.addEventListener('tap',function(e){document.body.removeChild(panel);})
               panel.appendChild(p);
 
               for (ag in agents ){
@@ -365,7 +373,7 @@ define(
                     p.style.marginLeft="20%";
                     p.style.testAlign="center";
                   }else{
-                    if (agents[ag].agentid !=mediascape.Communication.getAgentId())
+                    if (agents[ag].agentid !=mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getAgentId())
                       {
                         p.innerHTML ='client:'+agents[ag].agentid ;
                         p.style.padding="10px";
@@ -398,7 +406,7 @@ define(
              // e.stopPropagation();
              if (event.holdTime>2000){
               timer=0;
-              var agents = mediascape.Communication.getAgents();
+              var agents = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getAgents();
               var panel = document.createElement('div');
               panel.style.backgroundColor="white";
               panel.style.opacity="0.85";
@@ -428,7 +436,7 @@ define(
                     p.style.marginLeft="20%";
                     p.style.testAlign="center";
                   }else{
-                    if (agents[ag].agentid !=mediascape.Communication.getAgentId())
+                    if (agents[ag].agentid !=mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getAgentId())
                       {
                         p.innerHTML ='client:'+agents[ag].agentid ;
                         p.style.padding="10px";
@@ -481,14 +489,14 @@ define(
           associationPanel.style.transition="width 0.5s,height 0.5s";
           var arrowPanel = document.createElement('img');
           arrowPanel.style.position="fixed";
-          arrowPanel.src="/resources/images/logo.png";
+          arrowPanel.src="../resources/images/logo.png";
           arrowPanel.style.top="5";
           arrowPanel.style.marginLeft="10px";
           arrowPanel.width="70";
           arrowPanel.height="70";
           var arrowoffPanel = document.createElement('img');
           arrowoffPanel.style.position="fixed";
-          arrowoffPanel.src="/resources/images/arrowoff.png";
+          arrowoffPanel.src="../resources/images/arrowoff.png";
           arrowoffPanel.style.marginTop="30%";
           arrowoffPanel.style.marginLeft="4px";
           arrowoffPanel.width="30";
@@ -497,10 +505,11 @@ define(
 
           //ContextUpdate for detecting the agent connection/disconnection
           document.addEventListener('contextUpdate',function(){
-
+                console.log(event,"context update");
+                event.stopPropagation();
                 agents=event.detail.context.agents;
 
-                var ag=mediascape.Communication.getAgents();
+                var ag=mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getAgents();
                 for( var i=0;i<agents.length;i++){
                   if(ag.self.agentid===agents[i].id){
 
@@ -552,7 +561,8 @@ define(
     for(var p=0;p<cmps1.length;p++){
       srcs.push(cmps1[p].lproperties.icon);
     }
-    
+
+
     var scope=this;
 
     //component manager table
@@ -570,7 +580,7 @@ define(
     for(var k=0;k<agents.length;k++){
       var dev=document.createElement('th');
       var deviceImg=document.createElement('img');
-      deviceImg.src='/resources/images/icons_manag/device.png';
+      deviceImg.src='resources/images/icons_manag/device.png';
       (function(dImage,agent,dev){
 
               if (agent.capabilities['platform'].deviceType==="Desktop") dImage.src = 'resources/images/icons_manag/pc.png';
@@ -581,7 +591,7 @@ define(
               if (agent.capabilities['platform'].fiability>0.5 && agent.capabilities['platform'].fiability<=0.7){
 
                     var warning = document.createElement('img');
-                    warning.src="/resources/images/warning.png";
+                    warning.src="resources/images/warning.png";
                     warning.style.width="30px";
                     warning.style.height="30px";
                     warning.addEventListener('click',(function(){
@@ -598,9 +608,9 @@ define(
                     dev.appendChild(warning);
               }
               else if (agent.capabilities['platform'].fiability<0.5){
-                  dImage.src="/resources/images/icons_manag/unknown.png"
+                  dImage.src="resources/images/icons_manag/unknown.png"
                   var warning = document.createElement('img');
-                  warning.src="/resources/images/warning.png";
+                  warning.src="resources/images/warning.png";
                   warning.style.width="30px";
                   warning.style.height="30px";
                   warning.addEventListener('click',(function(){
@@ -638,8 +648,9 @@ define(
     associationPanel.appendChild(tableStyle);
 
     var tbody=document.createElement('tbody');
+
     for(var i=0;i<srcs.length;i++){
-      
+
         var tr=document.createElement('tr');
 
 
@@ -649,10 +660,7 @@ define(
         var compImg=document.createElement('img');
         compImg.src=srcs[i];
         compImg.style.width='50px';/*'calc('+associationPanel.querySelector('#smallTable').style.width+'/6)';*/
-        var compName = document.createElement('span');
-        compName.innerHTML = cmps[i];
         th1.appendChild(compImg);
-        th1.appendChild(compName);
         tr.appendChild(th1);
         for(var j=0;j<agents.length;j++){
           var th2=document.createElement('td');
@@ -663,15 +671,15 @@ define(
             th3.style.padding='0 2em 0 2em';
             var viewImg=document.createElement('img');
             if(agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].show===true){
-              viewImg.src="/resources/images/icons_manag/eye.png";
+              viewImg.src="resources/images/icons_manag/eye.png";
             }
             else{
-              viewImg.src="/resources/images/icons_manag/eye_closed.png";
+              viewImg.src="resources/images/icons_manag/eye_closed.png";
             }
             viewImg.id=cmps[i]+"viewImgSmall"+agents[j].id;
             viewImg.style.width='40px';/*'calc('+associationPanel.querySelector('#smallTable').style.width+'/10)';*/
             !function outer(j){
-            viewImg.addEventListener(actionEvent, function(e){ // iametza
+            viewImg.addEventListener("click",function(e){
 
               if(agents[j].capabilities.componentsStatus[document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId').split('compId')[1]].show===true){
 
@@ -690,11 +698,11 @@ define(
                 else{*/
 
 
-                e.srcElement.src='/resources/images/icons_manag/eye_closed.png';
+                e.srcElement.src='resources/images/icons_manag/eye_closed.png';
 
                 associationPanel.querySelector('#bigTable').querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]+'soundImgSmall'+agents[j].id).src='';
 
-                mediascape.Communication.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'hide');
+                mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'hide');
               //}
 
 
@@ -708,20 +716,20 @@ define(
 
                 document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).style.display='block';
 
-                e.srcElement.src='/resources/images/icons_manag/eye.png';
+                e.srcElement.src='resources/images/icons_manag/eye.png';
                 if(document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).lproperties.duplicable==='false'){
                   agents.forEach(function(ag){
                     if(ag.capabilities.componentsStatus[document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId').split('compId')[1]].show === true)
 
-                      if(ag.id === mediascape.Communication.getAgentId())
-                          mediascape.Communication.setLocalAgentComponentStatus(ag.id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'hide');
+                      if(ag.id === mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getAgentId())
+                          mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(ag.id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'hide');
                       else if (ag.id!== agents[j]){
-                          mediascape.Communication.setRemoteAgentComponentStatus(ag.id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'hide');
+                          ediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(ag.id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'hide');
 
                            }
                     });
                 }
-                setTimeout(function(){mediascape.Communication.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'show');},0);
+                setTimeout(function(){mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'show');},0);
 
 
                 if(agents[j].capabilities.componentsStatus[document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('mutePlayer')>agents[j].capabilities.componentsStatus[document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('soundPlayer')){
@@ -748,31 +756,31 @@ define(
             if(agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].show===true){
             if(agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('mutePlayer')===-1 && agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('soundPlayer')===-1){
               if(document.querySelector('#'+cmps[i]).ismuted==='false'){
-                soundImg.src="/resources/images/icons_manag/sound.png";
+                soundImg.src="resources/images/icons_manag/sound.png";
               }
               else{
-                soundImg.src="/resources/images/icons_manag/mute.png";
+                soundImg.src="resources/images/icons_manag/mute.png";
               }
             }
             else{
             if(agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('mutePlayer')>agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('soundPlayer')){
-              soundImg.src="/resources/images/icons_manag/mute.png";
+              soundImg.src="resources/images/icons_manag/mute.png";
             }
             else{
-              soundImg.src="/resources/images/icons_manag/sound.png";
+              soundImg.src="resources/images/icons_manag/sound.png";
             }
           }
             }
             soundImg.id=cmps[i]+"soundImgSmall"+agents[j].id;
             var volume=1;
             !function outer(j){
-            soundImg.addEventListener("tap",function(e){
+            soundImg.addEventListener("click",function(e){
 
 
               if(agents[j].capabilities.componentsStatus[document.querySelector('#'+e.srcElement.id.split('soundImgSmall')[0]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('mutePlayer')
                 <agents[j].capabilities.componentsStatus[document.querySelector('#'+e.srcElement.id.split('soundImgSmall')[0]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('soundPlayer')){
 
-                mediascape.Communication.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('soundImgSmall')[0]).getAttribute('compId'),'mutePlayer');
+                mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('soundImgSmall')[0]).getAttribute('compId'),'mutePlayer');
                 e.srcElement.src='resources/images/icons_manag/mute.png';
 
                 volume=0;
@@ -780,8 +788,8 @@ define(
               }
               else{
 
-                mediascape.Communication.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('soundImgSmall')[0]).getAttribute('compId'),'soundPlayer');
-                e.srcElement.src='/resources/images/icons_manag/sound.png';
+                mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('soundImgSmall')[0]).getAttribute('compId'),'soundPlayer');
+                e.srcElement.src='resources/images/icons_manag/sound.png';
 
                 volume=1;
               }
@@ -794,17 +802,17 @@ define(
           //If not a video, sound/mute is not necessary
           else{
             var viewImg=document.createElement('img');
-           console.log(agents[j].capabilities.componentsStatus);
+
             if(agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].show===true){
-              viewImg.src="/resources/images/icons_manag/eye.png";
+              viewImg.src="resources/images/icons_manag/eye.png";
             }
             else{
-              viewImg.src="/resources/images/icons_manag/eye_closed.png";
+              viewImg.src="resources/images/icons_manag/eye_closed.png";
             }
             viewImg.id=cmps[i]+"viewImgSmall"+agents[j].id;
             viewImg.style.width='40px';/*'calc('+associationPanel.querySelector('#smallTable').style.width+'/10)';*/
             !function outer(j){
-            viewImg.addEventListener(actionEvent, function(e){ // iametza
+            viewImg.addEventListener("click",function(e){
               if(agents[j].capabilities.componentsStatus[document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId').split('compId')[1]].show===true){
                 /*var repeated=false;
                 for(var l=0;l<agents.length;l++){
@@ -822,7 +830,7 @@ define(
 
                 e.srcElement.src='resources/images/icons_manag/eye_closed.png';
 
-                mediascape.Communication.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'hide');
+                mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'hide');
               //}
               }
               else{
@@ -833,16 +841,16 @@ define(
                     if(ag.capabilities.componentsStatus[document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId').split('compId')[1]].show === true)
 
 
-                      if(ag.id === mediascape.Communication.getAgentId())
-                          mediascape.Communication.setLocalAgentComponentStatus(ag.id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'hide');
+                      if(ag.id === mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getAgentId())
+                          mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(ag.id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'hide');
                       else if (ag.id!== agents[j]){
-                          mediascape.Communication.setRemoteAgentComponentStatus(ag.id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'hide');
+                          mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(ag.id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'hide');
 
                            }
                     });
                 }
 
-                setTimeout(function(){mediascape.Communication.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'show');},0);
+                setTimeout(function(){mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'show');},0);
                 e.srcElement.src='resources/images/icons_manag/eye.png';
               }
             });
@@ -852,6 +860,7 @@ define(
           }
           tr.appendChild(th2);
           }
+
 
 
 
@@ -930,7 +939,7 @@ define(
               devAssociation.style.backgroundColor='#222930';
               devAssociation.style.textAlign='center';
 
-              devAssociation.addEventListener(actionEvent,function(){
+              devAssociation.addEventListener('click',function(){
                     if(associationPanel.querySelectorAll('#code').length===1){
                       associationPanel.querySelector('#code').style.display="block";
                     }
@@ -961,19 +970,6 @@ define(
               cmpManager.style.top='2%';
               cmpManager.style.textAlign='center';
 
-              cmpManager.addEventListener(actionEvent,function(){
-
-                    if(associationPanel.querySelector('#code')){
-                      associationPanel.querySelector('#code').style.display="none";
-                    }
-                    associationPanel.querySelector('#smallTable').style.display='block';
-                    table.style.display='none';
-                    devAssociation.style.backgroundColor='#222930';
-                    cmpManager.style.backgroundColor='#778899';
-                    layouts.style.backgroundColor='#222930';
-
-              });
-
               cmpManager.addEventListener('click',function(){
 
                     if(associationPanel.querySelector('#code')){
@@ -986,7 +982,6 @@ define(
                     layouts.style.backgroundColor='#222930';
 
               });
-
               menu.appendChild(cmpManager);
 
               //Layout change
@@ -1017,9 +1012,10 @@ define(
               img1.style.width='50%';
               td1.style.paddingBottom='10px';
 
-              img1.addEventListener(actionEvent,function(e){
+              img1.addEventListener('click',function(e){
 
                   mediascape.AdaptationToolkit.Adaptation.UIAdaptation.useLayout('customGrid');
+                  //mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.changeAgentlayout('525387853','customGrid');
                   hideControlPanel();
               });
 
@@ -1034,7 +1030,7 @@ define(
               img2.style.width='50%';
               td2.appendChild(img2);
               td2.style.paddingBottom='10px';
-              img2.addEventListener(actionEvent,function(e){
+              img2.addEventListener('click',function(e){
                   mediascape.AdaptationToolkit.Adaptation.UIAdaptation.useLayout('accordion');
                   hideControlPanel();
               });
@@ -1047,7 +1043,7 @@ define(
               img3.style.width='50%';
               img3.src='../resources/images/pip.png';
               td3.style.paddingBottom='10px';
-              img3.addEventListener(actionEvent,function(e){
+              img3.addEventListener('click',function(e){
                   mediascape.AdaptationToolkit.Adaptation.UIAdaptation.useLayout('pip');
                   hideControlPanel();
               });
@@ -1060,7 +1056,7 @@ define(
               img4.style.width='50%';
               td4.appendChild(img4);
               td4.style.paddingBottom='10px';
-              img4.addEventListener(actionEvent,function(e){
+              img4.addEventListener('click',function(e){
                   mediascape.AdaptationToolkit.Adaptation.UIAdaptation.useLayout('spinner');
                   hideControlPanel();
               });
@@ -1073,7 +1069,7 @@ define(
               img5.style.width='50%';
               img5.src='../resources/images/accordion.png';
               td5.style.paddingBottom='10px';
-              Polymer.addEventListener(img5,actionEvent,function(e){
+              Polymer.addEventListener(img5,'tap',function(e){
                   mediascape.AdaptationToolkit.Adaptation.UIAdaptation.useLayout('accordion');
                   hideControlPanel();
               });
@@ -1086,7 +1082,7 @@ define(
               img6.style.width='50%';
               td6.appendChild(img6);
               td6.style.paddingBottom='10px';
-              Polymer.addEventListener(img6,actionEvent,function(e){
+              Polymer.addEventListener(img6,'tap',function(e){
                   mediascape.AdaptationToolkit.Adaptation.UIAdaptation.useLayout('spinner');
                   hideControlPanel();
               });
@@ -1099,7 +1095,7 @@ define(
               img7.src='../resources/images/verticalMenu.png';
               img7.style.width='50%';
               td7.style.paddingBottom='10px';
-              Polymer.addEventListener(img7,actionEvent,function(e){
+              Polymer.addEventListener(img7,'tap',function(e){
                   mediascape.AdaptationToolkit.Adaptation.UIAdaptation.useLayout('verticalMenu');
                   hideControlPanel();
               });
@@ -1112,7 +1108,7 @@ define(
               img8.style.width='50%';
               td8.appendChild(img8);
               td8.style.paddingBottom='10px';
-              Polymer.addEventListener(img8,actionEvent,function(e){
+              Polymer.addEventListener(img8,'tap',function(e){
                   mediascape.AdaptationToolkit.Adaptation.UIAdaptation.useLayout('scrollHorizontal');
                   hideControlPanel();
               });
@@ -1126,7 +1122,7 @@ define(
               table.style.textAlign='center';
               table.style.marginTop='70px';
 
-             layouts.addEventListener(actionEvent,function(){
+              layouts.addEventListener('click',function(){
                   table.style.display='block';
                   if(associationPanel.querySelector('#code')){
                     associationPanel.removeChild(associationPanel.querySelector('#code'));
@@ -1184,6 +1180,56 @@ define(
           associationPanel.appendChild(arrowPanel);
           associationPanel.appendChild(arrowoffPanel);
           document.body.appendChild(associationPanel);
+
+      }
+      this.addMenuToCmps=function(cmps,show){
+
+
+            //var cmps=mediascape.AdaptationToolkit.componentManager.core.getComponents();
+            if(show){
+            cmps.forEach(function(cmp){
+              if(cmp.querySelector('#menuBar'+cmp.id)){
+                cmp.removeChild(cmp.querySelector('#menuBar'+cmp.id));
+              }
+
+                var menuBar=document.createElement('div');
+                menuBar.id='menuBar'+cmp.id;
+                menuBar.style.backgroundColor='black';
+                menuBar.style.height='30px';
+                menuBar.style.width='100%';
+                menuBar.style.opacity='0.6';
+                menuBar.style.position='relative';
+                menuBar.style.marginTop='-30px';
+                menuBar.style.zIndex=3;
+                menuBar.style.display='none';
+                var fullIcon=document.createElement('img');
+                fullIcon.src='../resources/images/full-screen-icon.png';
+                fullIcon.style.width='25px';
+                fullIcon.style.marginTop='3px';
+                fullIcon.id='fullIcon'+cmp.id;
+                fullIcon.style.opacity='1';
+                fullIcon.style.float='right';
+                fullIcon.style.marginRight='15px';
+
+                fullIcon.addEventListener('click',function(e){
+
+                  document.querySelector('#'+e.srcElement.id.split('fullIcon')[1]).fire('componentToFullscreen');
+
+                });
+
+                menuBar.appendChild(fullIcon);
+                cmp.appendChild(menuBar);
+
+            });
+            }
+            else{
+              cmps.forEach(function(cmp){
+                if(cmp.querySelector('#menuBar'+cmp.id)){
+                  cmp.removeChild(cmp.querySelector('#menuBar'+cmp.id));
+                }
+              });
+            }
+
 
       }
       this.hideAssociationPanel = function (){

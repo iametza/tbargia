@@ -29,51 +29,41 @@ var app = {};
 var baseUrl = "http://www.argia.eus/API/v1/multimedia";
 var url = "http://www.argia.eus/multimedia";
 document.addEventListener('adaptationToolkit-ready',function(data){
-		
+
 		 var app = document.querySelector('#app');
-				
-		
+
+
 		// The dom-change event signifies when the template has stamped its DOM.
+
+		app.handleResponseAzala = function(){
+		};
+
+
+
+		var AE = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation;
+		var rulesAE = "/resources/adaptationRules/rules.json"
+		AE.startApplicationContext();
+		var UI = mediascape.AdaptationToolkit.Adaptation.UIAdaptation;
+    UI.init(data.detail.components,UI.LAYOUTMODE.STATIC);
+		UI.useLayout('azala');
+    var location = "http://"+window.location.host+window.location.pathname;
+		mediascape.AdaptationToolkit.uiComponents.addAssociationPanel(location+"?group="+AE.GROUP_ID);
 		document.addEventListener('applicationContext-ready', function() {
-				
-				//mediascape.Communication.getApplicationContext().setItem('route', app.route);
-				/*
-				mediascape.Communication.getApplicationContext().on('changeState',function(key,value){
-						console.log('ruta aldatu da', key);
-				});
-				*/
-				
+
+			AE.init(rulesAE, AE.getApplicationContext());
+			AE.on('actionchange', UI.onComponentsChange);
+
 				if (app.route === 'azala') {
 						app.$.azalekoDatuak.url = baseUrl+'/azala';
 						app.$.azalekoDatuak.generateRequest();
-						
+
 				}
-				
+
 				if (app.route === 'fitxa') {
 						app.$.player.bideoNiceName = app.params.nice_name;
 				}
-		
+
 		});
-		app.handleResponseAzala = function(){
-		};
-		
-		
-
-        var AE = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation;
-        AE.init('bestfit');
-		var UI = mediascape.AdaptationToolkit.Adaptation.UIAdaptation;
-		//UI.init(data.detail.components,UI.LAYOUTMODE.ADAPTABLE);
-        UI.init(data.detail.components,UI.LAYOUTMODE.STATIC);
-        mediascape.Communication.startApplicationContext();
-		UI.useLayout('azala');
-        var location = "http://"+window.location.host+window.location.pathname;
-		mediascape.AdaptationToolkit.uiComponents.addAssociationPanel(location+"?group="+mediascape.Communication.GROUP_ID);
-		
-});
-
-document.addEventListener('applicationContext-ready', function(data){
-		console.log('appContext', mediascape.Communication.getApplicationContext());
-		
 });
 
 
@@ -92,19 +82,19 @@ document.addEventListener('applicationContext-ready', function(data){
 <template is="dom-bind" id="app">
 
 		<am-menu id="menua" ></am-menu>
-		
+
     <am-player id="player" playerobj="{{playerobj}}" bideo-nice-name="{{params.nice_name}}" noiz-ikusi="fitxa" route="[[route]]"></am-player>
 
 		<am-zerrenda id="gai-nabarmendua" base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="4" nabarmendua noiz-ikusi="azala" route="[[route]]" ></am-zerrenda>
 		<am-zerrenda id="azken-bideoak" base-url="[[baseUrl]]" tag="none" kop="4" orientation="vertical" title="Azken bideoak" noiz-ikusi="azala" route="[[route]]"></am-zerrenda>
 		<am-karruselak id="am-karruselak" motak="[[ajaxResponse.azaleko_motak]]"></am-karruselak>
-		
+
 		<!-- fitxakoak -->
 
 		<am-kontrolak id="am-kontrolak" kontrolatzeko="{{playerobj}}"></am-kontrolak>
 		<am-zerrenda id="erlazionatutakoak" title="Erlazionatutako bideoak"></am-zerrenda>
 		<am-karrusela id="karrusela-fitxa" class="am-karrusela" mota="[[params.mota_nice_name]]" ez-erakutsi="[[params.nice_name]]"></am-karrusela>
-		
+
 		<div>
 		<iron-ajax
 				id="azalekoDatuak"
@@ -119,9 +109,9 @@ document.addEventListener('applicationContext-ready', function(data){
 
 </template>
 <script>
-		
-		
-		
+
+
+		document.addEventListener('routingStatusChange',function(data){console.log("routa aldatuda",data)})
 		new loadingPanel('/resources/images/mediascape_logo.png',6);
 </script>
 </body>
