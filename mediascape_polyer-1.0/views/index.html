@@ -83,17 +83,16 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 
 		<am-menu id="menua" ></am-menu>
 
-    <am-player id="player" playerobj="{{playerobj}}" bideo-nice-name="{{params.nice_name}}" noiz-ikusi="fitxa" route="[[route]]"></am-player>
 
-		<am-zerrenda id="gai-nabarmendua" base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="4" nabarmendua noiz-ikusi="azala" route="[[route]]" ></am-zerrenda>
-		<am-zerrenda id="azken-bideoak" base-url="[[baseUrl]]" tag="none" kop="4" orientation="vertical" title="Azken bideoak" noiz-ikusi="azala" route="[[route]]"></am-zerrenda>
-		<am-karruselak id="am-karruselak" motak="[[ajaxResponse.azaleko_motak]]"></am-karruselak>
+		<am-zerrenda id="gai-nabarmendua" base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="4" nabarmendua noiz-ikusi="azala"  ></am-zerrenda>
+		<am-zerrenda id="azken-bideoak" base-url="[[baseUrl]]" tag="none" kop="4" orientation="vertical" title="Azken bideoak" noiz-ikusi="azala"></am-zerrenda>
+		<am-karruselak id="am-karruselak" motak="[[ajaxResponse.azaleko_motak]]" noiz-ikusi="azala"></am-karruselak>
 
 		<!-- fitxakoak -->
-
-		<am-kontrolak id="am-kontrolak" kontrolatzeko="{{playerobj}}"></am-kontrolak>
-		<am-zerrenda id="erlazionatutakoak" title="Erlazionatutako bideoak"></am-zerrenda>
-		<am-karrusela id="karrusela-fitxa" class="am-karrusela" mota="[[params.mota_nice_name]]" ez-erakutsi="[[params.nice_name]]"></am-karrusela>
+		<am-player id="player" playerobj="{{playerobj}}" bideo-nice-name="{{params.nice_name}}" noiz-ikusi="fitxa" ></am-player>
+		<am-kontrolak id="am-kontrolak" kontrolatzeko="{{playerobj}}" noiz-ikusi="fitxa"></am-kontrolak>
+		<am-zerrenda id="erlazionatutakoak" title="Erlazionatutako bideoak" noiz-ikusi="fitxa"></am-zerrenda>
+		<am-karrusela id="karrusela-fitxa" class="am-karrusela" mota="[[params.mota_nice_name]]" ez-erakutsi="[[params.nice_name]]" noiz-ikusi="fitxa"></am-karrusela>
 
 		<div>
 		<iron-ajax

@@ -167,12 +167,13 @@
           console.log('vimeoid: ' + newValue);
 
         },
-       
+
         playvimeo: function(){
           $f(this.vimeoplayer).api('play');
         },
 
         ready: function() {
+          var cmds = ['playPlayer', 'pausePlayer',]
            this.addEventListener('google-youtube-ready', function(){
               console.log('google-youtube-ready');
               this.playerobj = this.$$('#bideoplayer');
@@ -183,24 +184,33 @@
             this.vimeoplayer = vimeoPlayers[0];
             this.playerobj = this.vimeoplayer;
             });
-           
-           document.addEventListener('contextUpdate', function(e) {
-            if (e.detail.type == 'route_changed') {
-              console.log('amplayer route changed', this, e);
-              agents = mediascape.Communication.getAgents();
-              // begiratu show edo hide egin behar dugun
-              
-              if (this.noizIkusi ==  e.detail.context.agents[0].capabilities.routingStatus ) {
-                mediascape.Communication.setLocalAgentComponentStatus(agents.self.agentid, this.getAttribute('compId'),'show');
-              
-              }else{
-                mediascape.Communication.setLocalAgentComponentStatus(agents.self.agentid, this.getAttribute('compId'),'hide');
-                mediascape.Communication.setRemoteAgentComponentStatus(agents.self.agentid, this.getAttribute('compId'),'hide');
-              }
-              
-              
-            }
-           }.bind(this));
+
+            document.addEventListener('onComponentsChange', function(e){
+              var compIndex = this.getAttribute('compId').split('compId')[1];
+                console.log('player onComponentsChange', e);
+                // begiratu ea playerrantzat mezua den
+                var lastCmd = e.detail.cmps[compIndex].customCmd[e.detail.cmps[compIndex].customCmd.length - 1];
+                if(lastCmd !== undefined){
+                  this.komandoaJaso(lastCmd);
+                }
+            }.bind(this), false);
+
+
+        },
+        komandoaJaso: function(komandoa){
+          // TODO momentuz bakarrik youtube playera
+          if(komandoa == 'playPlayer'){
+            this.playerobj.play();
+          }
+          if(komandoa == 'pausePlayer'){
+            this.playerobj.pause();
+          }
+          if(komandoa == 'mutePlayer'){
+            this.playerobj.mute();
+          }
+          if(komandoa == 'unmutePlayer'){
+            this.playerobj.unMute();
+          }
 
         },
         elementuaJaso: function(e, request){

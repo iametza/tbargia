@@ -135,7 +135,6 @@
           on-response="handleResponse"
           last-response="{{ajaxResponse}}"></iron-ajax>
 
-<template is="dom-if" if="{{erakutsi}}">
   <h3><a href="/">Hasiera</a></h3>
 
   <template is="dom-if" if="{{ nabarmendua }}">
@@ -190,8 +189,7 @@
     </section>
    </template>
   </template>
-</template>
-     <script>
+  <script>
        (function () {
       Polymer({
         is: 'am-zerrenda',
@@ -227,11 +225,11 @@
           },
           kop: {
             type: Number,
-            value: 0
+            value: 4
           }
         },
         ready: function() {
-          
+        
         },
         handleResponse: function(res){
             console.log('handleResponse');
@@ -248,17 +246,19 @@
           return mota_nice_name + '/' + nice_name;
         },
         init: function() {
-          
+
             // template aktiboa
-            if (this.erakutsi && this.tag!="") {
+            if (this.tag!="") {
               if (this.tag == "none") {
                 this.tag="";
               }
+              if (this.kop === undefined)
+                this.kop = 4;
               this.$.bideoakHartu.url = baseUrl+'/elementuak?nice_name_etiketa='+this.tag+'&nice_name_mota='+this.mota+'&zenbat='+this.kop;
               this.$.bideoakHartu.generateRequest();
             }
-  
-          
+
+
         },
         _tagChanged: function(newValue, oldValue){
           this.init();
@@ -266,7 +266,7 @@
         _erakutsiChanged: function(newValue, oldValue){
           this.init();
         }
-       
+
 
 
       });

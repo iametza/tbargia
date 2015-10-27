@@ -125,17 +125,17 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
       }*/
       mediascape.AdaptationToolkit.uiComponents.addMenuToCmps(cmps,true);
-          
-      
+
+
       cmps.forEach(function(cmp,i){
          !function outer(i){
         cmp.removeEventListener('mousemove',activityFunc,true);
-        
+
         cmp.removeEventListener('mousemove',activityFunc,false);
         cmp.addEventListener('mousemove',activityFunc);
          pip.listeners.push(activityFunc);
           function activityFunc(e){
-          
+
           this.querySelector('#menuBar'+this.id).style.display='block';
           clearTimeout(timers[i]);
           var scope=this;
@@ -144,13 +144,13 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
           },3000);
         }
         }(i);
-         
-           
+
+
       });
-      
-      
-      
-       
+
+
+
+
 
 
 
@@ -226,7 +226,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
       }
       if(enough===true){
          heights.push(height-total_height);
-       
+
 
           //fullScreenCmp.style.gridColumn='1/span 3';
           fullScreenCmp.style.marginLeft='0px';
@@ -240,7 +240,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
         usedHeight=0;
         for(var i=0;i<col_cmps;i++){
-          
+
           //cmpsToColumn[i].style.gridColumn='2/span 1';
           cmpsToColumn[i].style.marginLeft=a+'px';
           cmpsToColumn[i].style.width=b+'px';
@@ -254,7 +254,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
 
         }
-        
+
 
       }
       else{
@@ -269,7 +269,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         fullScreenCmp.style.backgroundColor='white';
         fullScreenCmp.style.zIndex='1';
 
-        
+
         for(var i=0;i<col_cmps;i++){
 
           //cmpsToColumn[i].style.gridColumn='2/span 1';
@@ -421,17 +421,17 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
       }*/
 
       mediascape.AdaptationToolkit.uiComponents.addMenuToCmps(cmps,true);
-          
-      
+
+
       cmps.forEach(function(cmp,i){
       !function outer(i){
         cmp.removeEventListener('mousemove',activityFunc,true);
-        
+
         cmp.removeEventListener('mousemove',activityFunc,false);
         cmp.addEventListener('mousemove',activityFunc);
           pip.listeners.push(activityFunc);
           function activityFunc(e){
-          
+
           this.querySelector('#menuBar'+this.id).style.display='block';
           clearTimeout(timers[i]);
           var scope=this;
@@ -440,11 +440,11 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
           },3000);
         }
         }(i);
-       
-           
+
+
       });
-      
-      
+
+
 
 
     }
@@ -477,7 +477,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
       pip.listeners.forEach (function(listener){
       for(var i=0;i<cmps.length;i++){
         cmps[i].removeEventListener('mousemove',listener,true);
-        
+
         cmps[i].removeEventListener('mousemove',listener,false);
         clearTimeout(timers[i]);
       }
@@ -493,8 +493,8 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
   }
 
   );
-  window.oncontextmenu = function(event) {
+/*  window.oncontextmenu = function(event) {
       event.preventDefault();
       event.stopPropagation();
       return false;
-  };
+  };*/

@@ -108,11 +108,11 @@ define(
          var title = document.createElement('div');
          title.innerHTML=config.question;
          title.style.textAlign="center";
-         title.style.background="url(../resources/images/TitleBackground.png)";
+         title.style.background="url(/resources/images/TitleBackground.png)";
          title.style.color = "white";
          promptp.style.width = "250px";
          var contentdiv = document.createElement('div');
-         contentdiv.style.background ="url(../resources/images/PaneBackground.png)";
+         contentdiv.style.background ="url(/resources/images/PaneBackground.png)";
          if (config.type==="select"){
            var promptdiv = document.createElement('div');
            var sel = document.createElement('select');
@@ -164,7 +164,7 @@ define(
               callback1.call();
               EnableButton.innerHTML='DISABLE';
               var resize=document.createElement('img');
-              resize.src='../resources/images/disable.png';
+              resize.src='/resources/images/disable.png';
               resize.style.height='20px';
               resize.style.width='20px';
               EnableButton.appendChild(resize);
@@ -173,7 +173,7 @@ define(
               callback2.call();
               EnableButton.innerHTML='ENABLE ';
               var resize=document.createElement('img');
-              resize.src='../resources/images/resize.png';
+              resize.src='/resources/images/resize.png';
               resize.style.height='20px';
               resize.style.width='20px';
               EnableButton.appendChild(resize);
@@ -262,11 +262,11 @@ define(
             var title = document.createElement('div');
             title.innerHTML=_title;
             title.style.textAlign="center";
-            title.style.background="url(../resources/images/TitleBackground.png)";
+            title.style.background="url(/resources/images/TitleBackground.png)";
             title.style.color = "white";
             infopanel.style.width = width;
             var contentdiv = document.createElement('div');
-            contentdiv.style.background ="url(../resources/images/PaneBackground.png)";
+            contentdiv.style.background ="url(resources/images/PaneBackground.png)";
             contentdiv.innerHTML=content;
             contentdiv.style.color="white";
             contentdiv.style.padding="5px";
@@ -287,7 +287,7 @@ define(
             var title = document.createElement('div');
 
             var icon=document.createElement('img');
-            icon.src='../resources/images/notification.png';
+            icon.src='/resources/images/notification.png';
             icon.style.width='12%';
             icon.style.height='3%';
             icon.style.position='relative';
@@ -296,12 +296,12 @@ define(
             title.appendChild(icon);
             title.innerHTML=title.innerHTML+"<span>"+_title+"</span>";
             title.style.textAlign="center";
-            title.style.background="url(../resources/images/TitleBackground.png)";
+            title.style.background="url(/resources/images/TitleBackground.png)";
             title.style.color = "white";
             panel.style.width = '200px';
             panel.className="animated flipInX";
             var contentdiv = document.createElement('div');
-            contentdiv.style.background ="url(../resources/images/PaneBackground.png)";
+            contentdiv.style.background ="url(/resources/images/PaneBackground.png)";
             contentdiv.innerHTML=message;
             contentdiv.style.color="white";
             contentdiv.style.padding="5px";
@@ -489,14 +489,14 @@ define(
           associationPanel.style.transition="width 0.5s,height 0.5s";
           var arrowPanel = document.createElement('img');
           arrowPanel.style.position="fixed";
-          arrowPanel.src="../resources/images/logo.png";
+          arrowPanel.src="/resources/images/logo.png";
           arrowPanel.style.top="5";
           arrowPanel.style.marginLeft="10px";
           arrowPanel.width="70";
           arrowPanel.height="70";
           var arrowoffPanel = document.createElement('img');
           arrowoffPanel.style.position="fixed";
-          arrowoffPanel.src="../resources/images/arrowoff.png";
+          arrowoffPanel.src="/resources/images/arrowoff.png";
           arrowoffPanel.style.marginTop="30%";
           arrowoffPanel.style.marginLeft="4px";
           arrowoffPanel.width="30";
@@ -583,15 +583,15 @@ define(
       deviceImg.src='resources/images/icons_manag/device.png';
       (function(dImage,agent,dev){
 
-              if (agent.capabilities['platform'].deviceType==="Desktop") dImage.src = 'resources/images/icons_manag/pc.png';
-              if (agent.capabilities['platform'].deviceType==="TV") dImage.src = 'resources/images/icons_manag/tv.png';
-              if (agent.capabilities['platform'].deviceType==="Mobile") dImage.src = 'resources/images/icons_manag/mobile.png';
-              if (agent.capabilities['platform'].deviceType==="Tablet") dImage.src = 'resources/images/icons_manag/tablet.png';
+              if (agent.capabilities['platform'].deviceType==="Desktop") dImage.src = '/resources/images/icons_manag/pc.png';
+              if (agent.capabilities['platform'].deviceType==="TV") dImage.src = '/resources/images/icons_manag/tv.png';
+              if (agent.capabilities['platform'].deviceType==="Mobile") dImage.src = '/resources/images/icons_manag/mobile.png';
+              if (agent.capabilities['platform'].deviceType==="Tablet") dImage.src = '/resources/images/icons_manag/tablet.png';
               console.log("fiability",agent.capabilities['platform'].fiability);
               if (agent.capabilities['platform'].fiability>0.5 && agent.capabilities['platform'].fiability<=0.7){
 
                     var warning = document.createElement('img');
-                    warning.src="resources/images/warning.png";
+                    warning.src="/resources/images/warning.png";
                     warning.style.width="30px";
                     warning.style.height="30px";
                     warning.addEventListener('click',(function(){
@@ -608,9 +608,9 @@ define(
                     dev.appendChild(warning);
               }
               else if (agent.capabilities['platform'].fiability<0.5){
-                  dImage.src="resources/images/icons_manag/unknown.png"
+                  dImage.src="/resources/images/icons_manag/unknown.png"
                   var warning = document.createElement('img');
-                  warning.src="resources/images/warning.png";
+                  warning.src="/resources/images/warning.png";
                   warning.style.width="30px";
                   warning.style.height="30px";
                   warning.addEventListener('click',(function(){
@@ -671,10 +671,10 @@ define(
             th3.style.padding='0 2em 0 2em';
             var viewImg=document.createElement('img');
             if(agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].show===true){
-              viewImg.src="resources/images/icons_manag/eye.png";
+              viewImg.src="/resources/images/icons_manag/eye.png";
             }
             else{
-              viewImg.src="resources/images/icons_manag/eye_closed.png";
+              viewImg.src="/resources/images/icons_manag/eye_closed.png";
             }
             viewImg.id=cmps[i]+"viewImgSmall"+agents[j].id;
             viewImg.style.width='40px';/*'calc('+associationPanel.querySelector('#smallTable').style.width+'/10)';*/
@@ -698,7 +698,7 @@ define(
                 else{*/
 
 
-                e.srcElement.src='resources/images/icons_manag/eye_closed.png';
+                e.srcElement.src='/resources/images/icons_manag/eye_closed.png';
 
                 associationPanel.querySelector('#bigTable').querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]+'soundImgSmall'+agents[j].id).src='';
 
@@ -716,7 +716,7 @@ define(
 
                 document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).style.display='block';
 
-                e.srcElement.src='resources/images/icons_manag/eye.png';
+                e.srcElement.src='/resources/images/icons_manag/eye.png';
                 if(document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).lproperties.duplicable==='false'){
                   agents.forEach(function(ag){
                     if(ag.capabilities.componentsStatus[document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId').split('compId')[1]].show === true)
@@ -733,10 +733,10 @@ define(
 
 
                 if(agents[j].capabilities.componentsStatus[document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('mutePlayer')>agents[j].capabilities.componentsStatus[document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('soundPlayer')){
-                  associationPanel.querySelector('#bigTable').querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]+'soundImgSmall'+agents[j].id).src="resources/images/icons_manag/mute.png";
+                  associationPanel.querySelector('#bigTable').querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]+'soundImgSmall'+agents[j].id).src="/resources/images/icons_manag/mute.png";
                 }
                 else{
-                  associationPanel.querySelector('#bigTable').querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]+'soundImgSmall'+agents[j].id).src="resources/images/icons_manag/sound.png";
+                  associationPanel.querySelector('#bigTable').querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]+'soundImgSmall'+agents[j].id).src="/resources/images/icons_manag/sound.png";
                 }
 
 
@@ -756,18 +756,18 @@ define(
             if(agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].show===true){
             if(agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('mutePlayer')===-1 && agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('soundPlayer')===-1){
               if(document.querySelector('#'+cmps[i]).ismuted==='false'){
-                soundImg.src="resources/images/icons_manag/sound.png";
+                soundImg.src="/resources/images/icons_manag/sound.png";
               }
               else{
-                soundImg.src="resources/images/icons_manag/mute.png";
+                soundImg.src="/resources/images/icons_manag/mute.png";
               }
             }
             else{
             if(agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('mutePlayer')>agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('soundPlayer')){
-              soundImg.src="resources/images/icons_manag/mute.png";
+              soundImg.src="/resources/images/icons_manag/mute.png";
             }
             else{
-              soundImg.src="resources/images/icons_manag/sound.png";
+              soundImg.src="/resources/images/icons_manag/sound.png";
             }
           }
             }
@@ -781,7 +781,7 @@ define(
                 <agents[j].capabilities.componentsStatus[document.querySelector('#'+e.srcElement.id.split('soundImgSmall')[0]).getAttribute('compId').split('compId')[1]].customCmd.lastIndexOf('soundPlayer')){
 
                 mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('soundImgSmall')[0]).getAttribute('compId'),'mutePlayer');
-                e.srcElement.src='resources/images/icons_manag/mute.png';
+                e.srcElement.src='/resources/images/icons_manag/mute.png';
 
                 volume=0;
 
@@ -789,7 +789,7 @@ define(
               else{
 
                 mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('soundImgSmall')[0]).getAttribute('compId'),'soundPlayer');
-                e.srcElement.src='resources/images/icons_manag/sound.png';
+                e.srcElement.src='/resources/images/icons_manag/sound.png';
 
                 volume=1;
               }
@@ -804,10 +804,10 @@ define(
             var viewImg=document.createElement('img');
 
             if(agents[j].capabilities.componentsStatus[document.querySelector('#'+cmps[i]).getAttribute('compId').split('compId')[1]].show===true){
-              viewImg.src="resources/images/icons_manag/eye.png";
+              viewImg.src="/resources/images/icons_manag/eye.png";
             }
             else{
-              viewImg.src="resources/images/icons_manag/eye_closed.png";
+              viewImg.src="/resources/images/icons_manag/eye_closed.png";
             }
             viewImg.id=cmps[i]+"viewImgSmall"+agents[j].id;
             viewImg.style.width='40px';/*'calc('+associationPanel.querySelector('#smallTable').style.width+'/10)';*/
@@ -828,7 +828,7 @@ define(
                 }
                 else{*/
 
-                e.srcElement.src='resources/images/icons_manag/eye_closed.png';
+                e.srcElement.src='/resources/images/icons_manag/eye_closed.png';
 
                 mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'hide');
               //}
@@ -851,7 +851,7 @@ define(
                 }
 
                 setTimeout(function(){mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agents[j].id,document.querySelector('#'+e.srcElement.id.split('viewImgSmall')[0]).getAttribute('compId'),'show');},0);
-                e.srcElement.src='resources/images/icons_manag/eye.png';
+                e.srcElement.src='/resources/images/icons_manag/eye.png';
               }
             });
             }(j);
@@ -927,7 +927,7 @@ define(
               devAssociation.id='devAssociation';
 
               var devAssociationImg=document.createElement('img');
-              devAssociationImg.src='../resources/images/association.png';
+              devAssociationImg.src='/resources/images/association.png';
               devAssociationImg.style.width='20%';
               devAssociation.appendChild(devAssociationImg);
 
@@ -959,7 +959,7 @@ define(
               var cmpManager=document.createElement('div');
               cmpManager.id='cmpManager';
               var cmpManagerImg=document.createElement('img');
-              cmpManagerImg.src='../resources/images/cmpmanager.png';
+              cmpManagerImg.src='/resources/images/cmpmanager.png';
               cmpManagerImg.style.width='20%';
               cmpManager.appendChild(cmpManagerImg);
               cmpManager.style.width=(width-20)/3;
@@ -988,7 +988,7 @@ define(
               var layouts=document.createElement('div');
               layouts.id='layouts';
               var layoutsImg=document.createElement('img');
-              layoutsImg.src='../resources/images/layout.png';
+              layoutsImg.src='/resources/images/layout.png';
               layoutsImg.style.width='20%';
               layouts.appendChild(layoutsImg);
 
@@ -1008,7 +1008,7 @@ define(
               var tr1=document.createElement('tr');
               var td1=document.createElement('td');
               var img1=document.createElement('img');
-              img1.src='../resources/images/grid.png';
+              img1.src='/resources/images/grid.png';
               img1.style.width='50%';
               td1.style.paddingBottom='10px';
 
@@ -1026,7 +1026,7 @@ define(
 
               var td2=document.createElement('td');
               var img2=document.createElement('img');
-              img2.src='../resources/images/accordion.png';
+              img2.src='/resources/images/accordion.png';
               img2.style.width='50%';
               td2.appendChild(img2);
               td2.style.paddingBottom='10px';
@@ -1052,7 +1052,7 @@ define(
 
               var td4=document.createElement('td');
               var img4=document.createElement('img');
-              img4.src='../resources/images/spinner.png';
+              img4.src='/resources/images/spinner.png';
               img4.style.width='50%';
               td4.appendChild(img4);
               td4.style.paddingBottom='10px';

@@ -10,9 +10,34 @@
   movable:true;
   icon:../resources/images/icons_manag/Irunea.png;
 }
+#gai-nabarmendua{
+  needs:none;
+  order:2;
+  rwidth:60%;
+  propx:4;
+  propy:3;
+  required:true;
+  duplicable:true;
+  bestfit:biggestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+#azken-bideoak{
+  needs:none;
+  order:3;
+  rwidth:20%;
+  propx:1;
+  propy:3;
+  required:true;
+  duplicable:true;
+  bestfit:biggestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+
 #am-karruselak{
   needs:none;
-  order:5;
+  order:4;
   rwidth:78%;
   propx:4;
   propy:1;
@@ -23,39 +48,16 @@
   icon:../resources/images/icons_manag/Irunea.png;
 }
 
-#azken-bideoak{
-  needs:none;
-  order:3;
-  rwidth:20%;
-  propx:1;
-  propy:4;
-  required:true;
-  duplicable:true;
-  bestfit:biggestScreenSize;
-  movable:true;
-  icon:../resources/images/icons_manag/Irunea.png;
-}
 
-#gai-nabarmendua{
-  needs:none;
-  order:2;
-  rwidth:78%;
-  propx:3;
-  propy:4;
-  required:true;
-  duplicable:true;
-  bestfit:biggestScreenSize;
-  movable:true;
-  icon:../resources/images/icons_manag/Irunea.png;
-}
+
 #player{
   needs:none;
-  order:1;
+  order:5;
   rwidth:100%;
   propx:2;
   propy:1;
   required:false;
-  duplicable:true;
+  duplicable:false;
   bestfit:touchable;
   movable:true;
   icon:../resources/images/icons_manag/Irunea.png;
@@ -64,7 +66,7 @@
 
 #am-kontrolak{
   needs:none;
-  order:9;
+  order:6;
   rwidth:100%;
   propx:8;
   propy:1;
@@ -77,7 +79,7 @@
 
 #erlazionatutakoak{
   needs:none;
-  order:10;
+  order:7;
   rwidth:100%;
   propx:4;
   propy:1;
@@ -90,7 +92,7 @@
 
 #karrusela-fitxa{
   needs:none;
-  order:11;
+  order:8;
   rwidth:100%;
   propx:4;
   propy:1;

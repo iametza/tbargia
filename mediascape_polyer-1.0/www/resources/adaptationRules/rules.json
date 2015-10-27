@@ -161,7 +161,7 @@
                 },
                 {
                     "componentId": "am-karruselak",
-                    "required": true,
+                    "required": false,
                     "bestfit": "biggestScreenSize",
                     "movable": true,
                     "duplicable":true,
@@ -169,7 +169,7 @@
                 },
                 {
                     "componentId": "gai-nabarmendua",
-                    "required": true,
+                    "required": false,
                     "bestfit": "biggestScreenSize",
                     "movable": true,
                     "duplicable":true,
@@ -177,7 +177,7 @@
                 },
                 {
                     "componentId": "azken-bideoak",
-                    "required": true,
+                    "required": false,
                     "bestfit": "biggestScreenSize",
                     "movable": true,
                     "duplicable":true,
@@ -188,12 +188,12 @@
                     "required": false,
                     "bestfit": "biggestScreenSize",
                     "movable": true,
-                    "duplicable":true,
+                    "duplicable":false,
                     "needs":"none"
                 },
                 {
                     "componentId": "erlazionatutakoak",
-                    "required": true,
+                    "required": false,
                     "bestfit": "biggestScreenSize",
                     "movable": true,
                     "duplicable":true,
@@ -201,15 +201,15 @@
                 },
                 {
                     "componentId": "am-kontrolak",
-                    "required": true,
-                    "bestfit": "touchable",
+                    "required": false,
+                    "bestfit": "smallestScreenSize",
                     "movable": true,
                     "duplicable":true,
                     "needs":"none"
                 },
 		{
                     "componentId": "karrusela-fitxa",
-                    "required": true,
+                    "required": false,
                     "bestfit": "touchable",
                     "movable": true,
                     "duplicable":true,

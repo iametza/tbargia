@@ -10,15 +10,15 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         components[i].style.width='';
         components[i].style.height='';
         components[i].style.gridColumn='';
-        components[i].style.gridRow='';        
-        components[i].style.order='';  
-      }     
+        components[i].style.gridRow='';
+        components[i].style.order='';
+      }
 
       this.render(cmps);
 
 
     }
-      
+
     azala.render = function (cmps){
 
 
@@ -32,7 +32,8 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
     var width = window.innerWidth ||document.documentElement.clientWidth ||document.body.clientWidth;
     var height = window.innerHeight ||document.documentElement.clientHeight ||document.body.clientHeight;
-     
+  //  var width = container.innerWidth;
+  //  var height = container.innerHeight;
     var columns = Math.round(width/10);
     var r=Math.round(height/10);
     var c_width=(width)/columns;
@@ -43,7 +44,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
      for(var i=0;i<cmps.length;i++)
      {
-       console.log("cmps", cmps[i]);
+        //console.log("cmps", cmps[i]);
         var rwidth = (cmps[i].lproperties.rwidth.split('%')[0]/100)*width;
         cmps[i].style.order=cmps[i].lproperties.order;
         cmps[i].style.gridColumn='span '+Math.round(parseInt(rwidth)/c_width);
@@ -67,19 +68,19 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         cmps[i].style.height='';
         cmps[i].style.gridColumn='';
         cmps[i].style.gridRow='';
-        cmps[i].style.order='';        
-        cmps[i].style.display='block';     
+        cmps[i].style.order='';
+        cmps[i].style.display='block';
 
-      }      
+      }
       this.render(cmps);
 
     }
 
-      
+
 
     azala.onResizeEvent=function(cmps){
       console.log("layout resized");
-            
+
       this.render(cmps);
     }
     azala.unload = function(cpms){

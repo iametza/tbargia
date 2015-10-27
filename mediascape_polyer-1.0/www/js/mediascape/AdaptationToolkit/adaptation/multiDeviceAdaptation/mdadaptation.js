@@ -18,7 +18,7 @@ function($, applicationContext){
   var multiDeviceAdaptation = function(){
     // the reference to the shared context
     var applicationContext = undefined;
-    var nonUIChange = []//["mutePlayer","soundPlayer"];
+    var nonUIChange = ["playPlayer", "pausePlayer", "mutePlayer", "unmutePlayer"]//["mutePlayer","soundPlayer"];
     // the constructed context based on the context updates
     var context = {"agents":[]};
     var userActionOn = false;

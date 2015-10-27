@@ -10,7 +10,7 @@
   <style>
   :host {
     display: block;
-     
+
   }
   basic-arrow-direction {
     width:100%;
@@ -19,36 +19,36 @@
     width:100%;
     min-height: 310px;
     vertical-align: top;
-       
+
   }
- 
+
   .karrusela-container {
     width: 200px;
     min-height: 300px;
     padding:2px;
-    
+
   }
   .karrusela-container img {
     width: 200px;
   }
- 
+
   /* mobile-large */
   @media all and (min-width: 0) and (max-width: 360px) and (orientation: portrait) {
     .karrusela-container,  .karrusela-container img {
       width: 100px;
     }
   }
-  
+
   @media all and (max-width: 600px) and (orientation: portrait) {
       .karrusela-container,  .karrusela-container img {
       width: 150px;
     }
   }
-    
+
   .nabarmendua-irudia {
     width: 62%;
     margin: 10px;
-    position:relative;   
+    position:relative;
   }
   .nabarmendua-item{
     max-width: 200px;
@@ -59,7 +59,7 @@
     text-decoration: none;
   }
   .nabarmendua-item-body{
-    font-size: 1.4em;   
+    font-size: 1.4em;
     font-weight: bold;
     margin-top: 5px;
   }
@@ -114,7 +114,7 @@
     font-size: 2em;
     font-weight: bold;
     margin-top: 0;
-    
+
   }
   h2 a{
     color: #d70011;
@@ -134,15 +134,15 @@
     text-transform: uppercase;
     padding-top: 5px;
     font-size: 0.9em;
-  } 
+  }
   .vertical .item-body{
     width: 30%;
     float:right;
   }
   .item-izenburua{
-    font-size: 1.4em;   
-    font-weight: bold;    
-    
+    font-size: 1.4em;
+    font-weight: bold;
+
   }
   .horizontal a{
     text-decoration: none;
@@ -153,17 +153,17 @@
     padding-bottom: 15px;
   }
   .horizontal .item{
-    margin: 0 10px 10px 10px;    
+    margin: 0 10px 10px 10px;
   }
-  .horizontal .item-image{ 
+  .horizontal .item-image{
     padding-bottom: 5px;
   }
- 
+
 </style>
-  
-  
+
+
   <template>
-    
+
     <iron-ajax
       auto
       url = "http://www.argia.eus/API/v1/multimedia/motak"
@@ -171,9 +171,9 @@
       last-response="{{motakResponse}}"
       on-response="motakJaso"
     >
-      
+
     </iron-ajax>
-    
+
     <iron-ajax
         auto
         url="http://www.argia.eus/API/v1/multimedia/elementuak"
@@ -183,16 +183,16 @@
         on-response="erantzunaJaso"
               >
     </iron-ajax>
-    
-    
-    
-    
-       
+
+
+
+
+
     <h2><a href$="[[title_url]]">{{title}}</a></h2>
     <template is="dom-if" if="isReady">
       <basic-arrow-direction target="child" aria-label="Karrusela">
         <basic-carousel-fit id="carouselFit">
-          <template id="itemak" is="dom-repeat" items="{{ajaxResponse.elementuak}}">      
+          <template id="itemak" is="dom-repeat" items="{{ajaxResponse.elementuak}}">
             <paper-material elevation="1" class="karrusela-container">
               <a href$="{{url_fitxa(item.nice_name, item.mota_nice_name)}}">
               <img src="{{item.irudi_txikia}}" >
@@ -202,7 +202,7 @@
                 <div class="item-izenburua"><a href$="{{url_fitxa(item.nice_name, item.mota_nice_name)}}">{{item.izenburua}}</a></div>
                 <div class="mota">{{item.mota_sing}}</div>
               </div>
-             
+
             </paper-material>
           </template>
         </basic-carousel-fit>
@@ -211,12 +211,13 @@
   </template>
   <script>
     (function () {
-     
+
       Polymer({
         is: 'am-karrusela',
         behaviors: [
           Polymer.IronResizableBehavior,
-          ComponentQueryBehavior
+          ComponentQueryBehavior,
+          TBArgia.RoutingBehavior
         ],
         properties: {
           title:{
@@ -239,7 +240,7 @@
             type: String,
             notify: true // beste elementuak notifikatzeko beharrezkoa
           }
-          
+
         },
         paramsLortu: function(mota, ezErakutsi){
           return {
@@ -253,39 +254,39 @@
         listeners: {
         'iron-resize': '_onIronResize'
         },
-        
+
         ready: function() {
            this.isReady = false;
-           
+
            this.addEventListener('dom-change', function(){
             if (this.isReady) {
               Polymer.dom(this.root).querySelector('#carouselFit').selectFirst();
             }
-            
+
            });
-           
-        
+
+
         },
         erantzunaJaso: function(e, request){
-           
+
             if (this.ajaxResponse) {
               this.isReady = true;
             }else{
               console.log('akatsa elementuak APIa deitzean');
             }
-            
+
         },
         motakJaso: function (e, request){
           if (this.motakResponse) {
             this.motaDatuak = this._getMotaDatuak(this.mota, this.motakResponse.motak);
-           
+
           }
           if (this.motaDatuak) {
             this.title = this.motaDatuak.izena || this.title;
             this.title_url = '/' + this.motaDatuak.nice_name;
           }
         },
-              
+
         _getMotaDatuak: function (mota_nice_name, motak){
           var lookup = {};
           for (var i = 0, len = motak.length; i < len; i++) {
@@ -298,14 +299,14 @@
             return lookup[mota_nice_name];
           }
         },
-        
+
         _onIronResize: function() {
-                         
+
         }
-        
+
       });
     })();
-   
+
   </script>
 
 </dom-module>

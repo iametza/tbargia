@@ -8,14 +8,24 @@
       display: block;
 
     }
+#control-container{
+  width:100%
+}
 
 
   </style>
+  <style is="custom-style">
+  .big {
+    --iron-icon-height: 60px;
+    --iron-icon-width: 60px;
+  }
+</style>
   <template>
-  <div class="layout horizontal">
-    <iron-icon on-click="play" icon="av:play-arrow"></iron-icon>
-    <iron-icon on-click="pause" icon="av:pause"></iron-icon>
-    <iron-icon on-click="stop" icon="av:stop"></iron-icon>
+  <div class="layout horizontal" id="control-container">
+    <iron-icon class="big" on-click="play" icon="av:play-arrow"></iron-icon>
+    <iron-icon class="big" on-click="pause" icon="av:pause"></iron-icon>
+    <iron-icon class="big" on-click="mute" icon="av:volume-off"></iron-icon>
+    <iron-icon class="big" on-click="unmute" icon="av:volume-up"></iron-icon>
   </div>
   </template>
   <script>
@@ -24,7 +34,9 @@
       Polymer({
         is: 'am-kontrolak',
         behaviors: [
-          Polymer.IronResizableBehavior,ComponentQueryBehavior
+          Polymer.IronResizableBehavior,
+          ComponentQueryBehavior,
+          TBArgia.RoutingBehavior
         ],
         properties: {
           kontrolatzeko: {
@@ -40,23 +52,33 @@
 
         ready: function() {
           console.log(this.kontrolatzeko);
+
         },
         _playerobjChanged: function(newValue, oldValue){
           console.log(newValue);
         },
-          play: function(){
-          console.log(this.kontrolatzeko);
-          if (this.kontrolatzeko.play !== undefined) { // youtube
-            this.kontrolatzeko.play();
-          }else{ //vimeo
-             $f(this.kontrolatzeko).api('play');
-          }
+        play: function(){
+          this.aginduaBidali('playPlayer');
         },
         pause: function(){
-          this.kontrolatzeko.pause();
+          this.aginduaBidali('pausePlayer');
         },
-        stop: function(){
-          this.kontrolatzeko.stop();
+        mute: function(){
+          this.aginduaBidali('mutePlayer');
+        },
+        unmute: function(){
+          this.aginduaBidali('unmutePlayer');
+        },
+
+        aginduaBidali: function(agindua){
+          // TODO bilatu player-aren id-a
+          var compId = 'compId4';
+          ac = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getApplicationContext();
+          context = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getLocalContext();
+          console.log('kontrolak play', ac, context);
+          context.agents.forEach(function(agent){
+              mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agent.id, compId,agindua);
+          })
         }
 
 

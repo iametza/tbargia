@@ -15,29 +15,48 @@ window.TBArgia = window.TBArgia || {};
  */
 window.TBArgia.RoutingBehavior = {
 
- 
+
 
   created: function() {
-     
+
+    document.addEventListener('routingStatusChange', function(e) {
+     console.log('route changed', this, e);
+     var compIndex = this.getAttribute('compId').split('compId')[1];
+     if (e.detail.routingStatus !== 'undefined') {
+       context = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getLocalContext();
+
+       agents = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getAgents();
+       console.log('agents context', agents, context);
+       // begiratu show edo hide egin behar dugun
+       context.agents.forEach( function(agent){
+        console.log('contextUpdate foreach', agent);
+        // if noizikuzi == routingstatus eta show == false eta agentid == selfagentid
+        console.log('ikusi IF', this.noizIkusi, e.detail.routingStatus, agent.capabilities.componentsStatus[compIndex]);
+        if (this.noizIkusi ==  e.detail.routingStatus ) {
+          console.log('contextUpdate ikustarazi');
+          this.style.display="block";
+          this.style.position="";
+          this.style.left="";
+          //mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agent.id, this.getAttribute('compId'),'show');
+        }else if (this.noizIkusi !=  e.detail.routingStatus ) {
+          console.log('contextUpdate izkutatu');
+          this.style.position="absolute";
+          this.style.left="-2000px";
+          //mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agent.id, this.getAttribute('compId'),'hide');
+        }
+
+      }, this);
+
+
+     } //endif routingStatus undefined
+    }.bind(this));
+
+
   },
 
   properties: {
-          noizIkusi: String,
-          route: String,
-          erakutsi: {type: Boolean,
-                      computed: 'erakutsiBehar(noizIkusi, route)',
-                      observer: '_erakutsiChanged'
-          }
-  },
-  erakutsiBehar: function(noizIkusi, route){
-      return noizIkusi === route;
-  },
-  _erakutsiChanged: function(newValue, oldValue){
-    //console.log('erakutsiChanged', newValue, oldValue);
-    
+          noizIkusi: String
   }
-
-    
 
 }
 
