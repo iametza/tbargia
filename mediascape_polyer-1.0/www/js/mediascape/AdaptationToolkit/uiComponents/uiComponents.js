@@ -661,6 +661,10 @@ define(
         compImg.src=srcs[i];
         compImg.style.width='50px';/*'calc('+associationPanel.querySelector('#smallTable').style.width+'/6)';*/
         th1.appendChild(compImg);
+        // izenburua jarri
+        var compName = document.createElement('span');
+        compName.innerHTML = cmps[i];
+        th1.appendChild(compName);
         tr.appendChild(th1);
         for(var j=0;j<agents.length;j++){
           var th2=document.createElement('td');
@@ -1145,8 +1149,10 @@ define(
                 mediascape.association.createQRcode(url,associationPanel,(30*width/100),(30*width/100),'',(35*width/100),50);
                 associationPanel.removeEventListener('webkitTransitionEnd',callback,false);
               }*/
-
-              mediascape.association.createQRcode(url,associationPanel,(30*width/100),(30*width/100),'',(35*width/100),50);
+              console.log('qrcode url', url);
+              AE = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation;
+              unekourl = "http://"+window.location.host+window.location.pathname+"?group="+AE.GROUP_ID;
+              mediascape.association.createQRcode(unekourl,associationPanel,(30*width/100),(30*width/100),'',(35*width/100),50);
               devAssociation.style.backgroundColor='#778899';
               associationPanel.removeEventListener('webkitTransitionEnd',callback,false);
 

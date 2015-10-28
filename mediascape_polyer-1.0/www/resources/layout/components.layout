@@ -70,9 +70,9 @@
   rwidth:100%;
   propx:8;
   propy:1;
-  required:true;
-  duplicable:true;
-  bestfit:smallestScreenSize;
+  required:false;
+  duplicable:false;
+  bestfit:touchable;
   movable:true;
   icon:../resources/images/icons_manag/Irunea.png;
 }

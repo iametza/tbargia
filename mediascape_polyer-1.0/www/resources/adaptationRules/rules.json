@@ -185,7 +185,7 @@
                 },
                 {
                     "componentId": "player",
-                    "required": false,
+                    "required": true,
                     "bestfit": "biggestScreenSize",
                     "movable": true,
                     "duplicable":false,
@@ -194,7 +194,7 @@
                 {
                     "componentId": "erlazionatutakoak",
                     "required": false,
-                    "bestfit": "biggestScreenSize",
+                    "bestfit": "touchable",
                     "movable": true,
                     "duplicable":true,
                     "needs":"none"
@@ -202,7 +202,7 @@
                 {
                     "componentId": "am-kontrolak",
                     "required": false,
-                    "bestfit": "smallestScreenSize",
+                    "bestfit": "touchable",
                     "movable": true,
                     "duplicable":true,
                     "needs":"none"

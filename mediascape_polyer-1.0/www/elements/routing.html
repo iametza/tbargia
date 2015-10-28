@@ -20,26 +20,26 @@ window.TBArgia.RoutingBehavior = {
   created: function() {
 
     document.addEventListener('routingStatusChange', function(e) {
-     console.log('route changed', this, e);
+     //console.log('route changed', this, e);
      var compIndex = this.getAttribute('compId').split('compId')[1];
-     if (e.detail.routingStatus !== 'undefined') {
+     if (e.detail.routingStatus.ruta !== 'undefined') {
        context = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getLocalContext();
 
        agents = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getAgents();
-       console.log('agents context', agents, context);
+       //console.log('agents context', agents, context);
        // begiratu show edo hide egin behar dugun
        context.agents.forEach( function(agent){
-        console.log('contextUpdate foreach', agent);
+       // console.log('contextUpdate foreach', agent);
         // if noizikuzi == routingstatus eta show == false eta agentid == selfagentid
-        console.log('ikusi IF', this.noizIkusi, e.detail.routingStatus, agent.capabilities.componentsStatus[compIndex]);
-        if (this.noizIkusi ==  e.detail.routingStatus ) {
-          console.log('contextUpdate ikustarazi');
+       // console.log('ikusi IF', this.noizIkusi, e.detail.routingStatus, agent.capabilities.componentsStatus[compIndex]);
+        if (this.noizIkusi ==  e.detail.routingStatus.ruta ) {
+          //console.log('contextUpdate ikustarazi');
           this.style.display="block";
           this.style.position="";
           this.style.left="";
           //mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agent.id, this.getAttribute('compId'),'show');
-        }else if (this.noizIkusi !=  e.detail.routingStatus ) {
-          console.log('contextUpdate izkutatu');
+        }else if (this.noizIkusi !=  e.detail.routingStatus.ruta ) {
+          //console.log('contextUpdate izkutatu');
           this.style.position="absolute";
           this.style.left="-2000px";
           //mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agent.id, this.getAttribute('compId'),'hide');

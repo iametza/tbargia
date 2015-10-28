@@ -35,7 +35,8 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 
 		// The dom-change event signifies when the template has stamped its DOM.
 
-		app.handleResponseAzala = function(){
+		app.handleResponseAzala = function(data){
+		 console.log('handleResponseAzala', data);
 		};
 
 
@@ -44,24 +45,17 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 		var rulesAE = "/resources/adaptationRules/rules.json"
 		AE.startApplicationContext();
 		var UI = mediascape.AdaptationToolkit.Adaptation.UIAdaptation;
-    UI.init(data.detail.components,UI.LAYOUTMODE.STATIC);
+		 UI.init(data.detail.components,UI.LAYOUTMODE.STATIC);
 		UI.useLayout('azala');
-    var location = "http://"+window.location.host+window.location.pathname;
+		 var location = "http://"+window.location.host+window.location.pathname;
 		mediascape.AdaptationToolkit.uiComponents.addAssociationPanel(location+"?group="+AE.GROUP_ID);
+		window.loc
 		document.addEventListener('applicationContext-ready', function() {
 
 			AE.init(rulesAE, AE.getApplicationContext());
 			AE.on('actionchange', UI.onComponentsChange);
 
-				if (app.route === 'azala') {
-						app.$.azalekoDatuak.url = baseUrl+'/azala';
-						app.$.azalekoDatuak.generateRequest();
-
-				}
-
-				if (app.route === 'fitxa') {
-						app.$.player.bideoNiceName = app.params.nice_name;
-				}
+				
 
 		});
 });
@@ -89,11 +83,10 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 		<am-karruselak id="am-karruselak" motak="[[ajaxResponse.azaleko_motak]]" noiz-ikusi="azala"></am-karruselak>
 
 		<!-- fitxakoak -->
-		<am-player id="player" playerobj="{{playerobj}}" bideo-nice-name="{{params.nice_name}}" noiz-ikusi="fitxa" ></am-player>
-		<am-kontrolak id="am-kontrolak" kontrolatzeko="{{playerobj}}" noiz-ikusi="fitxa"></am-kontrolak>
+		<am-player id="player" bideo-nice-name="{{params.nice_name}}" noiz-ikusi="fitxa" ></am-player>
+		<am-kontrolak id="am-kontrolak" noiz-ikusi="fitxa"></am-kontrolak>
 		<am-zerrenda id="erlazionatutakoak" title="Erlazionatutako bideoak" noiz-ikusi="fitxa"></am-zerrenda>
-		<am-karrusela id="karrusela-fitxa" class="am-karrusela" mota="[[params.mota_nice_name]]" ez-erakutsi="[[params.nice_name]]" noiz-ikusi="fitxa"></am-karrusela>
-
+		
 		<div>
 		<iron-ajax
 				id="azalekoDatuak"
@@ -110,7 +103,26 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 <script>
 
 
-		document.addEventListener('routingStatusChange',function(data){console.log("routa aldatuda",data)})
+		document.addEventListener('routingStatusChange',function(data){
+		 var app = document.querySelector('#app');
+		 console.log("routa aldatuda",data, app);
+		  
+		 if (app.route === 'azala') {
+			app.$.azalekoDatuak.url = baseUrl+'/azala';
+			app.$.azalekoDatuak.generateRequest();
+ 		}
+
+		if (app.route === 'fitxa') {
+			app.$.player.bideoNiceName = app.params.nice_name;
+		}
+		 
+		 
+		 
+		 unekourl = window.href;
+		 if (window.location.href != data.detail.routingStatus.path){
+				  window.history.pushState('path_mediascape', data.detail.routingStatus.ruta, data.detail.routingStatus.path);
+		 }
+		});
 		new loadingPanel('/resources/images/mediascape_logo.png',6);
 </script>
 </body>

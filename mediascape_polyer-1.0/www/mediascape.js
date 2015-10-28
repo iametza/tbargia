@@ -98,9 +98,9 @@
 
         var app = document.querySelector('#app');
 
-        page('/', function () {
+        page('/', function (data) {
           app.route = 'azala';
-          var routingEvent = new CustomEvent("onRouteChange",  {"detail": app.route });
+          var routingEvent = new CustomEvent("onRouteChange",  {"detail": {"ruta": app.route, "path": data.path} });
           setTimeout(function(){
             document.dispatchEvent(routingEvent);
           }, 3000);
@@ -117,7 +117,7 @@
         page('/:mota_nice_name/:nice_name', function (data) {
           app.route = 'fitxa';
           app.params = data.params;
-          var routingEvent = new CustomEvent("onRouteChange", {"detail": app.route });
+          var routingEvent = new CustomEvent("onRouteChange", {"detail": {"ruta": app.route, "path": data.path} });
           setTimeout(function(){
             document.dispatchEvent(routingEvent);
           }, 3000);

@@ -279,8 +279,9 @@ function($, applicationContext){
               }
               if (key === "routingStatus")
               {
-                        var routingLocalEvent = new CustomEvent("routingStatusChange",{"detail":{"routingStatus":value}});
-                        document.dispatchEvent(routingLocalEvent);
+                                     
+                var routingLocalEvent = new CustomEvent("routingStatusChange",{"detail":{"routingStatus":value}});
+                document.dispatchEvent(routingLocalEvent);
               }
               onUpdateContext(change);
               }
@@ -508,7 +509,7 @@ var setRoutingAsInstrument = function (){
           this.setCapability("routingStatus", "supported");
           document.addEventListener('onRouteChange',function(data){
 
-              ac.setItem('routingStatus',data.detail);
+          ac.setItem('routingStatus',data.detail);
 
           });
           console.log("INIT INSTRUMENT");
@@ -517,6 +518,7 @@ var setRoutingAsInstrument = function (){
         on: function (){
 
           document.addEventListener('onRouteChange',function(data){
+            console.log('routing Instrument', data);
 
 
               ac.setItem('routingStatus',data.detail);
