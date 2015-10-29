@@ -141,7 +141,7 @@ define(
             this.explicitLayout.onLayoutChangeEvent(_cmps,explicitRule);
           }
           else {
-            throw new Error ("Event does not exists");
+            throw new Error ("Event does not exists" + event);
           }
         }
         else
@@ -171,7 +171,7 @@ define(
             //  actualLayout.render(_cmps);
           }
           else {
-            throw new Error ("Event does not exists");
+            throw new Error ("Event does not exists " + event);
           }
           break;
           case this.LAYOUTMODE.ADAPTABLE:

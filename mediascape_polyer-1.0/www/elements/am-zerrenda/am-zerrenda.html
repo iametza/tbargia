@@ -226,9 +226,25 @@
           kop: {
             type: Number,
             value: 4
+          },
+          bideoObject: {
+            type: Object,
+            observer: '_bideoObjectChanged'
           }
         },
         ready: function() {
+          
+           document.addEventListener('onComponentsChange', function(e){
+              var compIndex = this.getAttribute('compId').split('compId')[1];
+                console.log('amzerrenda onComponentsChange', e.detail.cmps[compIndex]);
+                // begiratu ea zerrendarentzat mezua den
+                var lastCmd = e.detail.cmps[compIndex].customCmd[e.detail.cmps[compIndex].customCmd.length - 1];
+                if(lastCmd !== undefined){
+                  //this.komandoaJaso(lastCmd);
+                }
+            }.bind(this), false);
+          
+          
         
         },
         handleResponse: function(res){
@@ -243,7 +259,7 @@
           return 'layout wrap '+orientation;
         },
         url: function(nice_name, mota_nice_name){
-          return mota_nice_name + '/' + nice_name;
+          return '/' + mota_nice_name + '/' + nice_name;
         },
         init: function() {
 
@@ -263,6 +279,12 @@
         _tagChanged: function(newValue, oldValue){
           this.init();
         },
+        
+        _bideoObjectChanged: function(newValue, oldValue){
+          console.log('objchanged');
+          this.tag = newValue.etiketa_nagusia.nice_name;
+        },
+        
         _erakutsiChanged: function(newValue, oldValue){
           this.init();
         }

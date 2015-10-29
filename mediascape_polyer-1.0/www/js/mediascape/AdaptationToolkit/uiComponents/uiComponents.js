@@ -477,7 +477,7 @@ define(
           associationPanel.style.width='0';
           associationPanel.style.height='0';
 
-          associationPanel.style.borderRight='300px solid transparent';
+          associationPanel.style.borderRight='100px solid transparent';
           associationPanel.style.borderTop='100px solid';
 
           var colors=['rgba(0,48,64,0.8)','rgba(255,0,0,0.8)','rgba(0,128,0,0.8)','rgba(255,255,0,0.8)','rgba(139,0,139,0.8)','rgba(210,105,30,0.8)'];

@@ -150,6 +150,10 @@
           vimeoId: {
             type: String,
             observer: '_vimeoIdChanged'
+          },
+          erantzuna: {
+            type: Object,
+            notify: true
           }
 
 
@@ -214,6 +218,7 @@
 
         },
         elementuaJaso: function(e, request){
+          
           console.log('elementuaJaso');
 
             if (this.elementuaResponse) {
@@ -228,6 +233,10 @@
                 this.youtubeId = false;
                 this.vimeoId = this.elementuaResponse.embed[0].vimeo_id;
               }
+              
+            this.erantzuna = this.elementuaResponse; 
+              
+              
 
 
             }else{
@@ -258,7 +267,30 @@
           url = app.url + '/erreportajeak/' + this.elementuaResponse.nice_name;
           text = this.elementuaResponse.izenburua;
           window.open("https://twitter.com/intent/tweet?text="+text+"&url="+url+"&via=argia","","menubar=no,toolbar=no,resizable=yes,scrollbars=yes,width=550,height=420")
-        }
+        },
+        
+        // pasa fitxako zerrendari tag-a
+          aginduaBidali: function(agindua, parametroa){
+           console.log('aginduaBidaltzen preEvent');
+           document.addEventListener('applicationContext-ready', function(){
+               // TODO bilatu fitxako zerrendaren id-a
+              var compId = 'compId6';
+              ac = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getApplicationContext();
+               console.log('applicationContext', ac);           
+              //ac.setItem(agindua, parametroa);
+              
+              context = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getLocalContext();
+              console.log('localcontext', context);
+              context.agents.forEach(function(agent){
+                  console.log('aginduaBidaltzen', agent.id, compId, agindua);  
+                  mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agent.id, compId,agindua);
+              });
+            
+            
+            
+           });
+          
+         }
 
 
       });

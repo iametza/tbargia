@@ -49,7 +49,6 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 		UI.useLayout('azala');
 		 var location = "http://"+window.location.host+window.location.pathname;
 		mediascape.AdaptationToolkit.uiComponents.addAssociationPanel(location+"?group="+AE.GROUP_ID);
-		window.loc
 		document.addEventListener('applicationContext-ready', function() {
 
 			AE.init(rulesAE, AE.getApplicationContext());
@@ -83,9 +82,9 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 		<am-karruselak id="am-karruselak" motak="[[ajaxResponse.azaleko_motak]]" noiz-ikusi="azala"></am-karruselak>
 
 		<!-- fitxakoak -->
-		<am-player id="player" bideo-nice-name="{{params.nice_name}}" noiz-ikusi="fitxa" ></am-player>
+		<am-player id="player" erantzuna="{{bideoobj}}" bideo-nice-name="{{params.nice_name}}" noiz-ikusi="fitxa" ></am-player>
 		<am-kontrolak id="am-kontrolak" noiz-ikusi="fitxa"></am-kontrolak>
-		<am-zerrenda id="erlazionatutakoak" title="Erlazionatutako bideoak" noiz-ikusi="fitxa"></am-zerrenda>
+		<am-zerrenda id="erlazionatutakoak" bideo-object="[[bideoobj]]" title="Erlazionatutako bideoak" noiz-ikusi="fitxa"></am-zerrenda>
 		
 		<div>
 		<iron-ajax
@@ -106,7 +105,6 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 		document.addEventListener('routingStatusChange',function(data){
 		 var app = document.querySelector('#app');
 		 console.log("routa aldatuda",data, app);
-		  
 		 if (app.route === 'azala') {
 			app.$.azalekoDatuak.url = baseUrl+'/azala';
 			app.$.azalekoDatuak.generateRequest();

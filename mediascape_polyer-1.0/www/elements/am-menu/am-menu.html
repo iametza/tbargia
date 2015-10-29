@@ -17,6 +17,8 @@
     outline-width: 0 !important;
     width: 90%;
   }
+  
+  
 
   paper-item{
     padding-top: 2px;
@@ -37,6 +39,21 @@
 .eskuin{
   float: right;
 }
+
+/* mobile-large */
+  @media all and (min-width: 0) and (max-width: 360px) and (orientation: portrait) {
+    .eskuin {
+      display:none;
+    }
+  }
+
+  @media all and (max-width: 600px) and (orientation: portrait) {
+    .eskuin {
+      display:none;
+    }
+  }
+  
+
 </style>
   <template>
       <div class="marra-gorria"></div>
