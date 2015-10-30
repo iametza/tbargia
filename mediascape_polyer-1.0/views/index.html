@@ -104,14 +104,18 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 
 		document.addEventListener('routingStatusChange',function(data){
 		 var app = document.querySelector('#app');
-		 console.log("routa aldatuda",data, app);
-		 if (app.route === 'azala') {
+		 console.log("routa aldatuda",data, app.route, app.params);
+		 //if (app.route === 'azala') {
+		 if (data.detail.routingStatus.ruta === 'azala') {
 			app.$.azalekoDatuak.url = baseUrl+'/azala';
 			app.$.azalekoDatuak.generateRequest();
+			app.$.player.youtubeId = false;
+			app.$.player.vimeoId = false;
  		}
 
-		if (app.route === 'fitxa') {
-			app.$.player.bideoNiceName = app.params.nice_name;
+		//if (app.route === 'fitxa') {
+		if (data.detail.routingStatus.ruta === 'fitxa') {
+			app.$.player.bideoNiceName = data.detail.routingStatus.params.nice_name;
 		}
 		 
 		 

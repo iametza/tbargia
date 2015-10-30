@@ -117,7 +117,7 @@
         page('/:mota_nice_name/:nice_name', function (data) {
           app.route = 'fitxa';
           app.params = data.params;
-          var routingEvent = new CustomEvent("onRouteChange", {"detail": {"ruta": app.route, "path": data.path} });
+          var routingEvent = new CustomEvent("onRouteChange", {"detail": {"ruta": app.route, "path": data.path, "params": data.params} });
           setTimeout(function(){
             document.dispatchEvent(routingEvent);
           }, 3000);
