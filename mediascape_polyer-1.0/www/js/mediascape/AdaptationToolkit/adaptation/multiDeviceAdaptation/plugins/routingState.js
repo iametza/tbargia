@@ -23,11 +23,6 @@ function(){
         this.onChange = function( evt, ctx) {
             context = ctx;
             var AE = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation;
-            var agents = ctx.agents;
-            var me = agents.filter(function(ag){
-                  if (ag.id ===  AE.getAgentId() ) return true;
-                  return false;
-            })[0];
 
             var decision = {priority: config.priority, actions: []};
             var routingStatus = evt.value.ruta;
