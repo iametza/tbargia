@@ -36,7 +36,8 @@ function(){
             for (c in componentsStatus){
                 if ( typeof componentsStatus[c] === 'object')
                   if (componentsStatus[c].customCmd.length>0)
-                     if (componentsStatus[c].customCmd.lastIndexOf('show') >= componentsStatus[c].customCmd.lastIndexOf('hide')){
+                     if ((componentsStatus[c].customCmd.lastIndexOf('show')!=-1 || componentsStatus[c].customCmd.lastIndexOf('hide')!=-1)
+                        && componentsStatus[c].customCmd.lastIndexOf('show') >= componentsStatus[c].customCmd.lastIndexOf('hide')){
                        /*if (cmp.lproperties['duplicable']==="false")
                         otherAgents.forEach(function(ag){
                          mediascape.Communication.setRemoteAgentComponentStatus(ag.id,cmp.getAttribute('compId'),'hide');
@@ -47,7 +48,8 @@ function(){
                      }
                      else{
                       // this.localChange = false;
-                      decision.actions.push({"type": "HIDE", "component": componentsStatus[c].selector});
+                      if(componentsStatus[c].customCmd.lastIndexOf('hide')!=-1)
+                        decision.actions.push({"type": "HIDE", "component": componentsStatus[c].selector});
 
                      }
                      //else return false;
@@ -55,6 +57,7 @@ function(){
 
             }
            }
+           console.log(decision);
             return  decision;
 
         };

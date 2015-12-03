@@ -60,7 +60,8 @@
 
 			}
       var event = new CustomEvent("mediascape-modules-ready", {"detail":{"loaded":true}});
-      document.dispatchEvent(event);
+      setTimeout(function () {document.dispatchEvent(event);},3000);
+
       return _this;
       };
 
@@ -85,8 +86,8 @@
 
 
     });
- define ("router", ["page"],
-    function (page) {
+ define ("router", ["mediascape","page"],
+    function (ms,page) {
 
     var router = {};
     var moduleList   = Array.prototype.slice.apply( arguments );
@@ -103,7 +104,7 @@
           var routingEvent = new CustomEvent("onRouteChange",  {"detail": {"ruta": app.route, "path": data.path} });
           setTimeout(function(){
             document.dispatchEvent(routingEvent);
-          }, 3000);
+          }, 10000);
 
 
 

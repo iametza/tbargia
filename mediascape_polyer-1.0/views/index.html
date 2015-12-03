@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1.0, minimum-scale=1.0, maximum-scale=1.0">
 <meta http-equiv="Cache-control" content="no-cache">
 <!-- NEEDED SCRIPTS -->
-<script  src="../resources/wcs/bower_components/webcomponentsjs/webcomponents.js"></script>
+<script  src="../resources/wcs/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 <script  src="../resources/libs/require.js"></script>
 <script async src="/mediascape.js"></script>
 <script async src="../resources/libs/utils.js"></script>
@@ -46,7 +46,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 		AE.startApplicationContext();
 		var UI = mediascape.AdaptationToolkit.Adaptation.UIAdaptation;
 		 UI.init(data.detail.components,UI.LAYOUTMODE.STATIC);
-		UI.useLayout('azala');
+		 UI.useLayout('azala');
 		 var location = "http://"+window.location.host+window.location.pathname;
 		mediascape.AdaptationToolkit.uiComponents.addAssociationPanel(location+"?group="+AE.GROUP_ID);
 		document.addEventListener('applicationContext-ready', function() {
@@ -54,7 +54,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 			AE.init(rulesAE, AE.getApplicationContext());
 			AE.on('actionchange', UI.onComponentsChange);
 
-				
+
 
 		});
 });
@@ -85,7 +85,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 		<am-player id="player" erantzuna="{{bideoobj}}" bideo-nice-name="{{params.nice_name}}" noiz-ikusi="fitxa" ></am-player>
 		<am-kontrolak id="am-kontrolak" noiz-ikusi="fitxa"></am-kontrolak>
 		<am-zerrenda id="erlazionatutakoak" bideo-object="[[bideoobj]]" title="Erlazionatutako bideoak" noiz-ikusi="fitxa"></am-zerrenda>
-		
+
 		<div>
 		<iron-ajax
 				id="azalekoDatuak"
@@ -117,15 +117,15 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 		if (data.detail.routingStatus.ruta === 'fitxa') {
 			app.$.player.bideoNiceName = data.detail.routingStatus.params.nice_name;
 		}
-		 
-		 
-		 
+
+
+
 		 unekourl = window.href;
 		 if (window.location.href != data.detail.routingStatus.path){
 				  window.history.pushState('path_mediascape', data.detail.routingStatus.ruta, data.detail.routingStatus.path);
 		 }
 		});
-		new loadingPanel('/resources/images/mediascape_logo.png',6);
+		new loadingPanel('/resources/images/mediascape_logo.png',12);
 </script>
 </body>
 

@@ -64,8 +64,6 @@ function(){
           //Check for needs, this agent support all needs or not
           needs = cmp.adaptationBehaviour['needs'].every(function(atr){
               if (atr === "none") return true;
-              if (atr === "x86")
-                if (navigator.appVersion.indexOf('x86')===-1)  return false;
                 if (atr.toLowerCase().indexOf('screensize')>-1){
                   if (atr.operation)
                     if (atr.operation === "bigger"){
@@ -148,6 +146,7 @@ function(){
         // IF AM THE ONLY ONE
         else {
                 result = 1;
+        
          }
           // Compare agents notes
           console.log("result",result,moveToOtherAgent,qualifiedAgentAndComponentToShow(me,cmp),cmp.nodeName);

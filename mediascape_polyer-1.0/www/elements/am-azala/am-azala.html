@@ -9,46 +9,46 @@
       width: 100%;
       margin-right: auto;
       margin-left: auto;
-      
+
     }
     .container{
       max-width: 1280px;
       width: 90%;
       margin-right: auto;
       margin-left: auto;
-      
+
     }
     .gai-nabarmendua{
       width: 70%;
-      float: left;     
+      float: left;
       border: 1px solid #ebebeb;
       border-top: none;
     }
-    .azken-bideoak{           
+    .azken-bideoak{
       border: 1px solid #ebebeb;
       width: 27%;
       float: right;
       padding: 10px;
-      
+
     }
-    
+
   </style>
 <template>
   
 
 <iron-ajax
-        id="azalekoDatuak"        
+        id="azalekoDatuak"
         url=""
         method='GET'
-        handle-as="json"        
+        handle-as="json"
         last-response="{{ajaxResponse}}">
 </iron-ajax>
 
 
-   
-  <div class="container">   
+
+  <div class="container">
       <template is="dom-if" if="{{ajaxResponse}}">
-      <div class="gai-nabarmendua"><am-zerrenda base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="5" nabarmendua="1" ></am-zerrenda></div>      
+      <div class="gai-nabarmendua"><am-zerrenda base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="5" nabarmendua="1" ></am-zerrenda></div>
       <div class="azken-bideoak"><am-zerrenda base-url="[[baseUrl]]" kop="4" orientation="vertical" title="Azken bideoak"></am-zerrenda></div>
     </template>
     <div style="clear: both"></div>
@@ -61,11 +61,11 @@
 
 </template>
 <script>
-  (function () {      
+  (function () {
   Polymer({
     is: 'am-azala',
     behaviors:[ComponentQueryBehavior],
-    properties: {   
+    properties: {
           baseUrl: {
             type: String,
             value: ''
@@ -78,10 +78,10 @@
       return app.azala === true;
     },
     ready: function() {
-      this.$.azalekoDatuak.url = this.baseUrl+'/azala';          
-      this.$.azalekoDatuak.generateRequest();      
-     
-      
+      this.$.azalekoDatuak.url = this.baseUrl+'/azala';
+      this.$.azalekoDatuak.generateRequest();
+
+
     }
  })
 })();

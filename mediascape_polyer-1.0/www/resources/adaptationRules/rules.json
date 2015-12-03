@@ -147,9 +147,9 @@
     "implicitRules": {
         "bestfit": {
             "name": "bestfit",
-            "enabled": true,
+            "enabled": false,
             "capabilities": ["screenSize", "deviceType","touchScreen","componentsStatus","layoutEvent","platform","routingStatus"],
-            "priority": 1,
+            "priority": 3,
             "behaviour": [
                 {
                     "componentId": "menua",
@@ -161,7 +161,7 @@
                 },
                 {
                     "componentId": "am-karruselak",
-                    "required": false,
+                    "required": true,
                     "bestfit": "biggestScreenSize",
                     "movable": true,
                     "duplicable":true,
@@ -169,7 +169,7 @@
                 },
                 {
                     "componentId": "gai-nabarmendua",
-                    "required": false,
+                    "required": true,
                     "bestfit": "biggestScreenSize",
                     "movable": true,
                     "duplicable":true,
@@ -177,7 +177,7 @@
                 },
                 {
                     "componentId": "azken-bideoak",
-                    "required": false,
+                    "required": true,
                     "bestfit": "biggestScreenSize",
                     "movable": true,
                     "duplicable":true,
@@ -193,7 +193,7 @@
                 },
                 {
                     "componentId": "erlazionatutakoak",
-                    "required": false,
+                    "required": true,
                     "bestfit": "touchable",
                     "movable": true,
                     "duplicable":true,
@@ -201,7 +201,7 @@
                 },
                 {
                     "componentId": "am-kontrolak",
-                    "required": false,
+                    "required": true,
                     "bestfit": "touchable",
                     "movable": true,
                     "duplicable":true,
@@ -209,7 +209,7 @@
                 },
 		{
                     "componentId": "karrusela-fitxa",
-                    "required": false,
+                    "required": true,
                     "bestfit": "touchable",
                     "movable": true,
                     "duplicable":true,
@@ -222,6 +222,29 @@
             "enabled": false,
             "priority": 4,
             "capabilities": ["platform","onLine"],
+            "behaviour": [
+                {
+                    "componentId": "chart",
+                    "requirement": "platform(Win32)",
+                    "preference": "onLine(high, 2)"
+                },
+                {
+                    "componentId": "view",
+                    "requirement": "platform(linux)",
+                    "preference": "onLine(high, 1)"
+                },
+                {
+                    "componentId": "map",
+                    "requirement": "platform(android)",
+                    "preference": "onLine(high, 1)"
+                }
+            ]
+        },
+        "routingState": {
+            "name": "routingState",
+            "enabled": true,
+            "priority": 1,
+            "capabilities": ["touchScreen","screenSize","deviceType", "routingStatus","platform","componentsStatus"],
             "behaviour": [
                 {
                     "componentId": "chart",

@@ -3,7 +3,8 @@ define(['jquery',
 'mediascape/AdaptationToolkit/adaptation/multiDeviceAdaptation/plugins/explicit',
 'mediascape/AdaptationToolkit/adaptation/multiDeviceAdaptation/plugins/affinitymatch',
 'mediascape/AdaptationToolkit/adaptation/multiDeviceAdaptation/plugins/bestfit',
-'mediascape/AdaptationToolkit/adaptation/multiDeviceAdaptation/plugins/userpref'],
+'mediascape/AdaptationToolkit/adaptation/multiDeviceAdaptation/plugins/userpref',
+'mediascape/AdaptationToolkit/adaptation/multiDeviceAdaptation/plugins/routingState'],
 function($, applicationContext){
 
   // find out all adaptation plugin modules
@@ -18,13 +19,14 @@ function($, applicationContext){
   var multiDeviceAdaptation = function(){
     // the reference to the shared context
     var applicationContext = undefined;
-    var nonUIChange = ["playPlayer", "pausePlayer", "mutePlayer", "unmutePlayer", "tagChanged"]//["mutePlayer","soundPlayer"];
+    // Custom Events shouldn't affect to UI
+    var UIChangeEvents = ["show","hide"];
     // the constructed context based on the context updates
     var context = {"agents":[]};
     var userActionOn = false;
     // id of the local agent
     var local_agent_id;
-
+    var changeType = "ui";
     // the list to record the capabilities involved in the rule file
     var required_capability_list = [];
 
@@ -56,23 +58,25 @@ function($, applicationContext){
         if(decisions[i].priority > maxPriority) {
           maxPriority = decisions[i].priority;
           if (result === null)
-            result = decisions[i].actions;
+          result = decisions[i].actions;
           else {
-              result.forEach(function(c){
-                  decisions[i].actions.forEach(function(c2){
-                      if (c.component === c2.component){
-                           c.type = c2.type;
-                      }
-                  })
-              });
+            result.forEach(function(c){
+              decisions[i].actions.forEach(function(c2){
+                if (c.component === c2.component){
+                  c.type = c2.type;
+                }
+              })
+            });
           }
         }
       }
 
       return result;
     };
-
-    // take only the actions for the local agent from the generated results
+  /**
+    * take only the actions for the local agent from the generated results
+    * @param {array} list, {number} agentid
+    */
     var filterByAgentId = function( list, id ) {
       for(var i=0; i<list.length; i++){
         if(list[i].agent == id){
@@ -100,24 +104,55 @@ function($, applicationContext){
 
       return null;
     };
-    var getChangeDiff = function (obj){
-        if (localStatus === null) {
-          localStatus = obj;
-          return obj;
-        }
-        else {
-           var diff = mediascape.AdaptationToolkit.Utils.getObjectDiff(obj,localStatus);
-           localStatus = obj;
-           return diff;
-        }
+    // Add clients on connection order
+    var addCounter = function(agentid){
+      var ids_order = applicationContext.getItem('order_agentid') || [];
+
+      if(ids_order.lastIndexOf(agentid)===-1)
+      {
+        ids_order.push(agentid);
+        applicationContext.setItem('order_agentid',ids_order);
+      }
+
+      return ids_order.lastIndexOf(agentid);
+    }
+    var getChangeDiff = function (agentid,obj){
+    /*  if (localStatus === null) {
+        localStatus = obj;
+        return mediascape.AdaptationToolkit.Utils.getObjectDiff(obj,localStatus);
+      }
+      else*/
+      var ag = getAgentById(agentid);
+      localStatus = ag.capabilities.componentsStatus;
+
+       if ( (obj.length != localStatus.length) || (localStatus ==="supported" || localStatus ==="undefined")){
+        return null;
+      }
+      else {
+        var diff = mediascape.AdaptationToolkit.Utils.getObjectDiff(obj,localStatus);
+       return diff;
+      }
     }
     // called whenever a change happens to the shared context
     var updateContext = function(change) {
       var diff = null;
-      if (change.capability === "componentsStatus") diff = getChangeDiff(change.value);
-      if (change.diff) {diff = change.diff; change.capability ="componentsStatus"}
-          context.lastChange = {key:change.capability,value:change.value,diff:diff};
+      if (change.capability === "componentsStatus") diff = getChangeDiff(change.agentid,change.value);
+      if (diff != null ){
+        if (change.diff ) {diff = change.diff; change.capability ="componentsStatus"}
+        context.lastChange = {key:change.capability,value:change.value,diff:diff};
+        context.agentid = change.agentid;
+        if(diff[0])
+        if (diff[0].property === "customCmd" && UIChangeEvents.indexOf(diff[0].newValue) !== -1 ) changeType = "data";
+        else changeType = "ui";
+      }
+      else {
+        if ( change.capability !== "componentsStatus" )
+        {
+          context.lastChange = {key:change.capability,value:change.value,diff:null};
           context.agentid = change.agentid;
+          changeType = "ui";
+        }
+      }
       if( change.type === 'CAPABILITY_CHANGE' ) {
 
         console.log('********************* capability change event **********************');
@@ -128,16 +163,19 @@ function($, applicationContext){
       } else if( change.type === 'AGENT_JOIN' ) {
         if( hasAgent(change.agentid) == false) {
           // new agent joined, add it into the list
-          context.agents.push( {"id": change.agentid, "capabilities": [],agentContext:change.agentContext} );
+          var cnt = addCounter(change.agentid);
+          context.agents.push( {"_id":cnt,"id": change.agentid, "capabilities": [],agentContext:change.agentContext} );
         }
+
       }
       else if( change.type === 'VALUE_CHANGE' ) {
         // update the exiting agent with the new capability list
         var agent = getAgentById(change.agentid);
         if (!agent) {
-            agent = {"id": change.agentid, "capabilities": [],agentContext:change.agentContext};
-            context.agents.push(agent);
-            agent = getAgentById(change.agentid);
+          var cnt = addCounter(change.agentid);
+          agent = {"_id":cnt,"id": change.agentid, "capabilities": [],agentContext:change.agentContext};
+          context.agents.push(agent);
+          agent = getAgentById(change.agentid);
 
         }
 
@@ -146,7 +184,7 @@ function($, applicationContext){
         }
       } else if( change.type === 'AGENT_LEFT' ){
         console.log('existing agent is leaving');
-        console.log(change);
+        // notify locally the change
         notifiAgentChange('left',change.agentid)
         // existing agent left, remove it from the list
         for(var j=0; j<context.agents.length; j++){
@@ -181,18 +219,23 @@ function($, applicationContext){
         // notify the UI engine about which web components to display
         if( myactions && myactions.length && myactions.length > 0){
           var event = {"type": "FULL_UPDATE", "actions": myactions,agentid:change.agentid};
-          doCallbacks(event);
-          // update componentStatus
-          updateComponentStatus(event);
+          if (changeType === "ui") doCallbacks(event);
+          // update componentStatus local and remote
+         updateComponentStatus(event);
         }
+
       }
+      else {
+         var AE = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation;
+         AE.notifyUpdateContext(context,"cmp_changed",change.agentid);
+      }
+
     };
-
-   var updateComponentStatus = function (change){
-
+    // update componentStatus local and remote
+    var updateComponentStatus = function (change){
       var components = change.actions.map(function(c){
-           if (c.type === "SHOW") return document.querySelector("#"+c.component).getAttribute('compId');
-           else return null;
+        if (c.type === "SHOW") return document.querySelector("#"+c.component).getAttribute('compId');
+        else return null;
       });
       var AE = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation;
       var me =AE.getLocalContext().agents.filter(function(ag){
@@ -224,31 +267,29 @@ function($, applicationContext){
             return obj;
           }
         },this);
-    }
+      }
       mediascape.AdaptationToolkit.componentManager.core.setComponentsStatus(status);
-      //mediascape.Communication.setAgentsComponentStatus();
       var event = new CustomEvent("onComponentsChange", {"detail":{"type":"localChange","cmps":status,"agentid":change.agentid}});
       document.dispatchEvent(event);
-      //if (!userActionOn)
       AE.notifyUpdateContext(context,"cmp_changed",change.agentid);
     }
-    var onUpdateContext = function (change) {
-      // update the shared context object
-      updateContext(change);
 
+    // update the shared context object
+    var onUpdateContext = function (change) {
       // adapt to the current context change
+      updateContext(change);
+      // Check if all capabilities are collected before shared with decision plugins
       var needInfoReady = context.agents.every (function(ag){
-          if (ag.capabilities.hasOwnProperty('touchScreen') && ag.capabilities.hasOwnProperty('screenSize')
-              && ag.capabilities.hasOwnProperty('componentsStatus')) return true;
-          else return false;
+        if (ag.capabilities.hasOwnProperty('touchScreen') && ag.capabilities.hasOwnProperty('screenSize')) return true;
+        else return false;
       })
-      if (needInfoReady) hybridAdaptation(change);
+        hybridAdaptation(change);
     };
 
 
     // subscribe all demanded agent capabilities
     var subscribeAgentCapabilities = function(e) {
-      console.log('subscribe agent capabilities');
+      console.log('subscribe agent capabilities',required_capability_list);
       for(var i=0; i<required_capability_list.length; i++){
         var capability = required_capability_list[i];
 
@@ -279,7 +320,7 @@ function($, applicationContext){
               }
               if (key === "routingStatus")
               {
-                                     
+
                 var routingLocalEvent = new CustomEvent("routingStatusChange",{"detail":{"routingStatus":value}});
                 document.dispatchEvent(routingLocalEvent);
               }
@@ -410,7 +451,7 @@ function($, applicationContext){
           console.log(required_capability_list);
           setComponentsAsIntrument();
           setRoutingAsInstrument();
-          setLayoutAsInstrument();
+          //setLayoutAsInstrument();
         };
 
         // parse the input json file to extract rules and constraints
@@ -669,11 +710,11 @@ var setRoutingAsInstrument = function (){
                       agentChange = ag;
                       //if (cmd === "hide") cmps[c].customCmd = [];
                       /*else */cmps[c].customCmd.push(cmd);
-                      if (nonUIChange.indexOf(cmd)>-1){
-                          cmps.eventType="data";
+                      if (UIChangeEvents.indexOf(cmd)>-1){
+                          cmps.eventType="ui";
                       }
                       else {
-                         cmps.eventType ="ui";
+                         cmps.eventType ="data";
                       }
                     }
                   }
@@ -690,9 +731,9 @@ var setRoutingAsInstrument = function (){
                     setTimeout(function(){
                       onUpdateContext({type:"VALUE_CHANGE",agentid:agentId,diff:[{"property":"customCmd","newValue":cmd,compId:cmpId}]});
                     },0);
-                userActionOn = true;
+              
                 setTimeout(function(){
-                  userActionOn=false;
+                  context.lastChange.diff = [{"property":"customCmd","newValue":cmd,compId:cmpId}];
                   mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.notifyUpdateContext(context,"cmp_changed",agentId);
                 },500);
 

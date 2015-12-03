@@ -131,7 +131,8 @@
         behaviors: [
           Polymer.IronResizableBehavior,
           TBArgia.RoutingBehavior,
-          ComponentQueryBehavior
+          ComponentQueryBehavior,
+          ComponentStatusBehavior
         ],
         properties: {
           bideoNiceName: {
@@ -154,8 +155,12 @@
           erantzuna: {
             type: Object,
             notify: true
-          }
-
+          },
+          customCmd:{
+	        type:String,
+	        value:'',
+	        observer: 'customCmdReceived'
+        }
 
         },
 
@@ -188,7 +193,7 @@
             this.vimeoplayer = vimeoPlayers[0];
             this.playerobj = this.vimeoplayer;
             });
-
+/*
             document.addEventListener('onComponentsChange', function(e){
               var compIndex = this.getAttribute('compId').split('compId')[1];
                 console.log('player onComponentsChange', e);
@@ -198,10 +203,10 @@
                   this.komandoaJaso(lastCmd);
                 }
             }.bind(this), false);
-
+*/
 
         },
-        komandoaJaso: function(komandoa){
+        customCmdReceived: function(komandoa){
           // TODO momentuz bakarrik youtube playera
           if(komandoa == 'playPlayer'){
             this.playerobj.play();
@@ -218,7 +223,7 @@
 
         },
         elementuaJaso: function(e, request){
-          
+
           console.log('elementuaJaso');
 
             if (this.elementuaResponse) {
@@ -233,10 +238,10 @@
                 this.youtubeId = false;
                 this.vimeoId = this.elementuaResponse.embed[0].vimeo_id;
               }
-              
-            this.erantzuna = this.elementuaResponse; 
-              
-              
+
+            this.erantzuna = this.elementuaResponse;
+
+
 
 
             }else{
@@ -268,7 +273,7 @@
           text = this.elementuaResponse.izenburua;
           window.open("https://twitter.com/intent/tweet?text="+text+"&url="+url+"&via=argia","","menubar=no,toolbar=no,resizable=yes,scrollbars=yes,width=550,height=420")
         },
-        
+
         // pasa fitxako zerrendari tag-a
           aginduaBidali: function(agindua, parametroa){
            console.log('aginduaBidaltzen preEvent');
@@ -276,20 +281,20 @@
                // TODO bilatu fitxako zerrendaren id-a
               var compId = 'compId6';
               ac = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getApplicationContext();
-               console.log('applicationContext', ac);           
+               console.log('applicationContext', ac);
               //ac.setItem(agindua, parametroa);
-              
+
               context = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getLocalContext();
               console.log('localcontext', context);
               context.agents.forEach(function(agent){
-                  console.log('aginduaBidaltzen', agent.id, compId, agindua);  
+                  console.log('aginduaBidaltzen', agent.id, compId, agindua);
                   mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agent.id, compId,agindua);
               });
-            
-            
-            
+
+
+
            });
-          
+
          }
 
 

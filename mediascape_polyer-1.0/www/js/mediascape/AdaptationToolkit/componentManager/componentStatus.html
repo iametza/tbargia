@@ -34,12 +34,12 @@
    if ( this[key] !== null && this[key] !== undefined ) {
      this[key] = value;
    }
-   else throw new Warn(key + "properties does not exits on"+this);
+   else throw new warn(key + "properties does not exits on"+this);
  },
  getStatusValue:function(key){
    if ( this[key] !=null ) return this[key];
    else {
-     throw new Warn(key + "properties does not exits on"+this);
+     throw new warn(key + "properties does not exits on"+this);
      return -1;
    }
  },
