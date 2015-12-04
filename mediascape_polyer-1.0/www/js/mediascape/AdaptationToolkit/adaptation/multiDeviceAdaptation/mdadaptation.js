@@ -303,8 +303,13 @@ function($, applicationContext){
         if( availableCapabilities.hasOwnProperty(capability) == true && availableCapabilities[capability] === 'supported' ) {
           console.log('subscribe to the change of ' + capability + ' for agent id = ' + e.agentid);
           // subscribe the change of all demanded capabilities for remote agents
+          if (capability === "routingStatus"){
+            var routingEvent = new CustomEvent("routing-ready",  {"detail": {"status":"ready"} });
+            setTimeout(function(){document.dispatchEvent(routingEvent)},3000);
+          }
           e.agentContext.on(capability, function(key, value) {
             console.log('capture a capability value change event key = ' + key + ' value = ' + value + ' from agent id = ' + e.agentid);
+
             if( key && value ) {
               var change = {};
               change['type'] = 'CAPABILITY_CHANGE';
@@ -549,9 +554,12 @@ var setRoutingAsInstrument = function (){
       var routingStatusInstrument = {
         init: function () {
           this.setCapability("routingStatus", "supported");
+
+
           document.addEventListener('onRouteChange',function(data){
 
-          ac.setItem('routingStatus',data.detail);
+              ac.setItem('routingStatus',data.detail);
+
 
           });
           console.log("INIT INSTRUMENT");

@@ -86,8 +86,14 @@
 
 
     });
- define ("router", ["mediascape","page"],
-    function (ms,page) {
+    require([ "router" ], function (router) {
+      console.log("router require");
+      document.addEventListener('applicationContext-ready',router.init.bind(router),false);
+
+
+    });
+ define ("router", ["page"],
+    function (page) {
 
     var router = {};
     var moduleList   = Array.prototype.slice.apply( arguments );
@@ -98,17 +104,21 @@
       // imports are loaded and elements have been registered
 
         var app = document.querySelector('#app');
+        var routingEvent = new CustomEvent("onRouteChange",  {"detail": {"ruta": "azala", "path": "/"} });
 
+      /*  if (firstTime  )
+        {
+          document.addEventListener('routing-ready',function(e){
+              document.dispatchEvent(routingEvent);
+
+            }, false);
+            firstTime = false;
+        }*/
         page('/', function (data) {
           app.route = 'azala';
           var routingEvent = new CustomEvent("onRouteChange",  {"detail": {"ruta": app.route, "path": data.path} });
-          if (firstTime)
-              setTimeout(function(){
-                document.dispatchEvent(routingEvent);
-                firstTime = false;
-              }, 12000);
-          else
-              setTimeout(function(){
+
+          setTimeout(function(){
                 document.dispatchEvent(routingEvent);
               }, 1000);
 
@@ -124,8 +134,8 @@
           app.params = data.params;
           var routingEvent = new CustomEvent("onRouteChange", {"detail": {"ruta": app.route, "path": data.path, "params": data.params} });
           setTimeout(function(){
-            document.dispatchEvent(routingEvent);
-          }, 1000);
+                document.dispatchEvent(routingEvent);
+              }, 1000);
 
 
         });
@@ -145,12 +155,6 @@
   });
 
 
-  require([ "router" ], function (router) {
-    console.log("router require");
-    if (document.readyState === "complete") router.init();
-    else setTimeout(router.init, 4000);
 
-
-  });
 
 }());
