@@ -163,6 +163,7 @@ function($, applicationContext){
       } else if( change.type === 'AGENT_JOIN' ) {
         if( hasAgent(change.agentid) == false) {
           // new agent joined, add it into the list
+          mediascape.AdaptationToolkit.uiComponents.hideAssociationPanel();
           var cnt = addCounter(change.agentid);
           context.agents.push( {"_id":cnt,"id": change.agentid, "capabilities": [],agentContext:change.agentContext} );
         }
@@ -731,7 +732,7 @@ var setRoutingAsInstrument = function (){
                     setTimeout(function(){
                       onUpdateContext({type:"VALUE_CHANGE",agentid:agentId,diff:[{"property":"customCmd","newValue":cmd,compId:cmpId}]});
                     },0);
-              
+
                 setTimeout(function(){
                   context.lastChange.diff = [{"property":"customCmd","newValue":cmd,compId:cmpId}];
                   mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.notifyUpdateContext(context,"cmp_changed",agentId);
