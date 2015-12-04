@@ -26,11 +26,23 @@ function(){
 
             var decision = {priority: config.priority, actions: []};
             var routingStatus = evt.value.ruta;
+            var deviceType = mediascape.deviceType;
+            var cmpsToLoad = [];
+            switch (deviceType)
+            {
+                case "Mobile": cmpsToLoad.push("gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak");break;
+                case "Tablet": classmpsToLoad.push("gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak");break;
+                case "TV": cmpsToLoad.push("azken-bideoak","gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak");break;
+                case "Desktop": cmpsToLoad.push("azken-bideoak","gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak");break;
+                default: cmpsToLoad.push("gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak");
+            }
+            console.log(cmpsToLoad);
             if ( routingStatus ){
 
                var cmps = mediascape.AdaptationToolkit.componentManager.core.getComponents();
                if (routingStatus === "azala" || routingStatus === "undefined"){
                   cmps.forEach (function(cmp){
+                    if (cmpsToLoad.indexOf(cmp.id)!==-1){
                        if (cmp.id === "gai-nabarmendua")decision.actions.push({"type": "SHOW", "component": cmp.id});
                        if (cmp.id === "menua") decision.actions.push({"type": "SHOW", "component": cmp.id});
                        if (cmp.id === "azken-bideoak") decision.actions.push({"type": "SHOW", "component": cmp.id});
@@ -38,17 +50,25 @@ function(){
                        if (cmp.id === "player") decision.actions.push({"type": "HIDE", "component": cmp.id});
                        if (cmp.id === "am-kontrolak") decision.actions.push({"type": "HIDE", "component": cmp.id});
                        if (cmp.id === "erlazionatutakoak") decision.actions.push({"type": "HIDE", "component": cmp.id});
+                    }
+                    else {
+                      decision.actions.push({"type": "HIDE", "component": cmp.id});
+                    }
                   });
                }
                else if (routingStatus === "fitxa"){
                 cmps.forEach (function(cmp){
-                 if (cmp.id === "gai-nabarmendua")decision.actions.push({"type": "HIDE", "component": cmp.id});
-                 if (cmp.id === "menua") decision.actions.push({"type": "SHOW", "component": cmp.id});
-                 if (cmp.id === "azken-bideoak") decision.actions.push({"type": "HIDE", "component": cmp.id});
-                 if (cmp.id === "am-karruselak") decision.actions.push({"type": "HIDE", "component": cmp.id});
-                 if (cmp.id === "player") decision.actions.push({"type": "SHOW", "component": cmp.id});
-                 if (cmp.id === "am-kontrolak") decision.actions.push({"type": "SHOW", "component": cmp.id});
-                 if (cmp.id === "erlazionatutakoak") decision.actions.push({"type": "SHOW", "component": cmp.id});
+                  if (cmpsToLoad.indexOf(cmp.id)!==-1){
+                     if (cmp.id === "gai-nabarmendua")decision.actions.push({"type": "HIDE", "component": cmp.id});
+                     if (cmp.id === "menua") decision.actions.push({"type": "SHOW", "component": cmp.id});
+                     if (cmp.id === "azken-bideoak") decision.actions.push({"type": "HIDE", "component": cmp.id});
+                     if (cmp.id === "am-karruselak") decision.actions.push({"type": "HIDE", "component": cmp.id});
+                     if (cmp.id === "player") decision.actions.push({"type": "SHOW", "component": cmp.id});
+                     if (cmp.id === "am-kontrolak") decision.actions.push({"type": "SHOW", "component": cmp.id});
+                     if (cmp.id === "erlazionatutakoak") decision.actions.push({"type": "SHOW", "component": cmp.id});
+                   }
+                  else
+                    decision.actions.push({"type": "HIDE", "component": cmp.id});
                 });
                }
 
