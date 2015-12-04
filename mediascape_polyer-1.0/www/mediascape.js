@@ -91,7 +91,7 @@
 
     var router = {};
     var moduleList   = Array.prototype.slice.apply( arguments );
-
+    var firstTime = true;
     router.init = function(){
 
       _this = Object.create( router );
@@ -102,11 +102,15 @@
         page('/', function (data) {
           app.route = 'azala';
           var routingEvent = new CustomEvent("onRouteChange",  {"detail": {"ruta": app.route, "path": data.path} });
-          setTimeout(function(){
-            document.dispatchEvent(routingEvent);
-          }, 10000);
-
-
+          if (firstTime)
+              setTimeout(function(){
+                document.dispatchEvent(routingEvent);
+                firstTime = false;
+              }, 12000);
+          else
+              setTimeout(function(){
+                document.dispatchEvent(routingEvent);
+              }, 1000);
 
         });
 
@@ -121,7 +125,7 @@
           var routingEvent = new CustomEvent("onRouteChange", {"detail": {"ruta": app.route, "path": data.path, "params": data.params} });
           setTimeout(function(){
             document.dispatchEvent(routingEvent);
-          }, 3000);
+          }, 1000);
 
 
         });
