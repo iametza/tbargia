@@ -1,3 +1,15 @@
+/**
+* This layout organizes N components using a menu. The component with the
+* lowest order will be shown in fullscreen and the others are not shown. A menu with
+* the available components appears at the bottom of the screen whenever there is activity
+* on the display. When one component from the list is selected, the associated component
+* takes the fullscreen place.
+
+* @module mediascape/AdaptationToolkit/adaptation/UIAdaptation/layouts/menu
+* @requires mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor
+*/
+
+
 define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"],
   function(LayoutConstructor){
 
@@ -34,6 +46,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
       }
       componentsContainer.style.backgroundColor='';
       componentsContainer.style.perspective='';
+       componentsContainer.className='';
       if(document.querySelector('#layout_classes')!=null){
         document.head.removeChild(document.querySelector('#layout_classes'));
       }
@@ -66,8 +79,29 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
                                                     componentsContainer.querySelector('figure'));
         }
         componentsContainer.querySelector('figure').parentNode.removeChild(componentsContainer.querySelector('figure'));
-        document.querySelector('x-media').play();
+        if(document.querySelector('x-media')){
+          document.querySelector('x-media').play();
+        }
       }
+
+      if(document.querySelector('#swContainer')){
+
+
+       for(var i=0;i<components.length;i++){
+        if(document.querySelector('#swContainer').querySelector('#'+components[i].id)){
+         var node=document.querySelector('#'+components[i].id);
+         componentsContainer.appendChild(node);
+
+        }
+      }
+        document.querySelector('#swContainer').parentNode.removeChild(document.querySelector('#swContainer'));
+        if(document.querySelector('x-media')){
+          document.querySelector('x-media').play();
+        }
+      }
+
+
+
       if(componentsContainer.querySelector('#arrows')){
         componentsContainer.removeChild(componentsContainer.querySelector('#arrows'));
       }
@@ -85,8 +119,11 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
     }
     menu.render = function (cmps,show,resize){
 
+    document.body.style.backgroundColor='white';
+    document.body.style.padding='';
+
     var container=document.querySelector('#componentsContainer');
-    container.style.display='grid';
+    container.style.display='inline-block';
     container.style.gridAutoFlow='';
     container.style.overflowX='';
 
@@ -97,11 +134,11 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
     main_comp_height=Math.round(0.95*(height+10));
     var space=Math.round(0.05*(height+10));
 
-    container.style.gridTemplateRows=main_comp_height+'px '+space+'px';
+
     var small_comp_width=parseInt((width-20)/comp_num);
-    
-    
-    
+
+
+
 
 
     var ordered_cmps=[];
@@ -144,11 +181,11 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
           var comp_name = document.createElement('span');
           comp_name.id='compDiv'+i;
           comp_name.innerHTML=document.querySelector('.class'+i).getAttribute('name')||document.querySelector('.class'+i).id;
-      
+
           comp_name.style.width=small_comp_width;
           comp_name.style.height=Math.round(0.05*(height))+'px';
           comp_name.style.marginLeft=((i-1)*parseInt(small_comp_width))+10+'px';
-          
+
           comp_name.style.textAlign='center';
           comp_name.verticalAlign= 'middle';
           comp_name.style.lineHeight=Math.round(0.05*(height))+'px';
@@ -162,7 +199,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
           comp_name.style.position='absolute';
           comp_name.style.bottom=0;//-(Math.round(0.05*(height+10)))/3;
 
-          function unhoverFunc(event){            
+          function unhoverFunc(event){
             event.srcElement.style.borderBottom='';
             event.srcElement.style.background='';
             event.srcElement.style.fontWeight='';
@@ -170,7 +207,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
           }
 
 
-          Polymer.addEventListener(comp_name,'mouseout',unhoverFunc,true);
+          comp_name.addEventListener('mouseout',unhoverFunc,true);
 
           function hoverFunc(event){
             event.srcElement.style.background='#003545';
@@ -178,7 +215,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
            event.srcElement.style.fontWeight='bold';
            event.srcElement.style.height=Math.round(0.05*(height))-5+'px';
           }
-           Polymer.addEventListener(comp_name,'mouseover',hoverFunc,true);
+           comp_name.addEventListener('mouseover',hoverFunc,true);
 
           comp_name.onclick=function(){
             var aux=event.srcElement.id.split('compDiv')[1];
@@ -211,19 +248,19 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         }
         var menu_container=document.createElement('div');
         menu_container.style.position='absolute';
-        
+
         menu_container.style.width=(width+10)+'px';
         menu_container.style.height=Math.round(0.05*(height+10))+'px';
 
         menu_container.style.zIndex=2;
-       
+
         menu_container.id='menu_container';
-        
+
         menu_container.style.background='rgb(0, 64, 80);';
         menu_container.style.background='linear-gradient(#003040, #002535)';
 
         //menu_container.style.background='#fff url("http://img.webme.com/pic/c/cssplantillas/wmp11menu0.png")';
-        
+
         menu_container.style.borderWidth='0 1px';
         //menu_container.style.borderBottom='1px solid #444';
         menu_container.style.bottom=0;
@@ -267,6 +304,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
       }
       componentsContainer.style.backgroundColor='';
       componentsContainer.style.perspective='';
+       componentsContainer.className='';
       if(document.querySelector('#layout_classes')!=null){
         document.head.removeChild(document.querySelector('#layout_classes'));
       }
@@ -299,8 +337,27 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
                                                     componentsContainer.querySelector('figure'));
         }
         componentsContainer.querySelector('figure').parentNode.removeChild(componentsContainer.querySelector('figure'));
-        document.querySelector('x-media').play();
+        if(document.querySelector('x-media')){
+          document.querySelector('x-media').play();
+        }
       }
+      if(document.querySelector('#swContainer')){
+
+
+       for(var i=0;i<cmps.length;i++){
+        if(document.querySelector('#swContainer').querySelector('#'+cmps[i].id)){
+         var node=document.querySelector('#'+cmps[i].id);
+         componentsContainer.appendChild(node);
+
+        }
+        }
+        document.querySelector('#swContainer').parentNode.removeChild(document.querySelector('#swContainer'));
+        if(document.querySelector('x-media')){
+          document.querySelector('x-media').play();
+        }
+
+      }
+
       if(componentsContainer.querySelector('#arrows')){
         componentsContainer.removeChild(componentsContainer.querySelector('#arrows'));
       }

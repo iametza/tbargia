@@ -101,6 +101,27 @@ define(
       }
       this.useLayout = function (layoutName){
         // find the rule
+        // Find out my layout according deviceProfile
+        if (typeof layoutName === "object" ){
+            // All device same layout
+
+               // Find out which layout reciprocate with the deviceType
+            var found =   layoutName.deviceTypes.some(function(deviceType){
+                 if(mediascape.deviceType === deviceType.deviceType){
+                    layoutName = deviceType.layout;
+                    return true;
+                 }
+               });
+          if (!found) {
+            // set default to accordion
+            layoutName = "accordion";
+            console.warn ("Not layout found for device type: "+mediascape.deviceType +" Using default one");
+
+          }
+
+
+        }
+
         if (actualLayout) actualLayout.unload(cmps);
         actualLayout = layouts.filter(function(el){
           if (el.name == layoutName) return true;
@@ -108,9 +129,12 @@ define(
         })[0];
         if (!actualLayout) throw new Error ("There is no layout named: "+layoutName);
         else  {
-              if (this.layoutMode === this.LAYOUTMODE.STATIC) this.layout(cmps,"onComponentsChange");
+              if (this.layoutMode === this.LAYOUTMODE.STATIC) {
+                this.layout(cmps,"onComponentsChange");
+              }
               else  this.layout(cmps,"onLayoutChange");
               }
+
       }
 
       this.layout = function (_cmps,event){

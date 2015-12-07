@@ -505,8 +505,8 @@ define(
 
           //ContextUpdate for detecting the agent connection/disconnection
           document.addEventListener('contextUpdate',function(){
-                console.log(event,"context update");
-                event.stopPropagation();
+              //  console.log(event,"context update");
+              //  event.stopPropagation();
                 agents=event.detail.context.agents;
 
                 var ag=mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getAgents();
@@ -530,7 +530,9 @@ define(
 
                 }
 
-                drawTable(agents);
+                if (event.detail.type === "cmp_changed" || event.detail.type === "join"
+                    || event.detail.type === "left")
+                    drawTable(agents);
                 if(viewing===true){
                   associationPanel.querySelector('#smallTable').style.display='block';
                 }
@@ -582,7 +584,7 @@ define(
       var deviceImg=document.createElement('img');
       deviceImg.src='resources/images/icons_manag/device.png';
       (function(dImage,agent,dev){
-
+        if (agent.capabilities['platform'].deviceType ){
               if (agent.capabilities['platform'].deviceType==="Desktop") dImage.src = '/resources/images/icons_manag/pc.png';
               if (agent.capabilities['platform'].deviceType==="TV") dImage.src = '/resources/images/icons_manag/tv.png';
               if (agent.capabilities['platform'].deviceType==="Mobile") dImage.src = '/resources/images/icons_manag/mobile.png';
@@ -626,6 +628,7 @@ define(
 
                   dev.appendChild(warning);
               }
+            }
 
       })(deviceImg,agents[k],dev);
       deviceImg.style.width='50px';/*'calc('+associationPanel.querySelector('#smallTable').style.width+'/10)';*/

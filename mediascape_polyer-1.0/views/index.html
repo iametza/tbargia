@@ -44,13 +44,14 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 		var AE = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation;
 		var rulesAE = "/resources/adaptationRules/rules.json"
 		AE.startApplicationContext();
-		var UI = mediascape.AdaptationToolkit.Adaptation.UIAdaptation;
-		 UI.init(data.detail.components,UI.LAYOUTMODE.STATIC);
-		 UI.useLayout('azala');
-		 var location = "http://"+window.location.host+window.location.pathname;
-		mediascape.AdaptationToolkit.uiComponents.addAssociationPanel(location+"?group="+AE.GROUP_ID);
+;
 		document.addEventListener('applicationContext-ready', function() {
-
+			var UI = mediascape.AdaptationToolkit.Adaptation.UIAdaptation;
+			UI.init(data.detail.components,UI.LAYOUTMODE.STATIC);
+			UI.useLayout({deviceTypes:[{deviceType:'Desktop',layout:'azala'},
+											{deviceType:'Mobile',layout:'menu'},{deviceType:'Tablet',layout:'spinner'},{deviceType:'TV',layout:'verticalMenu'}]});
+			var location = "http://"+window.location.host+window.location.pathname;
+			mediascape.AdaptationToolkit.uiComponents.addAssociationPanel(location+"?group="+AE.GROUP_ID)
 			AE.init(rulesAE, AE.getApplicationContext());
 			AE.on('actionchange', UI.onComponentsChange);
 
@@ -74,7 +75,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
   <!-- End of definition of webcompoents -->
 <template is="dom-bind" id="app">
 
-		<am-menu id="menua" ></am-menu>
+
 
 
 		<am-zerrenda id="gai-nabarmendua" base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="4" nabarmendua noiz-ikusi="azala"  ></am-zerrenda>
@@ -85,7 +86,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 		<am-player id="player" erantzuna="{{bideoobj}}" bideo-nice-name="{{params.nice_name}}" noiz-ikusi="fitxa" ></am-player>
 		<am-kontrolak id="am-kontrolak" noiz-ikusi="fitxa"></am-kontrolak>
 		<am-zerrenda id="erlazionatutakoak" bideo-object="[[bideoobj]]" title="Erlazionatutako bideoak" noiz-ikusi="fitxa"></am-zerrenda>
-
+		<am-menu id="menua" ></am-menu>
 		<div>
 		<iron-ajax
 				id="azalekoDatuak"
