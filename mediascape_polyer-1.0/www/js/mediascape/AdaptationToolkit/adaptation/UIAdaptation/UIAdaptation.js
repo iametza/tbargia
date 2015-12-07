@@ -183,8 +183,8 @@ define(
             //  actualLayout.render(_cmps);
           }
           else if (event === "onOrientationChange"){
-            mediascape.AdaptationToolkit.componentManager.loadManager.unload( mediascape.AdaptationToolkit.componentManager.core.getHiddenComponents(_cmps));
-            mediascape.AdaptationToolkit.componentManager.loadManager.load(_cmps);
+            //mediascape.AdaptationToolkit.componentManager.loadManager.unload( mediascape.AdaptationToolkit.componentManager.core.getHiddenComponents(_cmps));
+            //mediascape.AdaptationToolkit.componentManager.loadManager.load(_cmps);
             actualLayout.onOrientationChange(_cmps);
             //  actualLayout.render(_cmps);
           }
@@ -251,56 +251,56 @@ define(
         if(actualLayout)actualLayout.onPriorizeComponent(cmp);
       }
       this.onWindowResize = function (event){
-          // Filter only showing ones
-          //cmps = cmds.filter(function(el){});
-        event.srcElement =  event.srcElement || event.target;
-         if(prev_orientation!==undefined && prev_orientation!==''){
+    // Filter only showing ones
+    //cmps = cmds.filter(function(el){});
+  event.srcElement =  event.srcElement || event.target;
+   if(prev_orientation!==undefined && prev_orientation!==''){
 
-              if(prev_orientation !== event.srcElement.orientation  ){
+        if(prev_orientation !== event.srcElement.orientation  ){
 
-                  prev_orientation=event.srcElement.orientation;
-                  clearTimeout(activityTimer);
-                  console.log (layoutIndex,cmps.length);
-                  actualLayout.unload(cmps);
-                  if (This.layoutMode === This.LAYOUTMODE.ADAPTABLE)
-                    actualLayout = This.findBestLayout(cmps)[0];
-                  this.layout(cmps,'onLayoutChange');
+            prev_orientation=event.srcElement.orientation;
+            clearTimeout(activityTimer);
+            console.log (layoutIndex,cmps.length);
+            actualLayout.unload(cmps);
+            if (This.layoutMode === This.LAYOUTMODE.ADAPTABLE)
+              actualLayout = This.findBestLayout(cmps)[0];
+            this.layout(cmps,'onOrientationChange');
 
-                  this.forceRedraw();
+            this.forceRedraw();
 
-              }
-              else{
-
-                if (event.detail !="emulate")
-                {
-                  console.log("RESIZING",event);
-                  this.layout(cmps,'onResizeEvent');
-                }
-              }
-            }
-
-
-        else{
-           prev_orientation=event.srcElement.orientation;
-            // this.layout(cmps,'onResizeEvent');
-            if (event.detail !="emulate")
-            {
-              console.log("RESIZING",event);
-              this.layout(cmps,'onResizeEvent');
-            }
         }
+        else{
 
-          /*
           if (event.detail !="emulate")
           {
             console.log("RESIZING",event);
             this.layout(cmps,'onResizeEvent');
           }
-          */
-
-
-
         }
+      }
+
+
+  else{
+     prev_orientation=event.srcElement.orientation;
+      // this.layout(cmps,'onResizeEvent');
+      if (event.detail !="emulate")
+      {
+        console.log("RESIZING",event);
+        this.layout(cmps,'onResizeEvent');
+      }
+  }
+
+    /*
+    if (event.detail !="emulate")
+    {
+      console.log("RESIZING",event);
+      this.layout(cmps,'onResizeEvent');
+    }
+    */
+
+
+
+  }
       this.onLayoutChangeEvent= function (){
         //DECIDE WHICH LAYOUT USE; IT IS CALLED WHEN USER EVENT HAPPENS
 
