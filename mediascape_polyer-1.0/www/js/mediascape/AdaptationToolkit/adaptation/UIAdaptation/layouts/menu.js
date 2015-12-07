@@ -143,8 +143,9 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
     var ordered_cmps=[];
     ordered_cmps = cmps.sort(function(it1,it2){
-    if (it1.lproperties.order > it2.lproperties.order) return 1;
-    else return -1;
+    //if (it1.lproperties.order > it2.lproperties.order) return 1;
+    //else return -1;
+    return 1;
     });
 
     var cl = document.createElement('style');

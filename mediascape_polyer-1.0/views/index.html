@@ -44,7 +44,6 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 		var AE = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation;
 		var rulesAE = "/resources/adaptationRules/rules.json"
 		AE.startApplicationContext();
-;
 		document.addEventListener('applicationContext-ready', function() {
 			var UI = mediascape.AdaptationToolkit.Adaptation.UIAdaptation;
 			UI.init(data.detail.components,UI.LAYOUTMODE.STATIC);

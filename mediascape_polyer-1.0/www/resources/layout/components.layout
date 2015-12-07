@@ -1,15 +1,3 @@
-#menua{
-  needs:none;
-  order:1;
-  rwidth:100%;
-  propx:8;
-  propy:1;
-  required:true;
-  duplicable:true;
-  bestfit:biggestScreenSize;
-  movable:true;
-  icon:../resources/images/icons_manag/Irunea.png;
-}
 #gai-nabarmendua{
   needs:none;
   order:2;
@@ -99,6 +87,18 @@
   required:true;
   duplicable:true;
   bestfit:smallestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+#menua{
+  needs:none;
+  order:1;
+  rwidth:100%;
+  propx:8;
+  propy:1;
+  required:true;
+  duplicable:true;
+  bestfit:biggestScreenSize;
   movable:true;
   icon:../resources/images/icons_manag/Irunea.png;
 }
