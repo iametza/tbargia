@@ -21,9 +21,14 @@
     vertical-align: top;
 
   }
+  
+  paper-material {
+    border-bottom: 2px solid #AFAFAF;
+  }
 
+  
   .karrusela-container {
-    width: 200px;
+    width: 250px;
     min-height: 300px;
     padding:2px;
 
@@ -35,7 +40,10 @@
   /* mobile-large */
   @media (min-width: 0) and (max-width: 768px) {
     .karrusela-container,  .karrusela-container img {
-      width: 125px;
+      width: 200px;
+    }
+    basic-carousel-fit {
+      min-height: 260px;
     }
   }
 /* tablet-large */
@@ -47,50 +55,17 @@
   /* desktop-large */
  @media (min-width: 993px) and (max-width: 1200px){ 
       .karrusela-container,  .karrusela-container img {
-      width: 300px;
+      width: 250px;
     }
   }
   /* tv-large */
    @media (min-width: 1200px){ 
       .karrusela-container,  .karrusela-container img {
-      width: 400px;
+      width: 250px;
     }
   }
-  .nabarmendua-irudia {
-    width: 62%;
-    margin: 10px;
-    position:relative;
-  }
-  .nabarmendua-item{
-    max-width: 200px;
-    width: 22%;
-    height: auto;
-    margin: 10px;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  .nabarmendua-item-body{
-    font-size: 1.4em;
-    font-weight: bold;
-    margin-top: 5px;
-  }
-  .play{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -48.5px;
-    margin-top: -49px;
-    transform-style: flat;
-    max-width: 100px;
-  }
-  .play:hover{
-    transform: scale(1.2,1.2);
-  }
-
-  .nabarmendua-testua{
-    width: 30%;
-    padding: 0 10px;
-  }
+ 
+  
   .spinner{
     width: 20%;
     margin-left: auto;
@@ -116,6 +91,9 @@
     font-size: 1.8em;
     font-weight: bold;
   }
+  .item-izenburua a{
+    text-decoration: none;
+  }
   .azalpena{
      font-size: 1.6em;
     margin-top: 10px;
@@ -123,8 +101,9 @@
   h2 {
     color: #d70011;
     font-size: 2em;
-    font-weight: bold;
+    font-weight: normal;
     margin-top: 0;
+    border-bottom: 1px solid rgba(215, 0, 17, 0.6);
 
   }
   h2 a{
@@ -132,7 +111,7 @@
     text-decoration: none;
   }
   h2 a:hover{
-    text-decoration: underline;
+    color: #000000;
   }
   .data{
     color: #d70011;
