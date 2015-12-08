@@ -6,20 +6,20 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
+html {
+    font-size: 62.5%;
+    font-family: 'Open Sans', sans-serif;
+}
 
 body {
   background: #fafafa;
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #333;
+  font-size: 100%;
+  margin: 0;
+  
 }
-html {
-    font-size: 62.5%;
-    font-family: 'Open Sans', sans-serif;
-}
-body {
-    font-size: 100%;
-    font-family: 'Open Sans', sans-serif;
-}
+
 a{
     color: #333;
 }
@@ -87,3 +87,43 @@ am-zerrenda {
   border: 1px solid #ebebeb;
   margin: 5px;
 }
+
+/* mobile-large */
+@media (min-width: 0) and (max-width: 768px) {
+  #gai-nabarmendua{
+    width:100%;
+  }
+  #azken-bideoak{
+    width:100%;
+  }
+}
+
+@media (min-width: 769px) {
+   #gai-nabarmendua{
+    width:60%;
+    float:left;
+  }
+  #azken-bideoak{
+    width:35%;
+    float:right;
+   
+  }
+  #am-karruselak{
+    clear:both;
+  }
+}
+
+/* tablet-large */
+@media (min-width: 769px) and (max-width: 992px)  {
+  
+}
+/* desktop-large */
+@media (min-width: 993px) and (max-width: 1200px){ 
+    
+}
+/* tv-large */
+@media (min-width: 1200px){ 
+     
+}
+
+

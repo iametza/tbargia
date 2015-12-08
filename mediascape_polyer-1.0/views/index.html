@@ -63,7 +63,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 </script>
 
 </head>
-<body style="margin-left:auto;margin-right:auto;width:90%">
+<body>
  <!-- Definition of each webcompoent -->
 <!--
   <x-media  id="video1" file="../resources/media/ETB2_new.mp4"  ismuted="true"></x-media>
@@ -74,9 +74,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
   <!-- End of definition of webcompoents -->
 <template is="dom-bind" id="app">
 
-
-
-
+        <am-menu id="menua" ></am-menu>
 		<am-zerrenda id="gai-nabarmendua" base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="4" nabarmendua noiz-ikusi="azala"  ></am-zerrenda>
 		<am-zerrenda id="azken-bideoak" base-url="[[baseUrl]]" tag="none" kop="4" orientation="vertical" title="Azken bideoak" noiz-ikusi="azala"></am-zerrenda>
 		<am-karruselak id="am-karruselak" motak="[[ajaxResponse.azaleko_motak]]" noiz-ikusi="azala"></am-karruselak>
@@ -85,7 +83,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 		<am-player id="player" erantzuna="{{bideoobj}}" bideo-nice-name="{{params.nice_name}}" noiz-ikusi="fitxa" ></am-player>
 		<am-kontrolak id="am-kontrolak" noiz-ikusi="fitxa"></am-kontrolak>
 		<am-zerrenda id="erlazionatutakoak" bideo-object="[[bideoobj]]" title="Erlazionatutako bideoak" noiz-ikusi="fitxa"></am-zerrenda>
-		<am-menu id="menua" ></am-menu>
+		
 		<div>
 		<iron-ajax
 				id="azalekoDatuak"
