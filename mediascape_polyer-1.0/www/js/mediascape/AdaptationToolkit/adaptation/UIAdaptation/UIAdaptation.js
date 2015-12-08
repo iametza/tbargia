@@ -101,6 +101,27 @@ define(
       }
       this.useLayout = function (layoutName){
         // find the rule
+        // Find out my layout according deviceProfile
+        if (typeof layoutName === "object" ){
+            // All device same layout
+
+               // Find out which layout reciprocate with the deviceType
+            var found =   layoutName.deviceTypes.some(function(deviceType){
+                 if(mediascape.deviceType === deviceType.deviceType){
+                    layoutName = deviceType.layout;
+                    return true;
+                 }
+               });
+          if (!found) {
+            // set default to accordion
+            layoutName = "accordion";
+            console.warn ("Not layout found for device type: "+mediascape.deviceType +" Using default one");
+
+          }
+
+
+        }
+
         if (actualLayout) actualLayout.unload(cmps);
         actualLayout = layouts.filter(function(el){
           if (el.name == layoutName) return true;
@@ -108,9 +129,12 @@ define(
         })[0];
         if (!actualLayout) throw new Error ("There is no layout named: "+layoutName);
         else  {
-              if (this.layoutMode === this.LAYOUTMODE.STATIC) this.layout(cmps,"onComponentsChange");
+              if (this.layoutMode === this.LAYOUTMODE.STATIC) {
+                this.layout(cmps,"onComponentsChange");
+              }
               else  this.layout(cmps,"onLayoutChange");
               }
+
       }
 
       this.layout = function (_cmps,event){
@@ -159,8 +183,8 @@ define(
             //  actualLayout.render(_cmps);
           }
           else if (event === "onOrientationChange"){
-            mediascape.AdaptationToolkit.componentManager.loadManager.unload( mediascape.AdaptationToolkit.componentManager.core.getHiddenComponents(_cmps));
-            mediascape.AdaptationToolkit.componentManager.loadManager.load(_cmps);
+            //mediascape.AdaptationToolkit.componentManager.loadManager.unload( mediascape.AdaptationToolkit.componentManager.core.getHiddenComponents(_cmps));
+            //mediascape.AdaptationToolkit.componentManager.loadManager.load(_cmps);
             actualLayout.onOrientationChange(_cmps);
             //  actualLayout.render(_cmps);
           }
@@ -227,56 +251,56 @@ define(
         if(actualLayout)actualLayout.onPriorizeComponent(cmp);
       }
       this.onWindowResize = function (event){
-          // Filter only showing ones
-          //cmps = cmds.filter(function(el){});
-        event.srcElement =  event.srcElement || event.target;
-         if(prev_orientation!==undefined && prev_orientation!==''){
+    // Filter only showing ones
+    //cmps = cmds.filter(function(el){});
+  event.srcElement =  event.srcElement || event.target;
+   if(prev_orientation!==undefined && prev_orientation!==''){
 
-              if(prev_orientation !== event.srcElement.orientation  ){
+        if(prev_orientation !== event.srcElement.orientation  ){
 
-                  prev_orientation=event.srcElement.orientation;
-                  clearTimeout(activityTimer);
-                  console.log (layoutIndex,cmps.length);
-                  actualLayout.unload(cmps);
-                  if (This.layoutMode === This.LAYOUTMODE.ADAPTABLE)
-                    actualLayout = This.findBestLayout(cmps)[0];
-                  this.layout(cmps,'onLayoutChange');
+            prev_orientation=event.srcElement.orientation;
+            clearTimeout(activityTimer);
+            console.log (layoutIndex,cmps.length);
+            actualLayout.unload(cmps);
+            if (This.layoutMode === This.LAYOUTMODE.ADAPTABLE)
+              actualLayout = This.findBestLayout(cmps)[0];
+            this.layout(cmps,'onOrientationChange');
 
-                  this.forceRedraw();
+            this.forceRedraw();
 
-              }
-              else{
-
-                if (event.detail !="emulate")
-                {
-                  console.log("RESIZING",event);
-                  this.layout(cmps,'onResizeEvent');
-                }
-              }
-            }
-
-
-        else{
-           prev_orientation=event.srcElement.orientation;
-            // this.layout(cmps,'onResizeEvent');
-            if (event.detail !="emulate")
-            {
-              console.log("RESIZING",event);
-              this.layout(cmps,'onResizeEvent');
-            }
         }
+        else{
 
-          /*
           if (event.detail !="emulate")
           {
             console.log("RESIZING",event);
             this.layout(cmps,'onResizeEvent');
           }
-          */
-
-
-
         }
+      }
+
+
+  else{
+     prev_orientation=event.srcElement.orientation;
+      // this.layout(cmps,'onResizeEvent');
+      if (event.detail !="emulate")
+      {
+        console.log("RESIZING",event);
+        this.layout(cmps,'onResizeEvent');
+      }
+  }
+
+    /*
+    if (event.detail !="emulate")
+    {
+      console.log("RESIZING",event);
+      this.layout(cmps,'onResizeEvent');
+    }
+    */
+
+
+
+  }
       this.onLayoutChangeEvent= function (){
         //DECIDE WHICH LAYOUT USE; IT IS CALLED WHEN USER EVENT HAPPENS
 

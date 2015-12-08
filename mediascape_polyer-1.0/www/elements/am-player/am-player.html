@@ -1,7 +1,6 @@
 <!--
 @license
 -->
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/google-youtube/google-youtube.html">
 <link rel="import" href="../../bower_components/vimeo-player/vimeo-player.html">
 <dom-module id="am-player">
@@ -225,16 +224,23 @@
         elementuaJaso: function(e, request){
 
           console.log('elementuaJaso');
-
+          console.log(this.elementuaResponse);
             if (this.elementuaResponse) {
              this.$.bideoAzalpena.innerHTML = this.elementuaResponse.azalpena;
-              if (this.elementuaResponse.embed[0].youtube_id !== '') {
+              if (this.elementuaResponse.embed[0].embed_kodea.indexOf('youtube')!==-1) {
                 this.vimeoId = false;
-                this.youtubeId = this.elementuaResponse.embed[0].youtube_id;
+                if (this.elementuaResponse.embed[0].youtube_id)
+                    this.youtubeId = this.elementuaResponse.embed[0].youtube_id;
+                else {
+                    var ifrema = this.elementuaResponse.embed[0].embed_kodea;
+                    var index1 = ifrema.indexOf('embed/')+6;
+                    var index2 = ifrema.lastIndexOf('?');
+                    this.youtubeId = ifrema.substring(index1,index2);
+                  }
 
 
               }
-              if (this.elementuaResponse.embed[0].vimeo_id !== '') {
+              if (this.elementuaResponse.embed[0].embed_kodea.indexOf('vimeo')!==-1) {
                 this.youtubeId = false;
                 this.vimeoId = this.elementuaResponse.embed[0].vimeo_id;
               }

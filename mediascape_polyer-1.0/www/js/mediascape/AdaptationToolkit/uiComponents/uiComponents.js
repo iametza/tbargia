@@ -505,7 +505,7 @@ define(
 
           //ContextUpdate for detecting the agent connection/disconnection
           document.addEventListener('contextUpdate',function(){
-                console.log(event,"context update");
+              //  console.log(event,"context update");
                 event.stopPropagation();
                 agents=event.detail.context.agents;
 
@@ -530,14 +530,16 @@ define(
 
                 }
 
-                drawTable(agents);
+                if (event.detail.type === "cmp_changed" || event.detail.type === "join"
+                    || event.detail.type === "left")
+                        drawTable(agents,event.detail.type);
                 if(viewing===true){
                   associationPanel.querySelector('#smallTable').style.display='block';
                 }
 
           });
   //The component manager table is updated here
-  var drawTable=function(agents){
+  var drawTable=function(agents,type){
 
     var container=document.createElement('div');
     container.id='smallTable';
@@ -580,14 +582,13 @@ define(
     for(var k=0;k<agents.length;k++){
       var dev=document.createElement('th');
       var deviceImg=document.createElement('img');
-      deviceImg.src='resources/images/icons_manag/device.png';
+      deviceImg.src='/resources/images/icons_manag/device.png';
       (function(dImage,agent,dev){
-
+        if (agent.capabilities['platform'].deviceType ){
               if (agent.capabilities['platform'].deviceType==="Desktop") dImage.src = '/resources/images/icons_manag/pc.png';
               if (agent.capabilities['platform'].deviceType==="TV") dImage.src = '/resources/images/icons_manag/tv.png';
               if (agent.capabilities['platform'].deviceType==="Mobile") dImage.src = '/resources/images/icons_manag/mobile.png';
               if (agent.capabilities['platform'].deviceType==="Tablet") dImage.src = '/resources/images/icons_manag/tablet.png';
-              console.log("fiability",agent.capabilities['platform'].fiability);
               if (agent.capabilities['platform'].fiability>0.5 && agent.capabilities['platform'].fiability<=0.7){
 
                     var warning = document.createElement('img');
@@ -626,6 +627,7 @@ define(
 
                   dev.appendChild(warning);
               }
+            }
 
       })(deviceImg,agents[k],dev);
       deviceImg.style.width='50px';/*'calc('+associationPanel.querySelector('#smallTable').style.width+'/10)';*/
