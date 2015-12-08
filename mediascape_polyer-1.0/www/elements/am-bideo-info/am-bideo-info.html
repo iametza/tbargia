@@ -1,0 +1,202 @@
+<!--
+@license
+-->
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="am-bideo-info">
+  <style>    
+    :host {
+      display: block;
+
+    }
+    .sare-sozialak {
+       /* padding-left: 5%;*/
+       width:100%;
+        padding-top: 0.4em;
+        padding-bottom: 0.4em;
+        background-color: #EBEBEB;
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+    }
+     .info{
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+        font-size: 2.2em;
+    }
+
+    .h1{
+      font-size: 2.8em;
+    }
+    #bideoAzalpena {
+      /*font-size: 2.2em;*/
+    }
+    .info p{
+      /*font-size: 2.2em;*/
+    }
+    .sare-sozialak .partekatu {
+        cursor: pointer;
+        margin: 8px 5px;
+    }
+
+    .sare-sozialak a {
+        border: 3px solid #fb0009;
+        border-radius: 10px;
+        color: #fb0009;
+        font-weight: bold;
+        margin-right: 10px;
+        padding: 4px 4px 4px 4px;
+        text-decoration: none;
+    }
+    
+    
+    /* mobile-large */
+  @media (min-width: 0) and (max-width: 768px) {
+    h1{
+        font-size: 1.5em;
+    }
+    
+   
+  }
+/* tablet-large */
+  @media (min-width: 769px) and (max-width: 992px)  {
+    
+  }
+  /* desktop-large */
+ @media (min-width: 993px) and (max-width: 1200px){ 
+    
+  }
+  /* tv-large */
+   @media (min-width: 1200px){ 
+   
+  }
+ 
+    
+    
+  </style>
+  <template>
+        <iron-ajax
+        id="elementuaAjax"
+        url=""
+        handle-as="json"
+        last-response="{{elementuaResponse}}"
+        on-response="elementuaJaso"
+        >
+    </iron-ajax>
+     
+    <div class="sare-sozialak">
+
+     <iron-image on-click="shareFacebook" class="partekatu" sizing="contain" style="width:32px;height:32px;" src="http://www.argia.eus/template/responsive/images/facebook-botoia.png"></iron-image>
+
+     <iron-image on-click="shareTwitter" class="partekatu" sizing="contain" style="width:32px;height:32px;" src="http://www.argia.eus/template/responsive/images/twitter-botoia.png"></iron-image>
+
+      <a href$="{{ etiketa_lotura(elementuaResponse.etiketa_nagusia.nice_name) }}">
+        <span class="mota">{{elementuaResponse.etiketa_nagusia.izena}}</span>
+      </a>
+      <template is="dom-repeat" items="{{elementuaResponse.bigarren_mailako_etiketak}}">
+       <a href$="[[ etiketa_lotura(item.nice_name) ]]">
+        <span class="mota">[[item.izena]]</span>
+      </a>
+      </template>
+
+  </div>
+  <div class="info">
+    <h1>{{elementuaResponse.izenburua}}</h1>
+    <div id="bideoAzalpena"></div>
+    <p>Egilea(k):</p>
+    <template is="dom-repeat" items="{{elementuaResponse.egileak}}">
+      <a href$="{{egile_lotura(item.nice_name)}}"><empty>{{item.izena}}</empty> <empty>{{item.abizena}}</empty></a>
+    </template>
+  </div>
+
+  </template>
+  <script>
+    (function () {
+
+      Polymer({
+        is: 'am-bideo-info',
+        behaviors: [
+          Polymer.IronResizableBehavior,
+          TBArgia.RoutingBehavior,
+          ComponentQueryBehavior,
+          ComponentStatusBehavior
+        ],
+        properties: {
+          bideoNiceName: {
+            type: String,
+            value: '',
+            observer: '_bideoChanged'
+          }         
+          
+        },
+
+        _bideoChanged: function(newValue, oldValue){
+          this._bideoaKargatu(newValue);
+
+        },      
+        ready: function() {         
+
+        }, 
+       
+        egile_lotura: function(nice_name){
+          return 'http://www.argia.eus/argia-astekaria/egileak/' + nice_name;
+        },
+        etiketa_lotura: function(nice_name){
+          return 'http://www.argia.eus/' + nice_name;
+        },
+        elementuaJaso: function(e, request){
+         console.log('bideionfo elementuajaso');
+            if (this.elementuaResponse) {
+                this.$.bideoAzalpena.innerHTML = this.elementuaResponse.azalpena;
+                this.erantzuna = this.elementuaResponse; 
+             }
+         },
+        _bideoaKargatu: function (nice_name){
+          // elementuaren detaileak jaso
+          console.log('bideoinfo kargatu');
+          if (nice_name) {
+            this.$.elementuaAjax.url = "http://www.argia.eus/API/v1/multimedia/elementuak/" + nice_name;
+            this.$.elementuaAjax.generateRequest();
+          }
+          
+        },
+
+        shareFacebook: function() {
+          //url = window.location.href;
+          url = app.url + '/erreportajeak/' + this.elementuaResponse.nice_name;
+          window.open("https://www.facebook.com/share.php?u=" + url,"","menubar=no,toolbar=no,resizable=yes,scrollbars=yes,width=550,height=420");
+        },
+        shareTwitter: function() {
+          //url = window.location.href;
+          url = app.url + '/erreportajeak/' + this.elementuaResponse.nice_name;
+          text = this.elementuaResponse.izenburua;
+          window.open("https://twitter.com/intent/tweet?text="+text+"&url="+url+"&via=argia","","menubar=no,toolbar=no,resizable=yes,scrollbars=yes,width=550,height=420")
+        },        
+        // pasa fitxako zerrendari tag-a
+          aginduaBidali: function(agindua, parametroa){
+           console.log('aginduaBidaltzen preEvent');
+           document.addEventListener('applicationContext-ready', function(){
+               // TODO bilatu fitxako zerrendaren id-a
+              var compId = 'compId6';
+              ac = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getApplicationContext();
+               console.log('applicationContext', ac);           
+              //ac.setItem(agindua, parametroa);
+              
+              context = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getLocalContext();
+              console.log('localcontext', context);
+              context.agents.forEach(function(agent){
+                  console.log('aginduaBidaltzen', agent.id, compId, agindua);  
+                  mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.setRemoteAgentComponentStatus(agent.id, compId,agindua);
+              });
+            
+            
+            
+           });
+          
+         }
+
+
+      });
+    })();
+  </script>
+
+</dom-module>

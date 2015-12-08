@@ -41,7 +41,7 @@
 #player{
   needs:none;
   order:5;
-  rwidth:100%;
+  rwidth:98%;
   propx:2;
   propy:1;
   required:false;
@@ -55,7 +55,7 @@
 #am-kontrolak{
   needs:none;
   order:6;
-  rwidth:100%;
+  rwidth:98%;
   propx:8;
   propy:1;
   required:false;
@@ -68,7 +68,7 @@
 #erlazionatutakoak{
   needs:none;
   order:7;
-  rwidth:100%;
+  rwidth:98%;
   propx:4;
   propy:1;
   required:true;
@@ -81,7 +81,7 @@
 #karrusela-fitxa{
   needs:none;
   order:8;
-  rwidth:100%;
+  rwidth:98%;
   propx:4;
   propy:1;
   required:true;
@@ -95,6 +95,19 @@
   order:1;
   rwidth:98%;
   propx:8;
+  propy:1;
+  required:true;
+  duplicable:true;
+  bestfit:biggestScreenSize;
+  movable:true;
+  icon:../resources/images/icons_manag/Irunea.png;
+}
+
+#bideoinfo{
+  needs:none;
+  order:9;
+  rwidth:98%;
+  propx:4;
   propy:1;
   required:true;
   duplicable:true;

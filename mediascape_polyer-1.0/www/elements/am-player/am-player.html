@@ -12,6 +12,7 @@
     .posterrarena {
     background-color: #000;
     width: 100%;
+    clear:both;
     }
     google-youtube, vimeo-player {
         margin-left: auto;
@@ -96,31 +97,7 @@
       </template>
 
     </div>
-    <div class="sare-sozialak layout horizontal">
-
-     <iron-image on-click="shareFacebook" class="partekatu" sizing="contain" style="width:32px;height:32px;" src="http://www.argia.eus/template/responsive/images/facebook-botoia.png"></iron-image>
-
-     <iron-image on-click="shareTwitter" class="partekatu" sizing="contain" style="width:32px;height:32px;" src="http://www.argia.eus/template/responsive/images/twitter-botoia.png"></iron-image>
-
-      <a href$="{{ etiketa_lotura(elementuaResponse.etiketa_nagusia.nice_name) }}">
-        <span class="mota">{{elementuaResponse.etiketa_nagusia.izena}}</span>
-      </a>
-      <template is="dom-repeat" items="{{elementuaResponse.bigarren_mailako_etiketak}}">
-       <a href$="[[ etiketa_lotura(item.nice_name) ]]">
-        <span class="mota">[[item.izena]]</span>
-      </a>
-      </template>
-
-  </div>
-  <div class="info">
-    <h1>{{elementuaResponse.izenburua}}</h1>
-    <div id="bideoAzalpena"></div>
-    <p>Egilea(k):</p>
-    <template is="dom-repeat" items="{{elementuaResponse.egileak}}">
-      <a href$="{{egile_lotura(item.nice_name)}}"><empty>{{item.izena}}</empty> <empty>{{item.abizena}}</empty></a>
-    </template>
-  </div>
-
+   
   </template>
   <script>
     (function () {
@@ -226,7 +203,7 @@
           console.log('elementuaJaso');
           console.log(this.elementuaResponse);
             if (this.elementuaResponse) {
-             this.$.bideoAzalpena.innerHTML = this.elementuaResponse.azalpena;
+            
               if (this.elementuaResponse.embed[0].embed_kodea.indexOf('youtube')!==-1) {
                 this.vimeoId = false;
                 if (this.elementuaResponse.embed[0].youtube_id)
@@ -264,8 +241,11 @@
         },
         _bideoaKargatu: function (nice_name){
           // elementuaren detaileak jaso
-          this.$.elementuaAjax.url = "http://www.argia.eus/API/v1/multimedia/elementuak/" + nice_name;
-          this.$.elementuaAjax.generateRequest();
+          if (nice_name) {
+            this.$.elementuaAjax.url = "http://www.argia.eus/API/v1/multimedia/elementuak/" + nice_name;
+            this.$.elementuaAjax.generateRequest();
+          }
+          
         },
 
         shareFacebook: function() {
@@ -285,7 +265,7 @@
            console.log('aginduaBidaltzen preEvent');
            document.addEventListener('applicationContext-ready', function(){
                // TODO bilatu fitxako zerrendaren id-a
-              var compId = 'compId6';
+              var compId = 'compId7';
               ac = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation.getApplicationContext();
                console.log('applicationContext', ac);
               //ac.setItem(agindua, parametroa);
