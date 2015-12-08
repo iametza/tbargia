@@ -5,9 +5,8 @@
     margin: 10px;
     position:relative;
   }
-  .nabarmendua-item{
-    max-width: 200px;
-    width: 22%;
+  .nabarmendua-item{    
+    width: 30%;
     height: auto;
     margin: 10px;
     cursor: pointer;
@@ -48,7 +47,7 @@
     font-weight: bold;
     padding-bottom: 5px;
     padding-left: 10px;
-    padding-right: 10px;
+    
     padding-top: 5px;
     margin: 0;
   }
@@ -83,33 +82,35 @@
     padding-top: 5px;
     font-size: 0.9em;
   }
+  
+   .item-body{
+    font-size: 1.4em;
+    font-weight: bold;
+
+  }  
   .vertical .item-body{
     width: 30%;
     float:right;
   }
-  .item-body{
-    font-size: 1.4em;
-    font-weight: bold;
-
-  }
-  .horizontal a{
-    text-decoration: none;
-    width:30%;
-  }
-
-
   .vertical .item-image{
      width: 65%;
     float:left;
     padding-bottom: 15px;
   }
-  .horizontal .item{
+  .horizontal .item{    
    margin: 0 10px 10px 10px;
   }
   .horizontal .item-image{
     padding-bottom: 5px;
   }
-
+@media (max-width: 769px) {
+  .title{
+    width: 98%;
+  }
+  .nabarmendua-irudia, .nabarmendua-testua, .nabarmendua-item, .item-image, .item-body{
+    width: 100%;
+  }
+}
 </style>
 
 <template>
@@ -128,7 +129,7 @@
       <div class="nabarmendua-irudia">
           <a href$="{{url(nabarmendua.nice_name, nabarmendua.mota_nice_name)}}">
                <img class="play" src="http://www.argia.eus/template/images/play-borobila.png">
-               <img width="100%" src="{{nabarmendua.irudia}}"></iron-image>
+               <img width="100%" src="{{nabarmendua.irudia}}">
           </a>
       </div>
       <div class="nabarmendua-testua">
@@ -168,7 +169,8 @@
                 <div class="mota">{{item.mota_sing}}</div>
               </div>
             </div>
-          </a>
+            <div style="clear:both"></div>
+          </a>          
         </template>
         <!-- <paper-spinner id="spinner" alt="Kargatzen..." active></paper-spinner>   -->
     </section>
@@ -218,22 +220,17 @@
           }
         },
         ready: function() {
-
            document.addEventListener('onComponentsChange', function(e){
               var compIndex = this.getAttribute('compId').split('compId')[1];
-                console.log('amzerrenda onComponentsChange', e.detail.cmps[compIndex]);
+                //console.log('amzerrenda onComponentsChange', e.detail.cmps[compIndex]);
                 // begiratu ea zerrendarentzat mezua den
                 var lastCmd = e.detail.cmps[compIndex].customCmd[e.detail.cmps[compIndex].customCmd.length - 1];
                 if(lastCmd !== undefined){
                   //this.komandoaJaso(lastCmd);
                 }
             }.bind(this), false);
-
-
-
         },
-        handleResponse: function(res){
-            console.log('handleResponse');
+        handleResponse: function(res){           
           if(this.nabarmendua){
             this.nabarmendua = this.ajaxResponse.elementuak[0];
             document.getElementById('azalpena').innerHTML = this.ajaxResponse.elementuak[0].azalpena;
