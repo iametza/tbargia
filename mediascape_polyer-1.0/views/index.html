@@ -42,7 +42,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 			var UI = mediascape.AdaptationToolkit.Adaptation.UIAdaptation;
 			UI.init(data.detail.components,UI.LAYOUTMODE.STATIC);
 			UI.useLayout({deviceTypes:[{deviceType:'Desktop',layout:'azala'},
-											{deviceType:'Mobile',layout:'menu'},{deviceType:'Tablet',layout:'azala'},{deviceType:'TV',layout:'verticalMenu'}]});
+											{deviceType:'Mobile',layout:'azala'},{deviceType:'Tablet',layout:'azala'},{deviceType:'TV',layout:'verticalMenu'}]});
 			var location = "http://"+window.location.host+window.location.pathname;
 			mediascape.AdaptationToolkit.uiComponents.addAssociationPanel(location+"?group="+AE.GROUP_ID)
 			AE.init(rulesAE, AE.getApplicationContext());

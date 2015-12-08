@@ -54,23 +54,26 @@
   }
   .txikia_ezker{
     width: 90%;
+   
   }
+  
 }
   
 
 </style>
   <template>
       <div class="marra-gorria"></div>
-      <paper-menu id="menutxiki" selected="4">
-            <paper-item><img width="85%" src="http://www.argia.eus/template/responsive/images/argia.jpg" alt="argia"></paper-item>
-            <paper-item class="txikia" on-click="irekiItxi">              
+        <img width="10%" src="http://www.argia.eus/template/responsive/images/argia.jpg" alt="argia">
+        <paper-item class="txikia" on-click="irekiItxi">              
                 <paper-icon-button icon="menu"></paper-icon-button>              
             </paper-item>   
+      <paper-menu class="gorde" id="menutxiki" selected="3">
+            
+            
             <paper-item class="txikia_ezker"><a href="/">egunekoak</a></paper-item>
             <paper-item class="txikia_ezker"><a href="">astekaria</a></paper-item>
             <paper-item class="txikia_ezker"><a href="">blogak</a></paper-item>
             <paper-item class="txikia_ezker"><a href="/">multimedia</a></paper-item>
-
 
            <paper-item class="gorde eskuin">
               <a target="_blank" href="http://www.youtube.com/argiaastekaria">
@@ -101,7 +104,7 @@
     ready: function(){
     },
     irekiItxi: function(){     
-     
+     this.$.menutxiki.classList.toggle('gorde');
     }
  })
 })();
