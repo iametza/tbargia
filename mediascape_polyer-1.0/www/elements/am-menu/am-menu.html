@@ -40,53 +40,54 @@
   float: right;
 }
 
-/* mobile-large */
-  @media all and (min-width: 0) and (max-width: 360px) and (orientation: portrait) {
-    .eskuin {
-      display:none;
-    }
-  }
+.txikia {
+    display:none;
+}
 
-  @media all and (max-width: 600px) and (orientation: portrait) {
-    .eskuin {
-      display:none;
-    }
+@media all and (max-width: 600px) {
+  .gorde {
+    display:none;
   }
+  .txikia {
+    display: block;
+    float:right;
+  }
+  .txikia_ezker{
+    width: 90%;
+  }
+}
   
 
 </style>
   <template>
       <div class="marra-gorria"></div>
-      <paper-menu selected="4">
-            <paper-item><img width="85%" src="http://www.argia.eus/template/responsive/images/argia.jpg" alt="argia" class="img-responsive"></paper-item>
-            <paper-item><a href="/">egunekoak</a></paper-item>
-            <paper-item><a href="">astekaria</a></paper-item>
-            <paper-item><a href="">blogak</a></paper-item>
-            <paper-item><a href="/">multimedia</a></paper-item>
+      <paper-menu id="menutxiki" selected="4">
+            <paper-item><img width="85%" src="http://www.argia.eus/template/responsive/images/argia.jpg" alt="argia"></paper-item>
+            <paper-item class="txikia" on-click="irekiItxi">              
+                <paper-icon-button icon="menu"></paper-icon-button>              
+            </paper-item>   
+            <paper-item class="txikia_ezker"><a href="/">egunekoak</a></paper-item>
+            <paper-item class="txikia_ezker"><a href="">astekaria</a></paper-item>
+            <paper-item class="txikia_ezker"><a href="">blogak</a></paper-item>
+            <paper-item class="txikia_ezker"><a href="/">multimedia</a></paper-item>
 
 
-           <paper-item class="eskuin">
+           <paper-item class="gorde eskuin">
               <a target="_blank" href="http://www.youtube.com/argiaastekaria">
                 <img src="http://www.argia.eus/template/responsive/images/youtube_circle_color-512.png">
               </a>
             </paper-item>
-            <paper-item class="eskuin">
+            <paper-item class="gorde eskuin">
               <a target="_blank" href="http://www.facebook.com/argia.astekaria">
                 <img src="http://www.argia.eus/template/responsive/images/icon-facebook.svg.png">
               </a>
             </paper-item>
-            <paper-item class="eskuin">
+            <paper-item class="gorde eskuin">
               <a target="_blank" href="https://twitter.com/argia">
                 <img src="http://www.argia.eus/template/responsive/images/icon-twitter.svg.png">
               </a>
             </paper-item>
-            <!--
-            <paper-item class="eskuin">
-              <paper-input label="Bilaketa">
-                <paper-icon-button suffix icon="search"></paper-icon-button>
-              </paper-input>
-            </paper-item>
-            -->
+                   
       </paper-menu>
       <div style="clear: both"></div>
     </template>
@@ -98,6 +99,9 @@
    behaviors: [ComponentQueryBehavior],
 
     ready: function(){
+    },
+    irekiItxi: function(){     
+     
     }
  })
 })();

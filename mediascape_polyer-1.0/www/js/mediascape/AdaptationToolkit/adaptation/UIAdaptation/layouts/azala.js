@@ -69,7 +69,8 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         cmps[i].style.gridColumn='';
         cmps[i].style.gridRow='';
         cmps[i].style.order='';
-        //cmps[i].style.display='block';
+
+        /*cmps[i].style.display='block';*/
 
       }
       this.render(cmps);

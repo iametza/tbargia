@@ -75,6 +75,7 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 <template is="dom-bind" id="app">
 
 		<am-menu id="menua" ></am-menu>
+
 		<am-zerrenda id="gai-nabarmendua" base-url="[[baseUrl]]" tag="[[ajaxResponse.gai_nabarmendua.nice_name]]" title="[[ajaxResponse.gai_nabarmendua.izena]]" kop="4" nabarmendua noiz-ikusi="azala"  ></am-zerrenda>
 		<am-zerrenda id="azken-bideoak" base-url="[[baseUrl]]" tag="none" kop="4" orientation="vertical" title="Azken bideoak" noiz-ikusi="azala"></am-zerrenda>
 		<am-karruselak id="am-karruselak" motak="[[ajaxResponse.azaleko_motak]]" noiz-ikusi="azala"></am-karruselak>
