@@ -73,3 +73,17 @@ a{
   margin-right: auto;
   width: 90%;
 }
+
+.title {
+  border-radius: 5px;
+}
+img .itzala{
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 0 5px 4px #DEDEDE;
+
+}
+
+am-zerrenda {
+  border: 1px solid #ebebeb;
+  margin: 5px;
+}
