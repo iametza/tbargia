@@ -33,18 +33,29 @@
   }
 
   /* mobile-large */
-  @media (min-width: 0) and (max-width: 360px) {s
+  @media (min-width: 0) and (max-width: 768px) {
     .karrusela-container,  .karrusela-container img {
-      width: 100px;
+      width: 125px;
     }
   }
-
-  @media (max-width: 600px)  {
+/* tablet-large */
+  @media (min-width: 769px) and (max-width: 992px)  {
       .karrusela-container,  .karrusela-container img {
-      width: 150px;
+      width: 200px;
     }
   }
-
+  /* desktop-large */
+ @media (min-width: 993px) and (max-width: 1200px){ 
+      .karrusela-container,  .karrusela-container img {
+      width: 300px;
+    }
+  }
+  /* tv-large */
+   @media (min-width: 1200px){ 
+      .karrusela-container,  .karrusela-container img {
+      width: 400px;
+    }
+  }
   .nabarmendua-irudia {
     width: 62%;
     margin: 10px;
