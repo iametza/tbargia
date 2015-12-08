@@ -30,10 +30,10 @@ function(){
             var cmpsToLoad = [];
             switch (deviceType)
             {
-                case "Mobile": cmpsToLoad.push("gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak");break;
+                case "Mobile": cmpsToLoad.push("gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak", "bideoinfo");break;
                 case "Tablet": cmpsToLoad.push("gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak");break;
-                case "TV": cmpsToLoad.push("azken-bideoak","gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak");break;
-                case "Desktop": cmpsToLoad.push("azken-bideoak","gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak");break;
+                case "TV": cmpsToLoad.push("azken-bideoak","gai-nabarmendua","menua","am-karruselak","player","erlazionatutakoak");break;
+                case "Desktop": cmpsToLoad.push("azken-bideoak","gai-nabarmendua","menua","am-karruselak","player","erlazionatutakoak", "bideoinfo");break;
                 default: cmpsToLoad.push("gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak");
             }
             console.log(cmpsToLoad);
@@ -48,6 +48,7 @@ function(){
                        if (cmp.id === "azken-bideoak") decision.actions.push({"type": "SHOW", "component": cmp.id});
                        if (cmp.id === "am-karruselak") decision.actions.push({"type": "SHOW", "component": cmp.id});
                        if (cmp.id === "player") decision.actions.push({"type": "HIDE", "component": cmp.id});
+                       if (cmp.id === "bideoinfo") decision.actions.push({"type": "HIDE", "component": cmp.id});
                        if (cmp.id === "am-kontrolak") decision.actions.push({"type": "HIDE", "component": cmp.id});
                        if (cmp.id === "erlazionatutakoak") decision.actions.push({"type": "HIDE", "component": cmp.id});
                     }
@@ -64,6 +65,7 @@ function(){
                      if (cmp.id === "azken-bideoak") decision.actions.push({"type": "HIDE", "component": cmp.id});
                      if (cmp.id === "am-karruselak") decision.actions.push({"type": "HIDE", "component": cmp.id});
                      if (cmp.id === "player") decision.actions.push({"type": "SHOW", "component": cmp.id});
+                     if (cmp.id === "bideoinfo") decision.actions.push({"type": "SHOW", "component": cmp.id});
                      if (cmp.id === "am-kontrolak") decision.actions.push({"type": "SHOW", "component": cmp.id});
                      if (cmp.id === "erlazionatutakoak") decision.actions.push({"type": "SHOW", "component": cmp.id});
                    }
