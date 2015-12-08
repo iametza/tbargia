@@ -93,7 +93,7 @@
 #menua{
   needs:none;
   order:1;
-  rwidth:100%;
+  rwidth:98%;
   propx:8;
   propy:1;
   required:true;

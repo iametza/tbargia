@@ -22,7 +22,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
     azala.render = function (cmps){
 
 
-
+/*
     var container=document.querySelector('#componentsContainer');
 
     container.style.overflowX='';
@@ -55,7 +55,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
 
      }
-
+*/
     }
     azala.onOrientationChange = function (cmps){
       console.log("test");
@@ -69,7 +69,7 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
         cmps[i].style.gridColumn='';
         cmps[i].style.gridRow='';
         cmps[i].style.order='';
-        cmps[i].style.display='block';
+        //cmps[i].style.display='block';
 
       }
       this.render(cmps);
