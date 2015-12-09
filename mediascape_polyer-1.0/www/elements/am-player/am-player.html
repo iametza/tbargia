@@ -3,6 +3,7 @@
 -->
 <link rel="import" href="../../bower_components/google-youtube/google-youtube.html">
 <link rel="import" href="../../bower_components/vimeo-player/vimeo-player.html">
+
 <dom-module id="am-player">
   <style>
     :host {
@@ -73,7 +74,6 @@
               >
     </iron-ajax>
     <div class="posterrarena">
-
       <template is="dom-if" if="[[youtubeId]]">
        <google-youtube id="bideoplayer"
                       playsupported="{{playSupported}}"
@@ -146,11 +146,23 @@
         },
         _youtubeIdChanged: function(newValue, oldValue){
           console.log('youtubeid: ' + newValue);
+          if (newValue != undefined){           
+              console.log('google-youtube-ready');
+              this.playerobj = this.$$('#bideoplayer');          
+          }
 
         },
         _vimeoIdChanged: function(newValue, oldValue){
-          console.log('vimeoid: ' + newValue);
-
+          /*
+          if (newValue != undefined){            
+              var vimeoPlayers = document.querySelectorAll('iframe');
+              this.vimeoplayer = vimeoPlayers[0];
+              this.playerobj = this.vimeoplayer;
+              this.playerobj.play = function() {
+                $f(this.vimeoplayer).api('play')
+              };
+          }
+*/
         },
 
         playvimeo: function(){
@@ -166,8 +178,14 @@
 
            this.addEventListener('vimeo-player-response', function(event){
             var vimeoPlayers = document.querySelectorAll('iframe');
+            console.log('Vimeo: ',vimeoplayer);
             this.vimeoplayer = vimeoPlayers[0];
             this.playerobj = this.vimeoplayer;
+            if(this.playerobj != undefined){
+              this.playerobj.play = function() {
+                $f(this.vimeoplayer).api('play')
+              };
+            }
             });
 /*
             document.addEventListener('onComponentsChange', function(e){
@@ -183,7 +201,7 @@
 
         },
         customCmdReceived: function(komandoa){
-          // TODO momentuz bakarrik youtube playera
+          // TODO momentuz bakarrik youtube playera          
           if(komandoa == 'playPlayer'){
             this.playerobj.play();
           }
