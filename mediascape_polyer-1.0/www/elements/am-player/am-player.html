@@ -97,7 +97,7 @@
       </template>
 
     </div>
-   
+
   </template>
   <script>
     (function () {
@@ -165,7 +165,7 @@
            });
 
            this.addEventListener('vimeo-player-response', function(event){
-            var vimeoPlayers = document.querySelectorAll('iframe');
+            var vimeoPlayers = this.querySelectorAll('iframe');
             this.vimeoplayer = vimeoPlayers[0];
             this.playerobj = this.vimeoplayer;
             });
@@ -183,18 +183,33 @@
 
         },
         customCmdReceived: function(komandoa){
-          // TODO momentuz bakarrik youtube playera
           if(komandoa == 'playPlayer'){
-            this.playerobj.play();
+            if (this.playerobj) this.playerobj.play();
+            else {
+              var vimeo_command = window.JSON.stringify( { method: 'play' } );
+              this.querySelector('iframe').contentWindow.postMessage( vimeo_command, 'https://player.vimeo.com' );
+            }
           }
           if(komandoa == 'pausePlayer'){
-            this.playerobj.pause();
+              if (this.playerobj) this.playerobj.pause();
+              else{
+                var vimeo_command = window.JSON.stringify( { method: 'pause' } );
+                this.querySelector('iframe').contentWindow.postMessage( vimeo_command, 'https://player.vimeo.com' );
+              }
           }
           if(komandoa == 'mutePlayer'){
-            this.playerobj.mute();
+              if (this.playerobj) this.playerobj.mute();
+              else{
+                var vimeo_command = window.JSON.stringify( { method: "setVolume", "value": "0" } );
+                this.querySelector('iframe').contentWindow.postMessage( vimeo_command, 'https://player.vimeo.com' );
+              }
           }
           if(komandoa == 'unmutePlayer'){
-            this.playerobj.unMute();
+            if (this.playerobj) this.playerobj.unMute();
+            else{
+              var vimeo_command = window.JSON.stringify( { method: "setVolume", "value": "1" } );
+              this.querySelector('iframe').contentWindow.postMessage( vimeo_command, 'https://player.vimeo.com' );
+            }
           }
 
         },
@@ -203,7 +218,7 @@
           console.log('elementuaJaso');
           console.log(this.elementuaResponse);
             if (this.elementuaResponse) {
-            
+
               if (this.elementuaResponse.embed[0].embed_kodea.indexOf('youtube')!==-1) {
                 this.vimeoId = false;
                 if (this.elementuaResponse.embed[0].youtube_id)
@@ -245,7 +260,7 @@
             this.$.elementuaAjax.url = "http://www.argia.eus/API/v1/multimedia/elementuak/" + nice_name;
             this.$.elementuaAjax.generateRequest();
           }
-          
+
         },
 
         shareFacebook: function() {
