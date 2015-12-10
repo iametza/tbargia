@@ -91,6 +91,7 @@ function ExpressServer() {
     app.use('/bower_components',  express.static(__dirname + '/../bower_components'));
     app.use('/elements', express.static(__dirname + '/../www/elements'));
     app.use('/styles', express.static(__dirname + '/../www/styles'));
+    app.use('/scripts', express.static(__dirname + '/../www/scripts'));
 
 
     app.use(cookieParser());
