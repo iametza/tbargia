@@ -33,7 +33,6 @@
   }
   
   paper-dialog{
-    text-align: center;
   }
   
   #qrcode img {
@@ -55,7 +54,13 @@
 
 .kodea {
   width: 500px;
+  
 }
+#modal {
+ width: 300px;
+ height: 300px;
+}
+
 @media all and (max-width: 700px) {
   .gorde {
     display:none;
@@ -68,6 +73,7 @@
     width: 90%;
    
   }
+  
   .kodea {
     width: 75%;
   }
@@ -83,7 +89,7 @@
       <paper-item class="txikia" on-click="irekiItxi">              
         <paper-icon-button icon="menu"></paper-icon-button>              
       </paper-item>   
-      <paper-menu class="gorde" id="menutxiki" selected="3">
+      <paper-menu class="gorde" id="menutxiki" selected="4">
             <paper-item on-click="irekiItxi" class="txikia_ezker"><img width="70%" src="http://www.argia.eus/template/responsive/images/argia.jpg" alt="argia"></paper-item>
             <paper-icon-button on-click="irekiqr" class="txikia_ezker" id="kasteatu" icon="hardware:cast"></paper-icon-button>
             <paper-item on-click="irekiItxi" class="txikia_ezker"><a href="http://www.argia.eus/astekaria">astekaria</a></paper-item>
@@ -108,11 +114,14 @@
                    
       </paper-menu>
       <div style="clear: both"></div>
-      <paper-dialog auto-fit-on-attach id="modal">
+      <paper-dialog id="modal" auto-fit-on-attach="true" >
         <h3>Kodea eskaneatu</h3>
         <div id="kodea">
-          <img id="placeholder" src="http://lorempixel.com/500/500">
+          <!-- <img id="placeholder" src="http://lorempixel.com/500/500"> -->
     
+        </div>
+        <div class="buttons">
+        <paper-button dialog-confirm autofocus>Itxi</paper-button>
         </div>
        
       </paper-dialog>
@@ -133,7 +142,7 @@
     },
     irekiqr: function(){
       
-       var kodeaDiv = document.getElementById('kodea');
+      var kodeaDiv = document.getElementById('kodea');
       
       // sortu qr
       var AE = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation;

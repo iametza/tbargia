@@ -143,11 +143,11 @@ define( ["jquery","qrcode"], function($) {
 						associationCode.style.transition="width 1.5s";
 						associationCode.appendChild(qrElement);
 						associationCode.appendChild(document.createElement("br"));
-						var urlElement = document.createElement("div");
+						var urlElement = document.createElement("p");
 						urlElement.id="url";
 						urlElement.innerHTML=shortedUrl;
-						urlElement.style.height="20px";
-						urlElement.style.fontSize='30px';
+						urlElement.style.height="30px";
+						urlElement.style.fontSize='18px';
 						urlElement.style.textAlign='center';
 						//urlElement.style.marginLeft=marginLeft+"px";
 						//urlElement.style.marginTop=marginTop+"px";

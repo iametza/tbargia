@@ -12,7 +12,7 @@ html {
 }
 
 body {
-  background: #fafafa;
+  
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #333;
   font-size: 100%;
@@ -24,6 +24,9 @@ a{
     color: #333;
 }
 
+#url{
+    -webkit-user-select: text;
+}
 .marra-gorria {
     background-color: #D70011 !important;    
     width: 100%;
@@ -86,6 +89,10 @@ img .itzala{
 am-zerrenda {
   border: 1px solid #ebebeb;
   margin: 5px;
+}
+
+am-karruselak {
+    margin: 5px;
 }
 
 /* mobile-large */

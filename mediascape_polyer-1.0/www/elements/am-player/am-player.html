@@ -219,6 +219,26 @@
               this.querySelector('iframe').contentWindow.postMessage( vimeo_command, 'https://player.vimeo.com' );
             }
           }
+          
+          if(komandoa == 'fullScreenOn'){
+            if (this.playerobj){
+              // iframea lortu
+              iframeak = this.querySelectorAll('iframe');
+              if (iframeak.length > 1) {
+                iframe = iframeak[1];
+              }else
+                iframe = iframeak[0];
+              
+              var requestFullScreen = iframe.requestFullScreen || iframe.mozRequestFullScreen || iframe.webkitRequestFullScreen;
+              if (requestFullScreen) {
+                requestFullScreen.bind(iframe)();
+              }
+            }
+            else{
+              
+            }
+          }
+          
           this.customCmd = '';
          
 

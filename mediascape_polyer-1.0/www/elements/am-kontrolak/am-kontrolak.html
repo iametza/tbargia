@@ -54,6 +54,7 @@
     <iron-icon class="big flex" on-click="pause" icon="av:pause"></iron-icon>
     <iron-icon class="big flex" on-click="mute" icon="av:volume-off"></iron-icon>
     <iron-icon class="big flex" on-click="unmute" icon="av:volume-up"></iron-icon>
+    <!-- <iron-icon class="big flex" on-click="fullscreenon" icon="fullscreen"></iron-icon> -->
   </div>
   </template>
   <script>
@@ -96,6 +97,9 @@
         },
         unmute: function(){
           this.aginduaBidali('unmutePlayer');
+        },
+        fullscreenon: function(){
+          this.aginduaBidali('fullScreenOn');
         },
 
         aginduaBidali: function(agindua){

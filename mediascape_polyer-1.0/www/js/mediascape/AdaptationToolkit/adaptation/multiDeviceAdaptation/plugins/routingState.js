@@ -77,7 +77,16 @@ function(){
                                 else return false;
                           }
                       }
-                      else return true;
+                      else{
+                        if(mediascape.deviceType === "Mobile" || mediascape.deviceType === "Tablet"){
+                            if (c.id === "am-kontrolak") return false;
+                            else return true;
+                        }else{
+                            return true;
+                        }
+                        
+                        
+                      } 
                 });
                 cmps.forEach (function(cmp){
                   if (cmpsToLoad.indexOf(cmp.id)!==-1){
