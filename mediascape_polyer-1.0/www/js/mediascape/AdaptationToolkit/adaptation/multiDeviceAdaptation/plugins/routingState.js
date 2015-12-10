@@ -25,23 +25,28 @@ function(){
             var AE = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation;
 
             var decision = {priority: config.priority, actions: []};
-            var routingStatus = evt.value.ruta;
+            var routingStatus = evt.value.ruta ;
             var deviceType = mediascape.deviceType;
             var cmpsToLoad = [];
-            switch (deviceType)
-            {
-                case "Mobile": cmpsToLoad.push("gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak", "bideoinfo");break;
-                case "Tablet": cmpsToLoad.push("gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak");break;
-                case "TV": cmpsToLoad.push("azken-bideoak","gai-nabarmendua","menua","am-karruselak","player","erlazionatutakoak");break;
-                case "Desktop": cmpsToLoad.push("azken-bideoak","gai-nabarmendua","menua","am-karruselak","player","erlazionatutakoak", "bideoinfo");break;
+            var agents  = ctx.agents;
 
-                default: cmpsToLoad.push("gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak");
-            }
+              switch (deviceType)
+              {
+                  case "Mobile": cmpsToLoad.push("gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak", "bideoinfo");break;
+                  case "Tablet": cmpsToLoad.push("gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak");break;
+                  case "TV": cmpsToLoad.push("azken-bideoak","gai-nabarmendua","menua","am-karruselak","player","erlazionatutakoak");break;
+                  case "Desktop": cmpsToLoad.push("azken-bideoak","gai-nabarmendua","menua","am-karruselak","player","erlazionatutakoak", "bideoinfo");break;
+
+                  default: cmpsToLoad.push("gai-nabarmendua","menua","am-karruselak","player","am-kontrolak","erlazionatutakoak");
+              }
+
             console.log(cmpsToLoad);
+            if (routingStatus === undefined ) if (evt.value==="left") routingStatus = agents[0].capabilities['routingStatus'].ruta;
             if ( routingStatus ){
 
                var cmps = mediascape.AdaptationToolkit.componentManager.core.getComponents();
                if (routingStatus === "azala" || routingStatus === "undefined"){
+
                   cmps.forEach (function(cmp){
                     if (cmpsToLoad.indexOf(cmp.id)!==-1){
                        if (cmp.id === "gai-nabarmendua")decision.actions.push({"type": "SHOW", "component": cmp.id});
@@ -59,6 +64,21 @@ function(){
                   });
                }
                else if (routingStatus === "fitxa"){
+                cmps = cmps.filter(function(c){
+                      if (agents.length > 1 ){
+                          if(mediascape.deviceType === "Mobile" || mediascape.deviceType === "Tablet"){
+                                if (c.id === "menua" || c.id ==="bideoinfo"
+                                    || c.id === "am-kontrolak" || c.id=== "erlazionatutakoak") return true;
+                                else return false;
+
+                          }
+                          else{
+                                if (c.id === "player") return true;
+                                else return false;
+                          }
+                      }
+                      else return true;
+                });
                 cmps.forEach (function(cmp){
                   if (cmpsToLoad.indexOf(cmp.id)!==-1){
                      if (cmp.id === "gai-nabarmendua")decision.actions.push({"type": "HIDE", "component": cmp.id});
