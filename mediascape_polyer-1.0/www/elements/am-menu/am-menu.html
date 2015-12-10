@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
+ <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <dom-module id="am-menu">
@@ -30,6 +31,15 @@
   paper-item a{
     text-decoration: none;
   }
+  
+  paper-dialog{
+    text-align: center;
+  }
+  
+  #qrcode img {
+  display:inline !important;
+}
+  
   .marra-gorria {
     background-color: #D70011;
     width: 100%;
@@ -43,7 +53,10 @@
     display:none;
 }
 
-@media all and (max-width: 600px) {
+.kodea {
+  width: 500px;
+}
+@media all and (max-width: 700px) {
   .gorde {
     display:none;
   }
@@ -55,25 +68,28 @@
     width: 90%;
    
   }
+  .kodea {
+    width: 75%;
+  }
   
 }
-  
+
 
 </style>
   <template>
       <div class="marra-gorria"></div>
-        <img width="10%" src="http://www.argia.eus/template/responsive/images/argia.jpg" alt="argia">
+       
+        
         <paper-item class="txikia" on-click="irekiItxi">              
                 <paper-icon-button icon="menu"></paper-icon-button>              
             </paper-item>   
       <paper-menu class="gorde" id="menutxiki" selected="3">
-            
-            
-            <paper-item class="txikia_ezker"><a href="/">egunekoak</a></paper-item>
-            <paper-item class="txikia_ezker"><a href="">astekaria</a></paper-item>
-            <paper-item class="txikia_ezker"><a href="">blogak</a></paper-item>
+            <paper-item class="txikia_ezker"><img width="70%" src="http://www.argia.eus/template/responsive/images/argia.jpg" alt="argia"></paper-item>
+            <paper-icon-button on-click="irekiqr" class="txikia_ezker" id="kasteatu" icon="hardware:cast"></paper-icon-button>
+            <paper-item class="txikia_ezker"><a href="http://www.argia.eus/astekaria">astekaria</a></paper-item>
+            <paper-item class="txikia_ezker"><a href="http://www.argia.eus/blogak">blogak</a></paper-item>
             <paper-item class="txikia_ezker"><a href="/">multimedia</a></paper-item>
-
+     
            <paper-item class="gorde eskuin">
               <a target="_blank" href="http://www.youtube.com/argiaastekaria">
                 <img src="http://www.argia.eus/template/responsive/images/youtube_circle_color-512.png">
@@ -92,6 +108,14 @@
                    
       </paper-menu>
       <div style="clear: both"></div>
+      <paper-dialog auto-fit-on-attach id="modal">
+        <h3>Kodea eskaneatu</h3>
+        <div id="kodea">
+          <img id="placeholder" src="http://lorempixel.com/500/500">
+    
+        </div>
+       
+      </paper-dialog>
     </template>
   
 <script>
@@ -101,9 +125,33 @@
    behaviors: [ComponentQueryBehavior],
 
     ready: function(){
+      
+  
     },
     irekiItxi: function(){     
      this.$.menutxiki.classList.toggle('gorde');
+    },
+    irekiqr: function(){
+      
+       var kodeaDiv = document.getElementById('kodea');
+      
+      // sortu qr
+      var AE = mediascape.AdaptationToolkit.Adaptation.multiDeviceAdaptation;
+      var location = "http://"+window.location.host+window.location.pathname;
+	  var width = kodeaDiv.innerWidth*0.9;
+      mediascape.association.createQRcodeRaw(location + "?group="+AE.GROUP_ID,document.getElementById('kodea'),
+                                          width, width, '', 0, 0);
+      
+      // ireki modal
+      var dialog = document.getElementById('modal');
+      if (dialog) {
+        dialog.open();
+        kodeaDiv.innerHTML = '';
+        //var placeholderDiv = document.getElementById('placeholder');
+        //kodeaDiv.removeChild(placeholderDiv);
+      }
+      
+     
     }
  })
 })();

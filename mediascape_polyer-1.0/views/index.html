@@ -44,13 +44,17 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 			UI.useLayout({deviceTypes:[{deviceType:'Desktop',layout:'azala'},
 											{deviceType:'Mobile',layout:'azala'},{deviceType:'Tablet',layout:'azala'},{deviceType:'TV',layout:'verticalMenu'}]});
 			var location = "http://"+window.location.host+window.location.pathname;
-			mediascape.AdaptationToolkit.uiComponents.addAssociationPanel(location+"?group="+AE.GROUP_ID)
+			//mediascape.AdaptationToolkit.uiComponents.addAssociationPanel(location+"?group="+AE.GROUP_ID)
 			AE.init(rulesAE, AE.getApplicationContext());
 			AE.on('actionchange', UI.onComponentsChange);
 
 
 
 		});
+		
+		
+		 
+		
 });
 
 
@@ -113,14 +117,12 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 			app.$.bideoinfo.bideoNiceName = data.detail.routingStatus.params.nice_name;
 		}
 
-
-
 		 unekourl = window.href;
 		 if (window.location.href != data.detail.routingStatus.path){
 				  window.history.pushState('path_mediascape', data.detail.routingStatus.ruta, data.detail.routingStatus.path);
 		 }
 		});
-		new loadingPanel('/resources/images/mediascape_logo.png',12);
+		new loadingPanel('/resources/images/mediascape_logo.png', 10);
 </script>
 </body>
 
