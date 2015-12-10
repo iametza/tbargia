@@ -3,7 +3,6 @@
 -->
 <link rel="import" href="../../bower_components/google-youtube/google-youtube.html">
 <link rel="import" href="../../bower_components/vimeo-player/vimeo-player.html">
-
 <dom-module id="am-player">
   <style>
     :host {
@@ -74,17 +73,8 @@
               >
     </iron-ajax>
     <div class="posterrarena">
-      <template is="dom-if" if="[[youtubeId]]">
-       <google-youtube id="bideoplayer"
-                      playsupported="{{playSupported}}"
-                      video-id="{{youtubeId}}"
-                      height="394px"
-                      width="700px"
-                      >
-        </google-youtube>
-      </template>
-
-      <template is="dom-if" if="[[vimeoId]]">
+      
+        <template is="dom-if" if="[[vimeoId]]">
 
         <vimeo-player id="vimeoplayer"
                       videoid="{{vimeoId}}"
@@ -96,8 +86,20 @@
         ></vimeo-player>
       </template>
 
+      <template is="dom-if" if="[[youtubeId]]">
+       <google-youtube id="bideoplayer"
+                      playsupported="{{playSupported}}"
+                      video-id="{{youtubeId}}"
+                      height="394px"
+                      width="700px"
+                      >
+        </google-youtube>
+      </template>
+
+    
+
     </div>
-   
+
   </template>
   <script>
     (function () {
@@ -146,23 +148,11 @@
         },
         _youtubeIdChanged: function(newValue, oldValue){
           console.log('youtubeid: ' + newValue);
-          if (newValue != undefined){           
-              console.log('google-youtube-ready');
-              this.playerobj = this.$$('#bideoplayer');          
-          }
 
         },
         _vimeoIdChanged: function(newValue, oldValue){
-          /*
-          if (newValue != undefined){            
-              var vimeoPlayers = document.querySelectorAll('iframe');
-              this.vimeoplayer = vimeoPlayers[0];
-              this.playerobj = this.vimeoplayer;
-              this.playerobj.play = function() {
-                $f(this.vimeoplayer).api('play')
-              };
-          }
-*/
+          console.log('vimeoid: ' + newValue);
+
         },
 
         playvimeo: function(){
@@ -177,15 +167,9 @@
            });
 
            this.addEventListener('vimeo-player-response', function(event){
-            var vimeoPlayers = document.querySelectorAll('iframe');
-            console.log('Vimeo: ',vimeoplayer);
+            var vimeoPlayers = this.querySelectorAll('iframe');
             this.vimeoplayer = vimeoPlayers[0];
-            this.playerobj = this.vimeoplayer;
-            if(this.playerobj != undefined){
-              this.playerobj.play = function() {
-                $f(this.vimeoplayer).api('play')
-              };
-            }
+            //this.playerobj = this.vimeoplayer;
             });
 /*
             document.addEventListener('onComponentsChange', function(e){
@@ -201,27 +185,49 @@
 
         },
         customCmdReceived: function(komandoa){
-          // TODO momentuz bakarrik youtube playera          
+          if (komandoa == '') {
+            return;
+          }
+          if (this.style.display == 'none') {
+            return;
+          }
           if(komandoa == 'playPlayer'){
-            this.playerobj.play();
+            if (this.playerobj) this.playerobj.play();
+            else {
+              var vimeo_command = window.JSON.stringify( { method: 'play' } );
+              this.querySelector('iframe').contentWindow.postMessage( vimeo_command, 'https://player.vimeo.com' );
+            }
           }
           if(komandoa == 'pausePlayer'){
-            this.playerobj.pause();
+              if (this.playerobj) this.playerobj.pause();
+              else{
+                var vimeo_command = window.JSON.stringify( { method: 'pause' } );
+                this.querySelector('iframe').contentWindow.postMessage( vimeo_command, 'https://player.vimeo.com' );
+              }
           }
           if(komandoa == 'mutePlayer'){
-            this.playerobj.mute();
+              if (this.playerobj) this.playerobj.mute();
+              else{
+                var vimeo_command = window.JSON.stringify( { method: "setVolume", "value": "0" } );
+                this.querySelector('iframe').contentWindow.postMessage( vimeo_command, 'https://player.vimeo.com' );
+              }
           }
           if(komandoa == 'unmutePlayer'){
-            this.playerobj.unMute();
+            if (this.playerobj) this.playerobj.unMute();
+            else{
+              var vimeo_command = window.JSON.stringify( { method: "setVolume", "value": "1" } );
+              this.querySelector('iframe').contentWindow.postMessage( vimeo_command, 'https://player.vimeo.com' );
+            }
           }
+          this.customCmd = '';
+         
 
         },
         elementuaJaso: function(e, request){
 
-          console.log('elementuaJaso');
-          console.log(this.elementuaResponse);
+          
             if (this.elementuaResponse) {
-            
+
               if (this.elementuaResponse.embed[0].embed_kodea.indexOf('youtube')!==-1) {
                 this.vimeoId = false;
                 if (this.elementuaResponse.embed[0].youtube_id)
@@ -232,11 +238,13 @@
                     var index2 = ifrema.lastIndexOf('?');
                     this.youtubeId = ifrema.substring(index1,index2);
                   }
+                this.playerobj = this.$$('#bideoplayer');
 
 
               }
               if (this.elementuaResponse.embed[0].embed_kodea.indexOf('vimeo')!==-1) {
                 this.youtubeId = false;
+                this.playerobj = false;
                 this.vimeoId = this.elementuaResponse.embed[0].vimeo_id;
               }
 
@@ -263,7 +271,7 @@
             this.$.elementuaAjax.url = "http://www.argia.eus/API/v1/multimedia/elementuak/" + nice_name;
             this.$.elementuaAjax.generateRequest();
           }
-          
+
         },
 
         shareFacebook: function() {

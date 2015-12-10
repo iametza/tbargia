@@ -1,6 +1,5 @@
-<link rel="import" href="../../resources/wcs/component-query.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
- <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <dom-module id="am-menu">
@@ -81,15 +80,15 @@
       <div class="marra-gorria"></div>
        
         
-        <paper-item class="txikia" on-click="irekiItxi">              
-                <paper-icon-button icon="menu"></paper-icon-button>              
-            </paper-item>   
+      <paper-item class="txikia" on-click="irekiItxi">              
+        <paper-icon-button icon="menu"></paper-icon-button>              
+      </paper-item>   
       <paper-menu class="gorde" id="menutxiki" selected="3">
-            <paper-item class="txikia_ezker"><img width="70%" src="http://www.argia.eus/template/responsive/images/argia.jpg" alt="argia"></paper-item>
+            <paper-item on-click="irekiItxi" class="txikia_ezker"><img width="70%" src="http://www.argia.eus/template/responsive/images/argia.jpg" alt="argia"></paper-item>
             <paper-icon-button on-click="irekiqr" class="txikia_ezker" id="kasteatu" icon="hardware:cast"></paper-icon-button>
-            <paper-item class="txikia_ezker"><a href="http://www.argia.eus/astekaria">astekaria</a></paper-item>
-            <paper-item class="txikia_ezker"><a href="http://www.argia.eus/blogak">blogak</a></paper-item>
-            <paper-item class="txikia_ezker"><a href="/">multimedia</a></paper-item>
+            <paper-item on-click="irekiItxi" class="txikia_ezker"><a href="http://www.argia.eus/astekaria">astekaria</a></paper-item>
+            <paper-item on-click="irekiItxi" class="txikia_ezker"><a href="http://www.argia.eus/blogak">blogak</a></paper-item>
+            <paper-item on-click="irekiItxi" class="txikia_ezker"><a href="/">multimedia</a></paper-item>
      
            <paper-item class="gorde eskuin">
               <a target="_blank" href="http://www.youtube.com/argiaastekaria">
