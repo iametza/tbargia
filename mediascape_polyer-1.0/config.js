@@ -8,7 +8,7 @@ var config ={
 		"session_name": "mappingAuth"
 	},
 	"mongoose": {
-		"uri": "mongodb://localhost/",
+		"uri": "mongodb://127.0.0.1/",
 		"options": {
 			"server": {
 				"socketOptions": {
