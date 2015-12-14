@@ -102,12 +102,14 @@ document.addEventListener('adaptationToolkit-ready',function(data){
 			app.$.azalekoDatuak.generateRequest();
 			app.$.player.youtubeId = false;
 			app.$.player.vimeoId = false;
+			window.scroll(0,0);
  		}
 
 		//if (app.route === 'fitxa') {
 		if (data.detail.routingStatus.ruta === 'fitxa') {
 			app.$.player.bideoNiceName = data.detail.routingStatus.params.nice_name;
 			app.$.bideoinfo.bideoNiceName = data.detail.routingStatus.params.nice_name;
+			window.scroll(0,0);
 		}
 
 		 unekourl = window.href;
