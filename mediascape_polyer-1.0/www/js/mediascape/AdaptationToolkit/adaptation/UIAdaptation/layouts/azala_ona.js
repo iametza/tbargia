@@ -2,7 +2,6 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
   function(LayoutConstructor){
 
     var azala = new LayoutConstructor('azala');
-
     azala.onComponentsChange = function (cmps){
         console.log("components changed");
         this.cmps = cmps;
@@ -21,41 +20,6 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
     }
 
     azala.render = function (cmps){
-      var width = window.innerWidth ||document.documentElement.clientWidth ||document.body.clientWidth;
-      var height = window.innerHeight ||document.documentElement.clientHeight ||document.body.clientHeight;
-       if (cmps.length===1){
-          if (cmps[0].nodeName === "AM-PLAYER"){
-              var ytb = cmps[0].querySelector('google-youtube');
-              var vm = cmps[0].querySelector('vimeo-player');
-              cmps[0].style.width="100%"
-              cmps[0].style.height="100%"
-              if (ytb){
-                ytb.width=width;
-                ytb.height=height;
-              }
-              if (vm){
-                vm.width=width;
-                vm.height=height;
-              }
-          }
-        }
-        else {
-          var cmp = cmps.filter(function(c){if(c.nodeName==="AM-PLAYER")return true;else return false});
-          if (cmp[0].nodeName === "AM-PLAYER"){
-              var ytb = cmp[0].querySelector('google-youtube');
-              var vm = cmp[0].querySelector('vimeo-player');
-              cmp[0].style.width="100%"
-              cmp[0].style.height="394px"
-              if (ytb){
-                ytb.width=width;
-                ytb.height="394px";
-              }
-              if (vm){
-                vm.width=width;
-                vm.height="394px";
-              }
-          }
-        }
 
 
 /*
@@ -120,19 +84,8 @@ define(["mediascape/AdaptationToolkit/adaptation/UIAdaptation/layoutConstructor"
 
       this.render(cmps);
     }
-    azala.unload = function(cmps){
-    /*  var cmp = cmps.filter(function(c){if(c.nodeName==="AM-PLAYER")return true;else return false});
-      if (cmp.length>0)
-      {
-          var ytb = cmp[0].querySelector('google-youtube');
-          var vm = cmp[0].querySelector('vimeo-player');
-          cmp[0].style.width="100%"
-          cmp[0].style.height="394px"
-          ytb.width="100%";
-          ytb.height="394px"
-          vm.width="100%";
-          vm.height="394px"
-        }*/
+    azala.unload = function(cpms){
+
     }
     azala.__moduleName = "azalaLayout";
     return azala;
