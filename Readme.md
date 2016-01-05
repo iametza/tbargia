@@ -175,3 +175,10 @@ Orain artean, egindako esfortzu nagusia Chromen ondo joaterena izan da. Hortaz, 
 Adibide honetan erabiitako CSS propietate batzuk W3C borradore bezela daude, hortaz experimentalak dira eta ez daude defektuz aktibaturik. Aktibatu ahal izateko, chrome://flags -era joan eta bertan "Enable experimental Web Platform features" flag aktibatu beharko da.
 
 Askotan gertatu izan zaigun akatsa, mongodb martxan ez izatearena izan da, zerbitzaria ez bada martxan jartzen, ziurtatu mongodb martxan dagoela.
+
+## Lizentzia ##
+TBArgia software librea da. Iturburu-kodeak [GNU General Public License v3](http://www.gnu.org/licenses/gpl.html) lizentzia dauka.
+
+[Mediascape](https://github.com/mediascape) proiektuak [Apache 2.0 lizentzia](http://www.apache.org/licenses/LICENSE-2.0).  dauka
+
+
